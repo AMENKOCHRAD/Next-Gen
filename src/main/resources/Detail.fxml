@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestion.pidev.controllers.DetailController">
+   <children>
+      <TextField fx:id="a" layoutX="237.0" layoutY="107.0" />
+      <TextField fx:id="b" layoutX="237.0" layoutY="182.0" />
+   </children>
+</AnchorPane>

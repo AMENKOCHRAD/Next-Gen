@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestion.pidev.controllers.Modifier_cours_typeController">
+    <children>
+        <Label layoutX="50.0" layoutY="30.0" text="Type Cours" />
+        <TextField fx:id="typeCoursField" layoutX="150.0" layoutY="25.0" />
+        <Label layoutX="50.0" layoutY="80.0" text="Description" />
+        <TextField fx:id="descriptionField" layoutX="150.0" layoutY="75.0" />
+        <Button layoutX="150.0" layoutY="130.0" mnemonicParsing="false" onAction="#handleUpdate" text="Modifier" />
+    </children>
+</AnchorPane>

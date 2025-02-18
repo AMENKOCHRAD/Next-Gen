@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="500.0" prefWidth="875.0" stylesheets="styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestion.pidev.controllers.CoursCRUDController">
+    <children>
+        <VBox>
+            <fx:include source="Navbar.fxml" />
+            <AnchorPane prefHeight="350.0" prefWidth="875.0">
+                <children>
+                    <TableView fx:id="coursTable" layoutX="63.0" layoutY="39.0" prefHeight="275.0" prefWidth="784.0">
+                        <columns>
+                            <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
+                            <TableColumn fx:id="typeColumn" prefWidth="150.0" text="Type" />
+                            <TableColumn fx:id="nomCoursColumn" prefWidth="150.0" text="Nom Cours" />
+                            <TableColumn fx:id="dateColumn" prefWidth="100.0" text="Date" />
+                            <TableColumn fx:id="adresseMailCoachColumn" prefWidth="150.0" text="Adresse Mail Coach" />
+                            <TableColumn fx:id="imageColumn" prefWidth="150.0" text="Image" />
+                        </columns>
+                    </TableView>
+                    <Button layoutX="528.0" layoutY="327.0" mnemonicParsing="false" onAction="#handleAdd" text="Ajouter" />
+                    <Button layoutX="626.0" layoutY="327.0" mnemonicParsing="false" onAction="#handleUpdate" text="Modifier" />
+                    <Button layoutX="730.0" layoutY="327.0" mnemonicParsing="false" onAction="#handleDelete" styleClass="button-delete" text="Supprimer" />
+                    <Button layoutX="63.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleCoursFront" text="Les Cours" />
+                    <Button layoutX="198.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleCoursTypeCRUD" text="Gérer Types de Cours" />
+                </children>
+            </AnchorPane>
+        </VBox>
+    </children>
+</AnchorPane>
