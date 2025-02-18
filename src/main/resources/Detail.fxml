@@ -1,12 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="500.0" prefWidth="875.0" stylesheets="Style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.pidev3a8.controllers.DetailController">
+
+    <fx:include source="Navbar.fxml" />
+    <!-- Conteneur principal VBox -->
+    <VBox alignment="CENTER" prefHeight="595.0" prefWidth="875.0" spacing="20" style="-fx-background-color: transparent;">
+        <padding>
+            <Insets bottom="30" left="30" right="30" top="30" />
+        </padding>
+
+        
+
+        <Accordion />
+
+        <HBox alignment="CENTER_LEFT">
+            <padding>
+                <Insets left="20" />
+            </padding>
+
+            <TableView fx:id="nutritionTable" prefHeight="378.0" prefWidth="720.0" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);">
+                <columns>
+                    <TableColumn fx:id="idColumn" prefWidth="50" style="-fx-text-fill: #2c3e50;" text="ID" />
+                    <TableColumn fx:id="poidsColumn" prefWidth="100" style="-fx-text-fill: #2c3e50;" text="Poids (kg)" />
+                    <TableColumn fx:id="tailleColumn" prefWidth="100" style="-fx-text-fill: #2c3e50;" text="Taille (cm)" />
+                    <TableColumn fx:id="sexeColumn" prefWidth="100" style="-fx-text-fill: #2c3e50;" text="Sexe" />
+                    <TableColumn fx:id="imcColumn" prefWidth="100" style="-fx-text-fill: #2c3e50;" text="IMC" />
+                    <TableColumn fx:id="actionsColumn" prefWidth="259.0" style="-fx-text-fill: #2c3e50;" text="Actions" />
+                </columns>
+            </TableView>
+        </HBox>
 
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestion.pidev.controllers.DetailController">
-   <children>
-      <TextField fx:id="a" layoutX="237.0" layoutY="107.0" />
-      <TextField fx:id="b" layoutX="237.0" layoutY="182.0" />
-   </children>
+        <!-- HBox pour aligner les boutons horizontalement -->
+        <HBox alignment="CENTER" spacing="10">
+            <!-- Bouton pour ajouter une nutrition -->
+            <Button onAction="#goToAjouterNutrition" style="-fx-font-size: 14px; -fx-background-color: #4CAF50; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 5;" text="Ajouter une nutrition" />
+
+            <!-- Nouveau bouton "Gestion Code à barre" aligné à droite -->
+            <Button onAction="#goToGestionCodeBarre" style="-fx-font-size: 14px; -fx-background-color: #008CBA; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 5;" text="Gestion Code à Barre" />
+        </HBox>
+    </VBox>
+
+    <!-- Positionner VBox dans l'AnchorPane -->
+    <AnchorPane.topAnchor>0.0</AnchorPane.topAnchor>
+    <AnchorPane.bottomAnchor>0.0</AnchorPane.bottomAnchor>
+    <AnchorPane.leftAnchor>0.0</AnchorPane.leftAnchor>
+    <AnchorPane.rightAnchor>0.0</AnchorPane.rightAnchor>
 </AnchorPane>
