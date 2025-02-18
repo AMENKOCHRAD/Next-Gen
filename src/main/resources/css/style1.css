@@ -1,0 +1,43 @@
+/* Style général */
+.root {
+    -fx-background-color: #EAEAEA;
+}
+
+/* Carte principale */
+.vbox {
+    -fx-background-color: white;
+    -fx-padding: 25px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 0, 5);
+}
+
+/* Labels */
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+}
+
+/* Champs de texte */
+.text-field, .text-area, .combo-box {
+    -fx-pref-width: 250px;
+    -fx-background-radius: 5px;
+    -fx-border-color: #ccc;
+}
+
+/* Bouton stylisé */
+.button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+/* Effet au survol */
+.button:hover {
+    -fx-background-color: #388E3C;
+}

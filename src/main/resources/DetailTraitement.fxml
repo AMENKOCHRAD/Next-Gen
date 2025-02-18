@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="edu.pidev3a8.controllers.DetailTraitementController">
+
+    <TableView fx:id="traitementTable" layoutX="20" layoutY="20" prefWidth="760" prefHeight="400">
+        <columns>
+            <TableColumn text="ID" fx:id="idColumn" prefWidth="50"/>
+            <TableColumn text="Réclamation ID" fx:id="reclamationIdColumn" prefWidth="100"/>
+            <TableColumn text="Admin ID" fx:id="adminIdColumn" prefWidth="100"/>
+            <TableColumn text="Date Prise en Charge" fx:id="datePriseChargeColumn" prefWidth="150"/>
+            <TableColumn text="Statut" fx:id="statutColumn" prefWidth="100"/>
+            <TableColumn text="Commentaire" fx:id="commentaireColumn" prefWidth="200"/>
+            <TableColumn text="Priorité" fx:id="prioriteColumn" prefWidth="100"/>
+            <TableColumn fx:id="actionColumn" text="Actions" />
+        </columns>
+    </TableView>
+
+    <!-- Boutons Ajouter un Traitement et Fermer -->
+    <HBox layoutX="250" layoutY="440" spacing="20">
+        <Button text="Ajouter un Traitement" onAction="#handleAjouterTraitement" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold;"/>
+        <Button text="Fermer" onAction="#handleClose" style="-fx-background-color: #ff4444; -fx-text-fill: white; -fx-font-weight: bold;"/>
+    </HBox>
+</AnchorPane>

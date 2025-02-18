@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+           fx:controller="edu.pidev3a8.controllers.ModifierTraitementController"
+           stylesheets="css/style.css">
+
+    <VBox spacing="20" alignment="CENTER" styleClass="card">
+
+        <Label text="Modifier le Traitement" styleClass="label-title" />
+
+        <GridPane hgap="15" vgap="15">
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" minWidth="100" />
+                <ColumnConstraints hgrow="ALWAYS" />
+            </columnConstraints>
+
+            <!-- Statut ComboBox -->
+            <Label text="Statut :" GridPane.columnIndex="0" />
+            <ComboBox fx:id="statutComboBox" GridPane.columnIndex="1" styleClass="combo-box" />
+
+            <!-- Priorité ComboBox -->
+            <Label text="Priorité :" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+            <ComboBox fx:id="prioriteComboBox" GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="combo-box" />
+
+            <!-- Commentaire TextArea -->
+            <Label text="Commentaire :" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+            <TextArea fx:id="commentaireTextArea" GridPane.rowIndex="2" GridPane.columnIndex="1" styleClass="text-area"
+                      prefRowCount="3" wrapText="true"/>
+        </GridPane>
+
+        <!-- Bouton Enregistrer -->
+        <Button text="Enregistrer" onAction="#handleEnregistrer" styleClass="button" />
+    </VBox>
+</StackPane>

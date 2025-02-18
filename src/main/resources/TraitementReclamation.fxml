@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" spacing="15" xmlns="http://javafx.com/javafx/23.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="edu.pidev3a8.controllers.TraitementController"
+      stylesheets="css/style1.css">    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <!-- Titre -->
+    <Label text="Ajouter un Traitement" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+
+    <!-- Formulaire -->
+    <GridPane hgap="10" vgap="10">
+        <Label text="Réclamation" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="reclamationComboBox" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Label text="Sujet" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="sujetField" editable="false" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="Description" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TextField fx:id="descriptionField" editable="false" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <Label text="Catégorie" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <TextField fx:id="categorieField" editable="false" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+        <Label text="Pièce Jointe" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <ImageView fx:id="pieceJointeImageView" fitWidth="100" fitHeight="100" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+        <Label text="Statut" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="statutComboBox" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+        <Label text="Commentaire" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+        <TextArea fx:id="commentaireField" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+        <Label text="Priorité" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="prioriteComboBox" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <!-- Bouton Ajouter -->
+    <Button text="Ajouter Traitement" onAction="#handleAjouterTraitement" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20;"/>
+</VBox>
