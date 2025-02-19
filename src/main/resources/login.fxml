@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Utilisateur.Pidev.Controllers.login">
+   <children>
+      <ImageView fitHeight="407.0" fitWidth="607.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Images/login_image.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="291.0" layoutY="132.0" text="Nom Utilisateur" textFill="WHITE">
+         <font>
+            <Font name="Cambria" size="12.0" />
+         </font>
+      </Label>
+      <TextField blendMode="COLOR_DODGE" layoutX="291.0" layoutY="152.0" prefHeight="16.0" prefWidth="235.0">
+         <effect>
+            <Blend />
+         </effect>
+      </TextField>
+      <Label layoutX="292.0" layoutY="181.0" text="Mot de passe" textFill="WHITE">
+         <font>
+            <Font name="Cambria" size="12.0" />
+         </font>
+      </Label>
+      <TextField blendMode="COLOR_DODGE" layoutX="292.0" layoutY="200.0" prefHeight="25.0" prefWidth="235.0">
+         <effect>
+            <Blend />
+         </effect>
+      </TextField>
+      <Button layoutX="292.0" layoutY="240.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="235.0" stylesheets="@ButtonStyle.css" text="Se Connecter" textFill="WHITE">
+         <font>
+            <Font name="Cambria" size="12.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
+      <Button layoutX="292.0" layoutY="271.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="235.0" stylesheets="@ButtonStyle.css" text="S'Inscrire" textFill="WHITE">
+         <font>
+            <Font name="Cambria" size="12.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
+      <Hyperlink layoutX="291.0" layoutY="299.0" prefHeight="8.0" prefWidth="128.0" text="Mot de passe oublié ? " textFill="WHITE">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Hyperlink>
+      <Label layoutX="296.0" layoutY="321.0" prefHeight="17.0" prefWidth="228.0" />
+   </children>
+</AnchorPane>

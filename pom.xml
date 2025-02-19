@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>Gestion_cours</artifactId>
+    <artifactId>Tache_Utilisateur</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -13,12 +13,12 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.33</version>
-
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -39,7 +39,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
-                    <mainClass>gestion.pidev.controllers.Home</mainClass>
+                    <mainClass>Utilisateur.Pidev.Controllers.Home</mainClass>
                 </configuration>
             </plugin>
         </plugins>
