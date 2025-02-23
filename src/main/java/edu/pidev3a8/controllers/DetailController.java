@@ -11,11 +11,15 @@ import javafx.scene.control.*;
 import javafx.fxml.FXMLLoader;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class DetailController {
 
@@ -51,8 +55,8 @@ public class DetailController {
         actionsColumn.setCellFactory(param -> new TableCell<Nutrition, Void>() {
             private final Button modifyBtn = new Button("Modifier");
             private final Button deleteBtn = new Button("Supprimer");
-            private final HBox buttonContainer = new HBox(10, modifyBtn, deleteBtn);
-
+            private final Button downloadBtn = new Button("Télécharger");
+            private final HBox buttonContainer = new HBox(10, modifyBtn, deleteBtn,downloadBtn);
             {
                 modifyBtn.setOnAction(e -> {
                     Nutrition selectedNutrition = getTableView().getItems().get(getIndex());
@@ -62,6 +66,10 @@ public class DetailController {
                 deleteBtn.setOnAction(e -> {
                     Nutrition selectedNutrition = getTableView().getItems().get(getIndex());
                     deleteNutrition(selectedNutrition);
+                });
+                downloadBtn.setOnAction(e -> {
+                    Nutrition selectedNutrition = getTableView().getItems().get(getIndex());
+                    handleDownloadPlan(selectedNutrition);  // Appel de la fonction pour gérer le téléchargement
                 });
             }
 
@@ -78,6 +86,61 @@ public class DetailController {
 
         // Charger les données depuis le service
         loadNutritionData();
+    }
+    @FXML
+    private void handleDownloadPlan(Nutrition event) {
+        // Récupérer la ligne sélectionnée
+        Nutrition selectedNutrition = nutritionTable.getSelectionModel().getSelectedItem();
+
+        if (selectedNutrition != null) {
+            // Calculer l'IMC de la nutrition sélectionnée
+            Double imc = selectedNutrition.getImc();
+
+            // Obtenir l'URL du plan basé sur l'IMC
+            String planUrl = getPlanUrlForIMC(imc);
+
+            try {
+                // Ouvrir ou télécharger le plan
+                File planFile = new File(getClass().getResource(planUrl).toURI());
+                if (planFile.exists()) {
+                    try {
+                        Desktop.getDesktop().open(planFile);  // Ouvre le fichier PDF dans le lecteur par défaut
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.out.println("Fichier de plan non trouvé !");
+                }
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+                System.out.println("Erreur lors de la création de l'URI pour le plan.");
+            }
+        } else {
+            System.out.println("Aucune nutrition sélectionnée !");
+        }
+    }
+
+    private String getPlanUrlForIMC(Double imc) {
+        // Arrondir l'IMC à deux décimales pour éviter les erreurs de précision
+        imc = Math.round(imc * 100.0) / 100.0;
+
+        // Afficher l'IMC pour le débogage avec plus de décimales
+        System.out.println("IMC calculé avec précision : " + imc);
+
+        // Vérification de la condition pour chaque plage d'IMC
+        if (imc >= 24) {
+            System.out.println("IMC >= 24, plan doc3.pdf sélectionné");
+            return "/plan/doc3.pdf"; // Plan pour IMC >= 24
+        } else if (imc >= 18.5 && imc < 24) {
+            System.out.println("18.5 <= IMC < 24, plan doc2.pdf sélectionné");
+            return "/plan/doc2.pdf"; // Plan pour 18.5 <= IMC < 24
+        } else if (imc < 18.5) {
+            System.out.println("IMC < 18.5, plan doc1.pdf sélectionné");
+            return "/plan/plan1.pdf"; // Plan pour IMC < 18.5
+        } else {
+            System.out.println("Erreur : Cas inconnu d'IMC");
+            return "/plan/plan1.pdf"; // Cas par défaut
+        }
     }
 
     private void loadNutritionData() {
