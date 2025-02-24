@@ -25,8 +25,8 @@
                     <Button layoutX="528.0" layoutY="327.0" mnemonicParsing="false" onAction="#handleAdd" text="Ajouter" />
                     <Button layoutX="626.0" layoutY="327.0" mnemonicParsing="false" onAction="#handleUpdate" text="Modifier" />
                     <Button layoutX="730.0" layoutY="327.0" mnemonicParsing="false" onAction="#handleDelete" styleClass="button-delete" text="Supprimer" />
-                    <Button layoutX="63.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleCoursFront" text="Les Cours" />
-                    <Button layoutX="198.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleCoursTypeCRUD" text="Gérer Types de Cours" />
+                    <Button layoutX="63.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleCoursFront" text="Exercices guidés" />
+                    <Button layoutX="237.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleCoursTypeCRUD" text="Gérer Types de Cours" />
                 </children>
             </AnchorPane>
         </VBox>

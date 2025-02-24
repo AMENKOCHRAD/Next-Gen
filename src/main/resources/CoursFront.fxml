@@ -1,18 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefHeight="500.0" prefWidth="875.0" stylesheets="styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestion.pidev.controllers.CoursFrontController">
     <children>
-        <VBox AnchorPane.leftAnchor="40.0" >
-            <fx:include source="Navbar.fxml" />
-            <FlowPane fx:id="coursesFlowPane" hgap="10.0" layoutX="50.0" layoutY="50.0" prefWrapLength="800.0" vgap="10.0">
-                <!-- Course details will be added dynamically here -->
-            </FlowPane>
-        </VBox>
-         <Button layoutX="33.0" layoutY="439.0" onAction="#handleBackToCoursCRUD" text="Retour aux Cours" />
+        <fx:include source="Navbar.fxml" />
+        <HBox alignment="CENTER" spacing="20.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="50.0">
+            <VBox fx:id="vbox1" spacing="10.0" />
+            <VBox fx:id="vbox2" spacing="10.0" />
+            <VBox fx:id="vbox3" spacing="10.0" />
+        </HBox>
+          <Button layoutX="113.0" layoutY="291.0" onAction="#handleSquatsAction" prefHeight="25.0" prefWidth="132.0" text="Squats" />
+          <Button layoutX="328.0" layoutY="291.0" onAction="#handleSautsAmericainsAction" prefHeight="25.0" prefWidth="201.0" text="Sauts Américains" />
+          <Button layoutX="585.0" layoutY="291.0" onAction="#handleElevationDeGenouxAction" prefHeight="25.0" prefWidth="195.0" text="Élévation de Genoux" />
+          <ImageView fx:id="imageView1" fitHeight="110.0" fitWidth="184.0" layoutX="594.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Images/fgf.png" />
+         </image>
+      </ImageView>
+          <ImageView fx:id="imageView3" fitHeight="140.0" fitWidth="195.0" layoutX="331.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Images/wxcv.jpg" />
+         </image>
+      </ImageView>
+          <ImageView fx:id="imageView2" fitHeight="110.0" fitWidth="202.0" layoutX="97.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Images/squat.jpg" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>

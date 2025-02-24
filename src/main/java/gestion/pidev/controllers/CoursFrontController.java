@@ -1,72 +1,58 @@
 package gestion.pidev.controllers;
 
-import gestion.pidev.entities.Cours;
-import gestion.pidev.services.CoursService;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import javafx.event.ActionEvent;
-import javafx.scene.Node;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.List;
 
 public class CoursFrontController {
 
     @FXML
-    private FlowPane coursesFlowPane;
+    private VBox vbox1;
 
-    private CoursService coursService = new CoursService();
+    @FXML
+    private VBox vbox2;
+
+    @FXML
+    private VBox vbox3;
+
+    @FXML
+    private ImageView imageView1;
+
+    @FXML
+    private ImageView imageView2;
+
+    @FXML
+    private ImageView imageView3;
 
     @FXML
     public void initialize() {
-        loadCourses();
+
     }
 
-    public void reloadData() {
-        coursesFlowPane.getChildren().clear();
-        loadCourses();
-    }
 
-    private void loadCourses() {
-        List<Cours> courses = coursService.getAllData();
-        for (Cours course : courses) {
-            VBox courseBox = new VBox(10);
-            ImageView courseImage = new ImageView();
-            if (course.getImage() != null) {
-                Image image = new Image(new ByteArrayInputStream(course.getImage()));
-                courseImage.setImage(image);
-            }
-            courseImage.setFitHeight(100);
-            courseImage.setFitWidth(100);
-
-            Text courseType = new Text("Type: " + course.getType());
-            Text courseName = new Text("Nom: " + course.getNom_cours());
-            Text courseDate = new Text("Date: " + new SimpleDateFormat("dd/MM/yyyy").format(course.getDate()));
-            Text coachEmail = new Text("Email Coach: " + course.getAdresse_mail_coach());
-
-            courseBox.getChildren().addAll(courseImage, courseType, courseName, courseDate, coachEmail);
-            coursesFlowPane.getChildren().add(courseBox);
-        }
+    @FXML
+    private void handleSquatsAction(ActionEvent event) {
+        runPythonScript("C:/Users/Fedy_/Desktop/exos_python/squats.py");
     }
 
     @FXML
-    private void handleBackToCoursCRUD(ActionEvent event) {
+    private void handleSautsAmericainsAction(ActionEvent event) {
+        runPythonScript("C:/Users/Fedy_/Desktop/exos_python/sauts_americains.py");
+    }
+
+    @FXML
+    private void handleElevationDeGenouxAction(ActionEvent event) {
+        runPythonScript("C:/Users/Fedy_/Desktop/exos_python/elevation_de_genoux.py");
+    }
+
+    private void runPythonScript(String scriptPath) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/CoursCRUD.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            ProcessBuilder processBuilder = new ProcessBuilder("python", scriptPath);
+            processBuilder.start();
         } catch (IOException e) {
             e.printStackTrace();
         }
