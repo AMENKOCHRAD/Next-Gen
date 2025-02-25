@@ -12,16 +12,19 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.chart.PieChart;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import javafx.geometry.Pos;
 import javafx.scene.control.TableCell;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class CoursCRUDController {
 
@@ -163,6 +166,7 @@ public class CoursCRUDController {
             showAlert("Erreur", "Erreur de chargement", "Impossible de charger l'interface de gestion des types de cours.");
         }
     }
+
     @FXML
     private void handleCoursFront() {
         try {
@@ -176,6 +180,49 @@ public class CoursCRUDController {
         }
     }
 
+    @FXML
+    private void handleListCours() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListCours.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            // Close the current stage
+            Stage currentStage = (Stage) coursTable.getScene().getWindow();
+            currentStage.close();
+        } catch (IOException e) {
+            showAlert("Erreur", "Erreur de chargement", "Impossible de charger l'interface de la liste des cours.");
+        }
+    }
+
+    /**
+     * Méthode pour afficher les statistiques sous forme d'un graphique en camembert,
+     * représentant le pourcentage de cours par type.
+     */
+    @FXML
+    private void handleStats() {
+        // Récupérer tous les cours et les grouper par type
+        List<Cours> allCours = coursService.getAllData();
+        Map<String, Long> stats = allCours.stream()
+                .collect(Collectors.groupingBy(Cours::getType, Collectors.counting()));
+
+        // Créer un PieChart et ajouter les données
+        PieChart pieChart = new PieChart();
+        pieChart.setTitle("Pourcentage de cours par type");
+        stats.forEach((type, count) -> {
+            PieChart.Data slice = new PieChart.Data(type, count);
+            pieChart.getData().add(slice);
+        });
+
+        // Afficher le graphique dans une nouvelle fenêtre
+        Stage stage = new Stage();
+        Scene scene = new Scene(pieChart, 600, 400);
+        stage.setScene(scene);
+        stage.setTitle("Statistiques des cours");
+        stage.show();
+    }
 
     private void showAlert(String title, String header, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

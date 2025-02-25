@@ -22,13 +22,17 @@
                             <TableColumn fx:id="imageColumn" prefWidth="150.0" text="Image" />
                         </columns>
                     </TableView>
-                    <Button layoutX="528.0" layoutY="327.0" mnemonicParsing="false" onAction="#handleAdd" text="Ajouter" />
-                    <Button layoutX="626.0" layoutY="327.0" mnemonicParsing="false" onAction="#handleUpdate" text="Modifier" />
-                    <Button layoutX="730.0" layoutY="327.0" mnemonicParsing="false" onAction="#handleDelete" styleClass="button-delete" text="Supprimer" />
-                    <Button layoutX="63.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleCoursFront" text="Exercices guidés" />
-                    <Button layoutX="237.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleCoursTypeCRUD" text="Gérer Types de Cours" />
+                    <Button layoutX="740.0" layoutY="326.0" mnemonicParsing="false" onAction="#handleAdd" prefHeight="25.0" prefWidth="108.0" text="Ajouter" />
+                    <Button layoutX="270.0" layoutY="326.0" mnemonicParsing="false" onAction="#handleCoursTypeCRUD" text="Gérer Types de Cours" />
+                    <Button layoutX="72.0" layoutY="326.0" mnemonicParsing="false" onAction="#handleListCours" prefHeight="25.0" prefWidth="163.0" text="Liste des Cours" />
+                 <!-- Bouton Exercices guidés -->
+                 <Button layoutX="461.0" layoutY="325.0" mnemonicParsing="false" onAction="#handleCoursFront" text="Exercices guidés" />
+                 <!-- Bouton Stats -->
+                 <Button layoutX="628.0" layoutY="326.0" mnemonicParsing="false" onAction="#handleStats" prefHeight="25.0" prefWidth="85.0" text="Stats" />
                 </children>
             </AnchorPane>
         </VBox>
+           <Button layoutX="742.0" layoutY="446.0" mnemonicParsing="false" onAction="#handleDelete" prefHeight="25.0" prefWidth="108.0" styleClass="button-delete" text="Supprimer" />
+           <Button layoutX="742.0" layoutY="411.0" mnemonicParsing="false" onAction="#handleUpdate" prefHeight="25.0" prefWidth="108.0" text="Modifier" />
     </children>
 </AnchorPane>
