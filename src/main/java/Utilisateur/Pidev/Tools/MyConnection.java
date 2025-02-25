@@ -5,30 +5,38 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class MyConnection {
-    private String url="jdbc:mysql://localhost:3306/sportify";
-    private String login="root";
-    private String pwd="";
-    private Connection cnx;
     private static MyConnection instance;
+    private Connection cnx;
 
-
-    private MyConnection(){
+    private MyConnection() {
         try {
-            cnx= DriverManager.getConnection(url,login,pwd);
-            System.out.println("Connection established sucessfuly");
+            String url = "jdbc:mysql://localhost:3306/sportify";
+            String user = "root";
+            String password = "";
+            cnx = DriverManager.getConnection(url, user, password);
         } catch (SQLException e) {
-            System.out.println("Error , connection not estabished /" + e.getMessage());
+            System.out.println("Erreur de connexion à la base de données: " + e.getMessage());
         }
-
     }
 
-    public Connection getCnx() {
-        return cnx;
-    }
-    public static MyConnection getInstance(){
-        if(instance==null){
+    public static MyConnection getInstance() {
+        if (instance == null) {
             instance = new MyConnection();
         }
         return instance;
+    }
+
+    public Connection getCnx() {
+        try {
+            if (cnx == null || cnx.isClosed()) {
+                String url = "jdbc:mysql://localhost:3306/sportify";
+                String user = "root";
+                String password = "";
+                cnx = DriverManager.getConnection(url, user, password);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur de connexion à la base de données: " + e.getMessage());
+        }
+        return cnx;
     }
 }

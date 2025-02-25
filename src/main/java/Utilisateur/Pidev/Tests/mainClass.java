@@ -13,14 +13,14 @@ public class mainClass {
     public static void main(String[] args) {
         MyConnection mc = MyConnection.getInstance();
 
-        Utilisateur u = new Utilisateur("admin6@gmail.com", "mdpadmin6"
-                , "boumiza", "badissadmin6", 92735731, "Homme", Utilisateur.Role.Admin
-                , "im.png");
+//        Utilisateur u = new Utilisateur("admin6@gmail.com", "mdpadmin6"
+//                , "boumiza", "badissadmin6", 92735731, "Homme", Utilisateur.Role.Admin
+//                , "im.png");
 
       //Affichage
 
-        UtilisateurService us = new UtilisateurService();
-        us.addEntity(u);
+//        UtilisateurService us = new UtilisateurService();
+//        us.addEntity(u);
 
         //List<Utilisateur> utilisateurs = us.getAllData2();
 

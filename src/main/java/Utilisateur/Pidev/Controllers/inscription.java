@@ -2,14 +2,20 @@ package Utilisateur.Pidev.Controllers;
 
 import Utilisateur.Pidev.Entites.Utilisateur;
 import Utilisateur.Pidev.Services.UtilisateurService;
+import Utilisateur.Pidev.Tools.MyConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.FileChooser;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+import Utilisateur.Pidev.Utils.EmailValidator;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.Date;
 import java.time.LocalDate;
 
@@ -40,67 +46,84 @@ public class inscription {
     private TextField adresse_textfield;
 
     @FXML
-    private Button imageButton;
-
-    @FXML
     private Button sinscrire2Button;
 
     @FXML
-    private ImageView image_view;
+    private Label label_message;
 
-    @FXML
-    private Label label_message; // Ensure this is correctly linked in FXML
-
-    private String imagePath;
+    private UtilisateurService utilisateurService = new UtilisateurService();
+    private EmailValidator emailValidator;
 
     public void initialize() {
         genre_combobox.getItems().addAll("Homme", "Femme");
         genre_combobox.setValue("Homme");
-    }
+        emailValidator = new EmailValidator(MyConnection.getInstance().getCnx());
 
-    @FXML
-    public void handleChooseImage() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Choisir une image");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Images", "*.jpg", "*.jpeg", "*.png", "*.gif", "*.bmp")
-        );
-
-        File selectedFile = fileChooser.showOpenDialog(null);
-        if (selectedFile != null) {
-            imagePath = selectedFile.toURI().toString();
-            image_view.setImage(new Image(imagePath));
-        }
     }
 
     @FXML
     void AjouterUtilisateurAction(ActionEvent event) {
-        String email = mail_textfield.getText();
-        String mdp = mdp_textfield.getText();
-        String nom = nom_textfield.getText();
-        String prenom = prenom_textfield.getText();
-        LocalDate localDate = dateNai_datepicker.getValue();
-        Date dateNai = Date.valueOf(localDate);
-        int numTel = Integer.parseInt(numTel_textfield.getText());
-        String genre = genre_combobox.getValue();
-        String adresse = adresse_textfield.getText();
+        try {
+            String email = mail_textfield.getText();
+            String mdp = mdp_textfield.getText();
+            String nom = nom_textfield.getText();
+            String prenom = prenom_textfield.getText();
+            LocalDate localDate = dateNai_datepicker.getValue();
 
-        Utilisateur utilisateur = new Utilisateur();
-        utilisateur.setEmail(email);
-        utilisateur.setMdp(mdp);
-        utilisateur.setNom(nom);
-        utilisateur.setPrenom(prenom);
-        utilisateur.setDateNai(dateNai);
-        utilisateur.setNumTel(numTel);
-        utilisateur.setGenre(genre);
-        utilisateur.setAdresse(adresse);
-        utilisateur.setRole(Utilisateur.Role.Adherent);
-        utilisateur.setBanned(false);
-        utilisateur.setImage(imagePath);
+            if (localDate == null) {
+                showAlert("Erreur", "Veuillez sélectionner une date de naissance.");
+                return;
+            }
+            Date dateNai = Date.valueOf(localDate);
+            int numTel = Integer.parseInt(numTel_textfield.getText());
+            String genre = genre_combobox.getValue();
+            String adresse = adresse_textfield.getText();
 
-        UtilisateurService utilisateurService = new UtilisateurService();
-        utilisateurService.addEntity(utilisateur);
+            if (emailValidator.emailExists(email)) {
+                showAlert("Erreur", "Cette adresse email est déjà utilisée.");
+                return;
+            }
 
-        label_message.setText("Bienvenue,Vous inscrit à Sportify!");
+            Utilisateur utilisateur = new Utilisateur();
+            utilisateur.setEmail(email);
+            utilisateur.setMdp(mdp);
+            utilisateur.setNom(nom);
+            utilisateur.setPrenom(prenom);
+            utilisateur.setDateNai(dateNai);
+            utilisateur.setNumTel(numTel);
+            utilisateur.setGenre(genre);
+            utilisateur.setAdresse(adresse);
+            utilisateur.setRole(Utilisateur.Role.Adherent);
+            utilisateur.setBanned(false);
+            UtilisateurService utilisateurService = new UtilisateurService();
+            utilisateurService.addEntity(utilisateur);
+
+            label_message.setText("Bienvenue, vous êtes inscrit à Sportify !");
+            showAlert("Succès", "Inscription réussie !");
+
+            // Close the current window
+            Stage stage = (Stage) sinscrire2Button.getScene().getWindow();
+            stage.close();
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/admin.fxml"));
+            Parent root = loader.load();
+            Stage adminStage = new Stage();
+            adminStage.setScene(new Scene(root));
+            adminStage.show();
+
+        } catch (NumberFormatException e) {
+            showAlert("Erreur", "Veuillez entrer un numéro de téléphone valide.");
+            e.printStackTrace();
+        } catch (Exception e) {
+            showAlert("Erreur", "Une erreur est survenue lors de l'inscription.");
+            e.printStackTrace();
+        }
+    }
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

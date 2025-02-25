@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="875.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Utilisateur.Pidev.Controllers.UpdateController">
+    <children>
+        <ImageView fitHeight="516.0" fitWidth="875.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@Images/background_admin.png" />
+            </image>
+        </ImageView>
+        <fx:include source="Navbar.fxml" />
+        <Text fill="WHITE" layoutX="220.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adresse Mail : ">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Text>
+        <TextField fx:id="mail_textfield" layoutX="220.0" layoutY="172.0" prefHeight="25.0" prefWidth="200.0" />
+        <Text fill="WHITE" layoutX="220.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mot de passe : ">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Text>
+        <TextField fx:id="mdp_textfield" layoutX="220.0" layoutY="234.0" prefHeight="25.0" prefWidth="200.0" />
+        <Text fill="WHITE" layoutX="220.0" layoutY="282.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom :">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Text>
+        <TextField fx:id="nom_textfield" layoutX="220.0" layoutY="293.0" prefHeight="25.0" prefWidth="200.0" />
+        <Text fill="WHITE" layoutX="220.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prenom :">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Text>
+        <TextField fx:id="prenom_textfield" layoutX="220.0" layoutY="354.0" prefHeight="25.0" prefWidth="200.0" />
+        <DatePicker fx:id="dateNai_datepicker" layoutX="220.0" layoutY="419.0" prefHeight="25.0" prefWidth="200.0" />
+        <Text fill="WHITE" layoutX="220.0" layoutY="405.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date de naissance :">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Text>
+        <Text fill="WHITE" layoutX="454.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numero Telephone : ">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Text>
+        <TextField fx:id="numTel_textfield" layoutX="454.0" layoutY="171.0" prefHeight="25.0" prefWidth="200.0" />
+        <ComboBox fx:id="genre_combobox" layoutX="454.0" layoutY="232.0" prefHeight="25.0" prefWidth="200.0" />
+        <Text fill="WHITE" layoutX="454.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Genre :">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Text>
+        <Text fill="WHITE" layoutX="454.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adresse :">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Text>
+        <TextField fx:id="adresse_textfield" layoutX="454.0" layoutY="292.0" prefHeight="25.0" prefWidth="200.0" />
+        <Button fx:id="update_button" layoutX="456.0" layoutY="392.0" mnemonicParsing="false" onAction="#handleUpdateUser" prefHeight="52.0" prefWidth="200.0" stylesheets="@ButtonStyle.css" text="Modifier" />
+        <Text fill="WHITE" layoutX="313.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modifier Un Adherent">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Text>
+    </children>
+</AnchorPane>

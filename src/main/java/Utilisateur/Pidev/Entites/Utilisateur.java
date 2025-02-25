@@ -22,7 +22,6 @@ public class Utilisateur {
  private String adresse;
  private Role role;
  private float salaire;
- private String image;
  private boolean banned;
 
  public Utilisateur()
@@ -32,7 +31,7 @@ public class Utilisateur {
 
  public Utilisateur(String email,String mdp,
                     String nom,String prenom,Date dateNai,int numTel,
-                    String genre, String adresse,Role role,float salaire,String image,boolean banned)
+                    String genre, String adresse,Role role,float salaire,boolean banned)
  {
      this.email=email;
   this.mdp=mdp;
@@ -44,13 +43,12 @@ public class Utilisateur {
   this.adresse=adresse;
   this.role=role;
   this.salaire=salaire;
-  this.image=image;
   this.banned=banned;
  }
  //admin
     public Utilisateur(String email,String mdp,
                        String nom,String prenom,int numTel,
-                       String genre,Role role,String image)
+                       String genre,Role role)
     {
         this.email=email;
         this.mdp=mdp;
@@ -59,12 +57,12 @@ public class Utilisateur {
         this.numTel=numTel;
         this.genre=genre;
         this.role=role;
-        this.image=image;
+
     }
     //coach
     public Utilisateur(String email,String mdp,
                        String nom,String prenom,int numTel,
-                       String genre, String adresse,Role role,float salaire,String image,boolean banned)
+                       String genre, String adresse,Role role,float salaire,boolean banned)
     {
         this.email=email;
         this.mdp=mdp;
@@ -75,13 +73,12 @@ public class Utilisateur {
         this.adresse=adresse;
         this.role=role;
         this.salaire=salaire;
-        this.image=image;
         this.banned=banned;
     }
     //adherent
     public Utilisateur(String email,String mdp,
                        String nom,String prenom,Date dateNai,int numTel,
-                       String genre, String adresse,String image)
+                       String genre, String adresse)
     {
         this.email=email;
         this.mdp=mdp;
@@ -91,7 +88,6 @@ public class Utilisateur {
         this.numTel=numTel;
         this.genre=genre;
         this.adresse=adresse;
-        this.image=image;
 
     }
 
@@ -176,13 +172,6 @@ public class Utilisateur {
         this.role = role;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
 
     public float getSalaire() {
         return salaire;

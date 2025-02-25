@@ -17,8 +17,10 @@
          <image>
             <Image url="@Images/background_inscription.png" />
          </image>
+
       </ImageView>
-      <Text fill="WHITE" layoutX="244.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Saisir vos informations personnelles ">
+      <fx:include source="Navbar.fxml" />
+      <Text fill="WHITE" layoutX="244.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Saisir vos informations personnelles ">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -71,14 +73,7 @@
          </font>
       </Text>
       <TextField fx:id="adresse_textfield" layoutX="337.0" layoutY="294.0" prefHeight="25.0" prefWidth="200.0" />
-      <Text fill="WHITE" layoutX="337.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Image :">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Text>
-      <Button fx:id="image_button" layoutX="339.0" layoutY="355.0" mnemonicParsing="false" onAction="#handleChooseImage" prefHeight="25.0" prefWidth="200.0" text="Choisir Une image " textFill="#4400ff" />
-      <ImageView fx:id="image_view" fitHeight="205.0" fitWidth="229.0" layoutX="590.0" layoutY="159.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="sinscrire2_button" layoutX="339.0" layoutY="403.0" mnemonicParsing="false" onAction="#AjouterUtilisateurAction" prefHeight="43.0" prefWidth="200.0" stylesheets="@ButtonStyle.css" text="S'inscrire" />
+      <Button fx:id="sinscrire2Button" layoutX="339.0" layoutY="392.0" mnemonicParsing="false" onAction="#AjouterUtilisateurAction" prefHeight="52.0" prefWidth="200.0" stylesheets="@ButtonStyle.css" text="S'inscrire" />
       <Label fx:id="label_message" layoutX="582.0" layoutY="385.0" prefHeight="60.0" prefWidth="245.0" textFill="WHITE">
          <font>
             <Font size="14.0" />
