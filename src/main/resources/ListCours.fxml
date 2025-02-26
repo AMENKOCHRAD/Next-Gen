@@ -20,10 +20,10 @@
                 <padding>
                     <Insets top="10.0" right="50.0" bottom="10.0" left="50.0"/>
                 </padding>
-                <TextField fx:id="searchField" promptText="Rechercher un cours par nom" />
+                <TextField fx:id="searchField" promptText="Rechercher un cours" />
                 <Button text="Rechercher" onAction="#handleSearch"/>
-                <Button text="Exercices Guidés" onAction="#handleExercicesGuides"/>
-                <Button text="Plan d'entraînement" onAction="#handlePlanEntrainement"/>
+                <Button text="Optionalités" onAction="#handleExercicesGuides"/>
+
             </HBox>
             <!-- Zone d'affichage des cours -->
             <FlowPane fx:id="coursContainer" hgap="20.0" vgap="20.0" alignment="CENTER_LEFT"
