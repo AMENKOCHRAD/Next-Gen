@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.pidev3a8.controllers.StatistiquesController">
+    <BarChart fx:id="barChart" title="Réclamations par Catégorie">
+        <xAxis>
+            <CategoryAxis fx:id="xAxis" label="Catégorie" />
+        </xAxis>
+        <yAxis>
+            <NumberAxis fx:id="yAxis" label="Nombre de réclamations" />
+        </yAxis>
+    </BarChart>
+</StackPane>

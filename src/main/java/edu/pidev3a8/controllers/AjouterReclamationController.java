@@ -42,6 +42,7 @@ public class AjouterReclamationController {
     @FXML
     private ListView<String> piecesJointesListView; // ListView pour afficher les pièces jointes
 
+
     private ObservableList<String> piecesJointes = FXCollections.observableArrayList(); // Liste des chemins des fichiers
 
     // Constantes pour les contrôles de saisie

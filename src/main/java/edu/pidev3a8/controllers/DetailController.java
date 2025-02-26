@@ -272,4 +272,38 @@ public class DetailController {
             alert.showAndWait();
         }
     }
+    @FXML
+    private void handleAfficherStatistiques() {
+        try {
+            // Charger la page Statistiques.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Statistiques.fxml"));
+            Parent root = loader.load();
+
+            // Afficher la page Statistiques
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Statistiques des Réclamations");
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Erreur lors du chargement de la page Statistiques : " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void handleAfficherCamembert() {
+        try {
+            // Charger la page CamembertStatut.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/CamembertStatut.fxml"));
+            Parent root = loader.load();
+
+            // Afficher la page CamembertStatut
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Répartition des Réclamations par Statut");
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Erreur lors du chargement de la page CamembertStatut : " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 }

@@ -10,9 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class ReclamtionService implements IService<Reclamation> {
     @Override
@@ -184,5 +182,46 @@ public class ReclamtionService implements IService<Reclamation> {
         }
         return reclamation;
     }
+    public Map<String, Integer> getReclamationsByCategory() {
+        Map<String, Integer> reclamationsByCategory = new HashMap<>();
+        try {
+            String query = "SELECT categorie, COUNT(*) as count FROM reclamation GROUP BY categorie";
+            Statement st = MyConnection.getInstance().getCnx().createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+            while (rs.next()) {
+                String categorie = rs.getString("categorie");
+                int count = rs.getInt("count");
+                reclamationsByCategory.put(categorie, count);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la récupération des réclamations par catégorie : " + e.getMessage());
+        }
+        return reclamationsByCategory;
+    }
+
+
+    public Map<String, Integer> getReclamationsByStatut() {
+        Map<String, Integer> reclamationsByStatut = new HashMap<>();
+        try {
+            String query = "SELECT statut, COUNT(*) as count FROM reclamation GROUP BY statut";
+            Statement st = MyConnection.getInstance().getCnx().createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+            while (rs.next()) {
+                String statut = rs.getString("statut");
+                int count = rs.getInt("count");
+                reclamationsByStatut.put(statut, count);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la récupération des réclamations par statut : " + e.getMessage());
+        }
+        return reclamationsByStatut;
+    }
+
+
+
+
+
 
 }

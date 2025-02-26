@@ -86,6 +86,8 @@
                <Button onAction="#handleModifierReclamation" style="-fx-background-color: #33b5e5; -fx-text-fill: white; -fx-font-weight: bold;" text="Modifier" />
                <Button onAction="#handleTraiterReclamation" style="-fx-background-color: #FF8800; -fx-text-fill: white; -fx-font-weight: bold;" text="Traiter" />
                <Button onAction="#handleAjouterReclamation" style="-fx-background-color: #00C851; -fx-text-fill: white; -fx-font-weight: bold;" text="Ajouter une Réclamation" />
+               <Button onAction="#handleAfficherStatistiques" text="Afficher les Statistiques" />
+               <Button onAction="#handleAfficherCamembert" text="Afficher le Camembert" />
             </HBox>
          </children>
       </VBox>

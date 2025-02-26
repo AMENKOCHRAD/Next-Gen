@@ -1,0 +1,22 @@
+/* styles.css */
+.chart-bar {
+    -fx-bar-fill: #87CEEB; /* Couleur par défaut */
+    -fx-bar-width: 3px; /* Largeur des barres */
+}
+
+.chart-bar:default-color0 { -fx-bar-fill: #87CEEB; } /* Bleu clair pour Facturation */
+.chart-bar:default-color1 { -fx-bar-fill: #4682B4; } /* Bleu moyen pour Technique */
+.chart-bar:default-color2 { -fx-bar-fill: #00008B; } /* Bleu foncé pour Service Client */
+
+/* Réduire l'espacement entre les barres */
+.chart-vertical-grid-lines {
+    -fx-stroke: transparent; /* Masquer les lignes de grille verticales */
+}
+
+.chart-horizontal-grid-lines {
+    -fx-stroke: #CCCCCC; /* Couleur des lignes de grille horizontales */
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent; /* Fond transparent */
+}

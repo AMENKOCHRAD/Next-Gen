@@ -20,7 +20,7 @@
 <AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: linear-gradient(to bottom right, #6a11cb, #2575fc);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.pidev3a8.controllers.AjouterReclamationController">
    <children>
       <!-- Conteneur principal -->
-      <VBox alignment="CENTER" layoutX="100.0" layoutY="50.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 20, 20, 0, 0;">
+      <VBox alignment="CENTER" layoutX="100.0" layoutY="50.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 20, 20, 0, 0);">
          <padding>
             <Insets top="30" right="30" bottom="30" left="30"/>
          </padding>
@@ -56,13 +56,23 @@
             </VBox>
 
             <!-- Bouton Ajouter une pièce jointe -->
-            <Button fx:id="ajouterPieceJointeButton" text="Ajouter une pièce jointe" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 10 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 5, 0, 0;" onAction="#handleAjouterPieceJointe"/>
+            <Button fx:id="ajouterPieceJointeButton" text="Ajouter une pièce jointe"
+                    style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 10 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 5, 0, 0);"
+                    onAction="#handleAjouterPieceJointe"/>
 
             <!-- Liste des pièces jointes -->
-            <ListView fx:id="piecesJointesListView" prefHeight="100.0" prefWidth="500.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #cccccc; -fx-padding: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 5, 0, 0;"/>
+            <ListView fx:id="piecesJointesListView" prefHeight="100.0" prefWidth="500.0"
+                      style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #cccccc; -fx-padding: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 5, 0, 0);"/>
 
             <!-- Bouton Valider -->
-            <Button fx:id="button" text="Valider" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 10 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 5, 0, 0;" onAction="#AjouterReclamationAction"/>
+            <Button fx:id="button" text="Valider"
+                    style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 10 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 5, 0, 0);"
+                    onAction="#AjouterReclamationAction"/>
+
+            <!-- Bouton Assistance IA -->
+            <Button fx:id="assistanceIAButton" text="Assistance IA"
+                    style="-fx-background-color: #FF9800; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 10 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 5, 0, 0);"
+                    onAction="#handleAssistanceIA"/>
          </children>
       </VBox>
    </children>
