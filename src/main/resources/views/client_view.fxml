@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane prefHeight="517.0" prefWidth="875.0" style="-fx-background-color: #f4f4f4;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.2" fx:controller="controllers.ClientController">
+   <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+
+                <!-- TableView des événements -->
+    <TableView fx:id="eventTable" layoutX="30" layoutY="30" prefHeight="400" prefWidth="400">
+        <columns>
+            <TableColumn fx:id="colNom" prefWidth="130" text="Nom de l'événement" />
+            <TableColumn fx:id="colDate" prefWidth="130" text="Date" />
+            <TableColumn fx:id="colTickets" prefWidth="150" text="Tickets Restants" />
+        </columns>
+    </TableView>
+
+          <!-- Carte de détails -->
+    <Pane layoutX="450" layoutY="30" prefHeight="250" prefWidth="350" style="-fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);">
+
+              <Label layoutX="20" layoutY="20" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Détails de l'événement" />
+
+              <Label layoutX="20" layoutY="70" style="-fx-font-size: 14px;" text="Nom :" />
+        <Label fx:id="nomLabel" layoutX="100" layoutY="70" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+
+              <Label layoutX="20" layoutY="110" style="-fx-font-size: 14px;" text="Date :" />
+        <Label fx:id="dateLabel" layoutX="100" layoutY="110" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+
+              <Label layoutX="20" layoutY="150" style="-fx-font-size: 14px;" text="Tickets :" />
+        <Label fx:id="ticketsLabel" layoutX="100" layoutY="150" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+    </Pane>
+
+          <!-- Bouton Acheter -->
+    <Button fx:id="buyTicketButton" disable="true" layoutX="500" layoutY="300" onAction="#buyTicket" prefHeight="50" prefWidth="250" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 10;" text="Acheter un ticket" />
+
+</AnchorPane>
