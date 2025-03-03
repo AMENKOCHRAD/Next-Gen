@@ -1,112 +1,95 @@
 package services;
 
+import entities.Event;
+import interfaces.IEventDAO;
+import tools.MyConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import entities.event;
-import tools.MyConnection;
-import interfaces.IEvent;
 
-public class eventServices implements IEvent {
-
+public class EventServices implements IEventDAO {
     private final Connection connection;
 
-    public eventServices() {
-        connection = MyConnection.getInstance().getConnection();
+    public EventServices() {
+        this.connection = MyConnection.getInstance().getConnection();
     }
 
     @Override
-    public void addEvent(event e) {
-        String req = "INSERT INTO event (nom, type, date_debut, date_fin, lieu) VALUES (?, ?, ?, ?, ?)";
-        try (PreparedStatement ps = connection.prepareStatement(req, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setString(1, e.getNom());
-            ps.setString(2, e.getType());
-            ps.setDate(3, new java.sql.Date(e.getDateDebut().getTime()));
-            ps.setDate(4, new java.sql.Date(e.getDateFin().getTime()));
-            ps.setString(5, e.getLieu());
+    public void addEvent(Event event) {
+        String sql = "INSERT INTO event (nom, type, adresse, dateDebut, dateFin) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            stmt.setString(1, event.getNom());
+            stmt.setString(2, event.getType());
+            stmt.setString(3, event.getAdresse());
+            stmt.setDate(4, new java.sql.Date(event.getDateDebut().getTime()));
+            stmt.setDate(5,  new java.sql.Date(event.getDateFin().getTime()));
 
-            ps.executeUpdate();
-            ResultSet rs = ps.getGeneratedKeys();
+            stmt.executeUpdate();
+
+            ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()) {
-                e.setIdEvent(rs.getInt(1));
+                event.setIdEvent(rs.getInt(1));
             }
-            System.out.println("Événement ajouté avec ID : " + e.getIdEvent());
-        } catch (SQLException ex) {
-            System.out.println("Erreur d'ajout de l'événement : " + ex.getMessage());
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de l'ajout de l'événement : " + e.getMessage());
         }
     }
 
     @Override
-    public void removeEvent(int idEvent) {
-        String req = "DELETE FROM event WHERE idEvent = ?";
-        try (PreparedStatement pst = connection.prepareStatement(req)) {
-            pst.setInt(1, idEvent);
-            int rowsAffected = pst.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Event supprimé avec succès !");
-            } else {
-                System.out.println("Attention !! Aucun event avec cet ID.");
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+    public void updateEvent(Event event) {
+        String sql = "UPDATE event SET nom=?, type=?, adresse=?, dateDebut=?, dateFin=? WHERE idEvent=?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, event.getNom());
+            stmt.setString(2, event.getType());
+            stmt.setString(3, event.getAdresse());
+            stmt.setDate(4, new java.sql.Date(event.getDateDebut().getTime()));
+            stmt.setDate(5, new java.sql.Date(event.getDateFin().getTime()));
+            stmt.setInt(6, event.getIdEvent());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la mise à jour de l'événement : " + e.getMessage());
         }
     }
 
     @Override
-    public void UpDateEvent(event e, int idEvent) {
-        String req = "UPDATE event SET nom = ?, type = ?, date_debut = ?, date_fin = ?, lieu = ? WHERE idEvent = ?";
-        try (PreparedStatement pst = connection.prepareStatement(req)) {
-            pst.setString(1, e.getNom());
-            pst.setString(2, e.getType());
-            pst.setDate(3, new java.sql.Date(e.getDateDebut().getTime()));
-            pst.setDate(4, new java.sql.Date(e.getDateFin().getTime()));
-            pst.setString(5, e.getLieu());
-            pst.setInt(6, idEvent);
-            int rowsUpdated = pst.executeUpdate();
-            if (rowsUpdated > 0) {
-                System.out.println("Event mis à jour avec succès !");
-            } else {
-                System.out.println("Aucun event trouvé avec cet ID.");
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+    public void deleteEvent(int idEvent) {
+        String sql = "DELETE FROM event WHERE idEvent=?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, idEvent);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la suppression de l'événement : " + e.getMessage());
         }
     }
 
-    public List<event> displayAllEvent() {
-        List<event> events = new ArrayList<>();
-        String query = "SELECT * FROM event";
+    @Override
+    public List<Event> getAllEvents() {
+        String query = "SELECT * FROM events LEFT JOIN tickets ON events.idEvent = tickets.idEvent";
 
-        try (Statement st = connection.createStatement();
-             ResultSet rs = st.executeQuery(query)) {
+        List<Event> events = new ArrayList<>();
+        String sql = "SELECT * FROM event";
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                event e = new event();
-                e.setIdEvent(rs.getInt("idevent"));
-                e.setNom(rs.getString("nom"));
-                e.setType(rs.getString("type"));
-
-                // Gestion des dates invalides
-                Date dateDebut = rs.getDate("date_debut");
-                if (rs.wasNull()) {
-                    dateDebut = null; // ou une date par défaut, par exemple : new Date(0)
-                }
-                e.setDateDebut(dateDebut);
-
-                Date dateFin = rs.getDate("date_fin");
-                if (rs.wasNull()) {
-                    dateFin = null; // ou une date par défaut, par exemple : new Date(0)
-                }
-                e.setDateFin(dateFin);
-
-                e.setLieu(rs.getString("lieu"));
-
-                events.add(e);
+                events.add(new Event(
+                        rs.getInt("idEvent"),
+                        rs.getString("nom"),
+                        rs.getString("type"),
+                        rs.getString("adresse"),
+                        rs.getDate("dateDebut"),
+                        rs.getDate("dateFin"),
+                        null
+                ));
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la récupération des événements : " + e.getMessage());
         }
         return events;
     }
+
+
+
+
 }

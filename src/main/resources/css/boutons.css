@@ -21,7 +21,7 @@
     -fx-background-color: linear-gradient(to bottom, #d1d1d1, #000033);
 }
 .root {
-    -fx-background-image: url("Images/background_event.png");
+    -fx-background-image: url("../../../../../Desktop/pidev_event/src/main/resources/images/background_event.png");
     -fx-background-size: cover;
     -fx-background-position: center center;
 }

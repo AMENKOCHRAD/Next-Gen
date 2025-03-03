@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane prefHeight="550.0" prefWidth="882.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EventController">
+    <fx:include source="Navbar.fxml" />
+   <AnchorPane layoutY="86.0" prefHeight="474.0" prefWidth="884.0">
+      <children>
+      
+          <ImageView fitHeight="505.0" fitWidth="874.0" layoutY="-40.0" pickOnBounds="true" preserveRatio="true">
+              <image>
+                  <Image url="@../images/background_event.png" />
+              </image>
+          </ImageView>
+          <!-- Titre -->
+          <Label layoutX="335.0" layoutY="-29.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Gestion des Événements" />
+      
+          <!-- Formulaire -->
+          <Label layoutX="228.0" layoutY="28.0" text="Nom :" />
+          <TextField fx:id="nomField" layoutX="326.0" layoutY="24.0" />
+          <Label fx:id="nomError" layoutX="330.0" layoutY="50.0" prefHeight="18.0" prefWidth="108.0" textFill="red" />
+      
+          <Label layoutX="230.0" layoutY="72.0" text="Type :" />
+          <TextField fx:id="typeField" layoutX="325.0" layoutY="68.0" />
+          <Label fx:id="typeError" layoutX="330.0" layoutY="94.0" prefHeight="18.0" prefWidth="114.0" textFill="red" />
+      
+          <Label layoutX="231.0" layoutY="119.0" text="Adresse :" />
+          <HBox layoutX="328.0" layoutY="116.0" spacing="5">
+              <ImageView fx:id="mapIcon" fitHeight="24" fitWidth="24" onMouseClicked="#openMap" style="-fx-cursor: hand;">
+                  <image>
+                      <Image url="@/images/map.png" />
+                  </image>
+              </ImageView>
+          </HBox>
+          <Label fx:id="adresseError" layoutX="330.0" layoutY="141.0" prefHeight="18.0" prefWidth="108.0" textFill="red" />
+      
+          <Label layoutX="228.0" layoutY="166.0" text="Date Début :" />
+          <DatePicker fx:id="dateDebutField" layoutX="326.0" layoutY="162.0" />
+          <Label fx:id="dateDebutError" layoutX="330.0" layoutY="188.0" prefHeight="18.0" prefWidth="114.0" textFill="red" />
+      
+          <Label layoutX="234.0" layoutY="214.0" text="Date Fin :" />
+          <DatePicker fx:id="dateFinField" layoutX="328.0" layoutY="210.0" />
+          <Label fx:id="dateFinError" layoutX="330.0" layoutY="237.0" prefHeight="18.0" prefWidth="120.0" textFill="red" />
+      
+          <!-- Boutons -->
+          <HBox spacing="10" />
+      
+      
+          <!-- Table des événements -->
+          <TableView fx:id="eventTable" layoutX="159.0" layoutY="298.0" prefHeight="147.0" prefWidth="554.0">
+      
+              <columns>
+                  <TableColumn fx:id="colNom" prefWidth="100" text="Nom" />
+                  <TableColumn fx:id="colType" prefWidth="100" text="Type" />
+                  <TableColumn fx:id="colAdresse" prefWidth="150" text="Adresse" />
+                  <TableColumn fx:id="colDateDebut" prefWidth="100" text="Date Début" />
+                  <TableColumn fx:id="colDateFin" prefWidth="100" text="Date Fin" />
+              </columns>
+          </TableView>
+           <Button fx:id="btnAjouter" layoutX="214.0" layoutY="262.0" onAction="#ajouterEvent" text="Ajouter" />
+           <Button fx:id="btnModifier" layoutX="280.0" layoutY="262.0" onAction="#modifierEvent" text="Modifier" />
+           <Button fx:id="btnSupprimer" layoutX="352.0" layoutY="262.0" onAction="#supprimerEvent" text="Supprimer" />
+           <Button fx:id="btngestion" layoutX="433.0" layoutY="262.0" text="Gerer_Ticket" />
+           <TextField fx:id="searchField" layoutX="521.0" layoutY="262.0" promptText="Rechercher un événement..." />
+           <TextField fx:id="adresseField" layoutX="369.0" layoutY="115.0" prefWidth="200" promptText="Sélectionnez une adresse" />
+      </children>
+   </AnchorPane>
+
+    <!-- Padding -->
+    <padding>
+        <Insets bottom="20" left="20" right="20" top="20" />
+    </padding>
+</AnchorPane>

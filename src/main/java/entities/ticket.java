@@ -1,57 +1,59 @@
 package entities;
 
-public class ticket {
-    private int idticket;
-    private int idevent;
+public class Ticket {
+    private int idTicket;
     private double prix;
     private int quantite;
+    private String eventName; // Nom de l'événement
+    private int idEvent; // Ajout de l'ID de l'événement
 
-    public ticket() {
+
+    public Ticket(int idTicket, double prix, int quantite, String eventName, int idEvent) {
+        this.idTicket = idTicket;
+        this.prix = prix;
+        this.quantite = quantite;
+        this.eventName = eventName;
+        this.idEvent = idEvent;
+
     }
 
- public ticket(int idticket, int idevent, double prix, int quantite) {
-        this.idticket = idticket;
-        this.idevent = idevent;
-        this.prix = prix;
-        this.quantite = quantite;
+    // Getters et Setters
+    public int getIdTicket() {
+        return idTicket;
+    }
 
- }
- public int getIdticket() {
-        return idticket;
+    public void setIdTicket(int idTicket) {
+        this.idTicket = idTicket;
+    }
 
- }
- public void setIdticket(int idticket) {
-        this.idticket = idticket;
-
- }
- public int getIdevent() {
-        return idevent;
- }
- public void setIdevent(int idevent) {
-        this.idevent = idevent;
-
- }
- public double getPrix() {
+    public double getPrix() {
         return prix;
- }
- public void setPrix(double prix) {
+    }
+
+    public void setPrix(double prix) {
         this.prix = prix;
- }
- public int getQuantite() {
+    }
+
+    public int getQuantite() {
         return quantite;
- }
- public void setQuantite(int quantite) {
+    }
+
+    public void setQuantite(int quantite) {
         this.quantite = quantite;
+    }
 
- }
+    public String getEventName() {
+        return eventName;
+    }
 
-    @Override
-    public String toString() {
-        return "ticket{" +
-                "idticket=" + idticket +
-                ", idevent=" + idevent +
-                ", prix=" + prix +
-                ", quantite=" + quantite +
-                '}';
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
+    }
+    public int getidEvent() {
+        return idEvent;
+    }
+
+    public void setidEvent(int idEvent) {
+        this.idEvent = idEvent;
     }
 }

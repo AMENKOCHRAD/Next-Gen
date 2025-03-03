@@ -12,22 +12,19 @@ import java.io.IOException;
 public class NavbarController {
 
     @FXML
-    private Button coursButton;
+    private Button eventButton;
 
     @FXML
-    private void handleCoursButtonAction() {
+    private void handleEventButtonAction() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/details.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/event_view.fxml"));
             Parent root = loader.load();
-            Stage stage = new Stage();
+            Stage stage = (Stage) eventButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
-
-            // Fermer la fenêtre actuelle si nécessaire
-            Stage currentStage = (Stage) coursButton.getScene().getWindow();
-            currentStage.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }

@@ -1,138 +1,109 @@
 package services;
 
+import entities.Ticket;
+import interfaces.ITicketDAO;
+import tools.MyConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import entities.ticket;
-import entities.event;
-import tools.MyConnection;
-import interfaces.ITicket;
+public class TicketServices implements ITicketDAO {
+    private Connection connection;
 
-public class ticketServices implements ITicket {
-
-    private final Connection connection;
-
-    public ticketServices() {
+    public TicketServices() {
         connection = MyConnection.getInstance().getConnection();
     }
 
-    // ✅ Ajouter un ticket
-
     @Override
-    public void addTicket(ticket t) {
-        String checkEvent = "SELECT COUNT(*) FROM event WHERE idevent = ?";
-        String requete = "INSERT INTO ticket (id_ticket, idEvent, prix, quantite) VALUES (?, ?, ?, ?)"; // Utiliser des paramètres
+    public void addTicket(Ticket ticket) {
+        String sql = "INSERT INTO ticket (prix, quantite, eventName,idEvent) VALUES (?, ?, ?,?)";
+        try (PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            stmt.setDouble(1, ticket.getPrix());
+            stmt.setInt(2, ticket.getQuantite());
+            stmt.setString(3, ticket.getEventName()); // Utiliser le nom de l'événement
+            stmt.setInt(4, ticket.getidEvent());
+            stmt.executeUpdate();
 
-        try (PreparedStatement pstCheck = connection.prepareStatement(checkEvent);
-             PreparedStatement pst = connection.prepareStatement(requete)) {
-
-            // Debugging: Afficher les valeurs reçues
-            System.out.println("Debug - Ticket object received:");
-            System.out.println("Ticket ID: " + t.getIdticket());
-            System.out.println("Event ID: " + t.getIdevent());
-            System.out.println("Price: " + t.getPrix());
-            System.out.println("Quantity: " + t.getQuantite());
-
-            // Vérifier que l'ID de l'événement est valide (non égal à 0)
-            if (t.getIdevent() <= 0) {
-                System.out.println("Erreur : L'ID de l'événement doit être supérieur à 0. Valeur reçue: " + t.getIdevent());
-                return;
-            }
-
-            // Vérifier l'existence de l'événement
-            pstCheck.setInt(1, t.getIdevent());
-            ResultSet rs = pstCheck.executeQuery();
-
+            ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()) {
-                int count = rs.getInt(1); // Nombre d'événements avec cet ID
-                if (count == 0) {
-                    System.out.println("Erreur : L'événement associé n'existe pas !");
-                    return; // Événement inexistant
-                }
+                ticket.setIdTicket(rs.getInt(1));
             }
-
-            // Ajouter le ticket si l'événement existe
-            pst.setInt(1, t.getIdticket());   // ID du ticket
-            pst.setInt(2, t.getIdevent());    // ID de l'événement
-            pst.setDouble(3, t.getPrix());    // Prix du ticket
-            pst.setInt(4, t.getQuantite());   // Quantité du ticket
-
-            int rowsInserted = pst.executeUpdate();
-            if (rowsInserted > 0) {
-                System.out.println("Ticket ajouté avec succès !");
-            } else {
-                System.out.println("L'insertion du ticket a échoué.");
-            }
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de l'ajout du ticket : " + e.getMessage());
         }
     }
 
-    // ✅ Supprimer un ticket
     @Override
-    public void removeTicket(int idTicket) {
-        String req = "DELETE FROM ticket WHERE id_ticket = ?";
-        try (PreparedStatement pst = connection.prepareStatement(req)) {
-            pst.setInt(1, idTicket);
-            int rowsAffected = pst.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Ticket supprimé avec succès !");
-            } else {
-                System.out.println("Aucun ticket trouvé avec cet ID.");
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+    public void updateTicket(Ticket ticket) {
+        String sql = "UPDATE ticket SET prix=?, quantite=?, eventName=? WHERE idTicket=?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setDouble(1, ticket.getPrix());
+            stmt.setInt(2, ticket.getQuantite());
+            stmt.setString(3, ticket.getEventName());
+            stmt.setInt(4, ticket.getIdTicket());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la mise à jour du ticket : " + e.getMessage());
         }
     }
 
-    // ✅ Modifier un ticket
     @Override
-    public void updateTicket(ticket t, int idTicket){
-        String req = "UPDATE ticket SET idEvent = ?, prix = ?, quantite = ? WHERE id_ticket = ?";
-        try (PreparedStatement pst = connection.prepareStatement(req)) {
-            pst.setInt(1, t.getIdevent());
-            pst.setDouble(2, t.getPrix());
-            pst.setInt(3, t.getQuantite());
-            pst.setInt(4, idTicket);
-            int rowsUpdated = pst.executeUpdate();
-            if (rowsUpdated > 0) {
-                System.out.println("Ticket mis à jour avec succès !");
-            } else {
-                System.out.println("Aucun ticket trouvé avec cet ID.");
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+    public void deleteTicket(int idTicket) {
+        String sql = "DELETE FROM ticket WHERE idTicket=?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, idTicket);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la suppression du ticket : " + e.getMessage());
         }
     }
 
-    // ✅ Afficher tous les tickets avec leurs événements
     @Override
-    public List<ticket> displayAllTicket() {
-        List<ticket> tickets = new ArrayList<>();
-        String requete = "SELECT t.id_ticket, t.idEvent, t.prix, t.quantite, " +
-                "e.nom, e.type, e.date_debut, e.date_fin, e.lieu " +
-                "FROM ticket t " +
-                "JOIN event e ON t.idEvent = e.idevent";
-
-        try (Statement st = connection.createStatement();
-             ResultSet rs = st.executeQuery(requete)) {
-
+    public List<Ticket> getAllTickets() {
+        List<Ticket> tickets = new ArrayList<>();
+        String sql = "SELECT * FROM ticket";
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                ticket t = new ticket();
-                t.setIdticket(rs.getInt("id_ticket"));
-                t.setIdevent(rs.getInt("idEvent"));
-                t.setPrix(rs.getInt("prix"));
-                t.setQuantite(rs.getInt("quantite"));
-
-
-
-                tickets.add(t);
+                Ticket ticket = new Ticket(
+                        rs.getInt("idTicket"),
+                        rs.getDouble("prix"),
+                        rs.getInt("quantite"),
+                        rs.getString("eventName"), // Récupérer le nom de l'événement
+                        rs.getInt("idEvent") // Récupérer l'ID de l'événement
+                );
+                tickets.add(ticket);
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la récupération des tickets : " + e.getMessage());
         }
         return tickets;
     }
+
+    //-----client
+    public int getAvailableTickets(int idEvent) {
+        String query = "SELECT SUM(quantite) FROM ticket WHERE idEvent = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, idEvent);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    public void updateTicketQuantity(int idEvent, int quantityChange) {
+        String sql = "UPDATE ticket SET quantite = GREATEST(0, quantite + ?) WHERE idEvent = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, quantityChange);
+            stmt.setInt(2, idEvent);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la mise à jour de la quantité de tickets : " + e.getMessage());
+        }
+    }
+
 }

@@ -1,99 +1,49 @@
 package entities;
 
 import java.util.Date;
+import java.util.List;
 
-public class event {
+public class Event {
     private int idEvent;
     private String nom;
     private String type;
+    private String adresse;
     private Date dateDebut;
     private Date dateFin;
-    private String lieu;
+    private List<Ticket> tickets; // Relation OneToMany
 
-    // Constructeur par défaut
-    public event() {}
-
-    // Constructeur avec tous les attributs
-    public event(int idEvent, String nom, String type, Date dateDebut, Date dateFin, String lieu) {
+    public Event(int idEvent, String nom, String type,String adresse, Date dateDebut, Date dateFin, List<Ticket> tickets) {
         this.idEvent = idEvent;
         this.nom = nom;
         this.type = type;
+        this.adresse = adresse;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
-        this.lieu = lieu;
+        this.tickets = tickets;
     }
 
-    // Constructeur sans idEvent (utile pour l'insertion en base de données)
-    public event(String nom, String type, Date dateDebut, Date dateFin, String lieu) {
-        this.nom = nom;
-        this.type = type;
-        this.dateDebut = dateDebut;
-        this.dateFin = dateFin;
-        this.lieu = lieu;
+    // Getters & Setters
+    public int getIdEvent() { return idEvent; }
+    public void setIdEvent(int idEvent) { this.idEvent = idEvent; }
+
+    public String getNom() { return nom; }
+    public void setNom(String nom) { this.nom = nom; }
+
+    public String getType() { return type; }
+    public void setType(String type) { this.type = type; }
+    public String getAdresse() { return adresse; }
+    public void setAdresse(String adresse) { this.adresse = adresse; }
+
+    public Date getDateDebut() { return dateDebut; }
+    public void setDateDebut(Date dateDebut) { this.dateDebut = dateDebut; }
+
+    public Date getDateFin() { return dateFin; }
+    public void setDateFin(Date dateFin) { this.dateFin = dateFin; }
+
+    public List<Ticket> getTickets() { return tickets; }
+    public void setTickets(List<Ticket> tickets) { this.tickets = tickets; }
+
+    public void addTicket(Ticket ticket) {
+        this.tickets.add(ticket);
     }
-
-    // Getters et Setters
-    public int getIdEvent() {
-        return idEvent;
-    }
-
-    public void setIdEvent(int idEvent) {
-        this.idEvent = idEvent;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Date getDateDebut() {
-        return dateDebut;
-    }
-
-    public void setDateDebut(Date dateDebut) {
-        this.dateDebut = dateDebut;
-    }
-
-    public Date getDateFin() {
-        return dateFin;
-    }
-
-    public void setDateFin(Date dateFin) {
-        this.dateFin = dateFin;
-    }
-
-    public String getLieu() {
-        return lieu;
-    }
-
-    public void setLieu(String lieu) {
-        this.lieu = lieu;
-    }
-
-    // Méthode toString pour l'affichage
-    @Override
-
-    public String toString() {
-        return "Event{" +
-                "idEvent=" + idEvent +
-                ", nom='" + nom + '\'' +
-                ", type='" + type + '\'' +
-                ", dateDebut=" + (dateDebut != null ? dateDebut : "null") +
-                ", dateFin=" + (dateFin != null ? dateFin : "null") +
-                ", lieu='" + lieu + '\'' +
-                '}';
-    }
-
-
 }
