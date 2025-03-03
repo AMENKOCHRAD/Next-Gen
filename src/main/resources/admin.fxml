@@ -20,16 +20,17 @@
         <TableView fx:id="table_adherents" layoutX="37.0" layoutY="73.0" prefHeight="348.0" prefWidth="826.0">
             <columns>
                 <TableColumn fx:id="column_id" prefWidth="40.0" text="ID" />
-                <TableColumn fx:id="column_email" prefWidth="72.0" text="Email" />
-                <TableColumn fx:id="column_mdp" prefWidth="72.0" text="MDP" />
-                <TableColumn fx:id="column_nom" prefWidth="72.0" text="Nom" />
-                <TableColumn fx:id="column_prenom" prefWidth="72.0" text="Prenom" />
-                <TableColumn fx:id="column_date" prefWidth="72.0" text="Date Naissance" />
-                <TableColumn fx:id="column_numTel" prefWidth="72.0" text="NumTel" />
-                <TableColumn fx:id="column_genre" prefWidth="72.0" text="Genre" />
+                <TableColumn fx:id="column_email" prefWidth="78.0" text="Email" />
+                <TableColumn fx:id="column_mdp" prefWidth="58.0" text="MDP" />
+                <TableColumn fx:id="column_nom" prefWidth="73.0" text="Nom" />
+                <TableColumn fx:id="column_prenom" prefWidth="70.0" text="Prenom" />
+                <TableColumn fx:id="column_date" prefWidth="81.0" text="Date Naissance" />
+                <TableColumn fx:id="column_numTel" prefWidth="67.0" text="NumTel" />
+                <TableColumn fx:id="column_genre" prefWidth="69.0" text="Genre" />
                 <TableColumn fx:id="column_adresse" prefWidth="72.0" text="Adresse" />
                 <TableColumn fx:id="column_role" prefWidth="72.0" text="Role" />
-                <TableColumn fx:id="column_banned" prefWidth="75.0" text="Banned" />
+                <TableColumn fx:id="column_banned" prefWidth="65.0" text="Banned" />
+                <TableColumn fx:id="column_image" prefWidth="118.0" text="Image" />
             </columns>
         </TableView>
         <Button fx:id="ajout_adherent_button" layoutX="71.0" layoutY="436.0" mnemonicParsing="false" onAction="#handleAddAdherent" prefHeight="40.0" prefWidth="177.0" stylesheets="@ButtonStyle.css" text="Ajouter Un Adherent">

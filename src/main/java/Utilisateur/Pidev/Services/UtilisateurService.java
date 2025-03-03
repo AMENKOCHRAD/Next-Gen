@@ -4,6 +4,9 @@ import Utilisateur.Pidev.Entites.Utilisateur;
 import Utilisateur.Pidev.Interfaces.IService;
 import Utilisateur.Pidev.Tools.MyConnection;
 
+import javax.sql.rowset.serial.SerialBlob;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,13 +22,12 @@ public class UtilisateurService implements IService<Utilisateur> {
                 System.out.println("Invalid email format");
                 return;
             }
-
             if (!isValidPhoneNumber(utilisateur.getNumTel())) {
                 System.out.println("Invalid phone number format");
                 return;
             }
 
-            String requete = "INSERT INTO user (email, mdp, nom, prenom, dateNai, numTel, genre, adresse, role, salaire, banned) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String requete = "INSERT INTO user (email, mdp, nom, prenom, dateNai, numTel, genre, adresse, role, salaire, banned, image_user) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = MyConnection.getInstance().getCnx().prepareStatement(requete);
             ps.setString(1, utilisateur.getEmail());
             ps.setString(2, utilisateur.getMdp());
@@ -38,12 +40,13 @@ public class UtilisateurService implements IService<Utilisateur> {
             ps.setString(9, utilisateur.getRole().name());
             ps.setFloat(10, utilisateur.getSalaire());
             ps.setBoolean(11, utilisateur.isBanned());
+            ps.setBlob(12, utilisateur.getImage_user());
 
             ps.executeUpdate();
-            System.out.println("Utilisateur ajouté");
+            System.out.println("Utilisateur ajouté avec succès");
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Erreur lors de l'ajout de l'utilisateur: " + e.getMessage());
         }
     }
 
@@ -58,6 +61,16 @@ public class UtilisateurService implements IService<Utilisateur> {
         } catch (SQLException e) {
             System.out.println("Erreur lors de la suppression de l'utilisateur: " + e.getMessage());
         }
+    }
+
+    public Blob createBlob(InputStream inputStream, int length) throws SQLException {
+        byte[] bytes = new byte[length];
+        try {
+            inputStream.read(bytes);
+        } catch (IOException e) {
+            throw new SQLException("Failed to read input stream", e);
+        }
+        return new SerialBlob(bytes);
     }
     @Override
     public void updateEntity(int id, Utilisateur utilisateur) {
@@ -75,16 +88,14 @@ public class UtilisateurService implements IService<Utilisateur> {
                     "adresse = ?, " +
                     "role = ?, " +
                     "salaire = ?, " +
-                    "banned = ? " +
+                    "banned = ?, " +
+                    "image_user = ? " +
                     "WHERE id = ?";
-
 
             PreparedStatement ps = MyConnection.getInstance().getCnx().prepareStatement(requete);
 
-
             ps.setString(1, utilisateur.getEmail());
             ps.setString(2, utilisateur.getMdp());
-
             ps.setString(3, utilisateur.getNom());
             ps.setString(4, utilisateur.getPrenom());
             ps.setDate(5, sqlDate);
@@ -94,8 +105,8 @@ public class UtilisateurService implements IService<Utilisateur> {
             ps.setString(9, utilisateur.getRole().name());
             ps.setFloat(10, utilisateur.getSalaire());
             ps.setBoolean(11, utilisateur.isBanned());
-            ps.setInt(12, id);
-
+            ps.setBlob(12, utilisateur.getImage_user());
+            ps.setInt(13, id);
 
             // Execute the query
             ps.executeUpdate();
@@ -136,6 +147,7 @@ public class UtilisateurService implements IService<Utilisateur> {
                 u.setRole(Utilisateur.Role.valueOf(rs.getString("role"))); // Convertir la String en enum
                 u.setSalaire(rs.getFloat("salaire"));
                 u.setBanned(rs.getBoolean("banned"));
+                u.setImage_user(rs.getBlob("image_user"));
                 result.add(u);
             }
 
@@ -149,7 +161,7 @@ public class UtilisateurService implements IService<Utilisateur> {
     @Override
     public List<Utilisateur> getAllData2() {
         List<Utilisateur> result = new ArrayList<>();
-        String requete = "SELECT id, email, mdp, nom, prenom, dateNai, numTel, genre, adresse, role, banned FROM user";
+        String requete = "SELECT id, email, mdp, nom, prenom, dateNai, numTel, genre, adresse, role, banned, image_user FROM user";
 
         try (Connection conn = MyConnection.getInstance().getCnx();
              Statement st = conn.createStatement();
@@ -174,6 +186,7 @@ public class UtilisateurService implements IService<Utilisateur> {
                 u.setAdresse(rs.getString("adresse"));
                 u.setRole(Utilisateur.Role.valueOf(rs.getString("role")));
                 u.setBanned(rs.getBoolean("banned"));
+                u.setImage_user(rs.getBlob("image_user"));
                 result.add(u);
             }
 
@@ -190,9 +203,7 @@ public class UtilisateurService implements IService<Utilisateur> {
         return email.matches(emailRegex);
     }
 
-
     public static boolean isValidPhoneNumber(int phoneNumber) {
-
         String phoneNumberStr = String.valueOf(phoneNumber);
         String phoneRegex = "^[+]?[0-9]{8}$";
         return phoneNumberStr.matches(phoneRegex);
@@ -208,42 +219,6 @@ public class UtilisateurService implements IService<Utilisateur> {
         } catch (SQLException e) {
             System.out.println("Erreur lors de la suppression de l'utilisateur: " + e.getMessage());
         }
-    }
-    public Utilisateur authenticateUser(String email, String password) {
-        String query = "SELECT * FROM user WHERE LOWER(email) = LOWER(?) AND mdp = ?";
-
-        try (Connection conn = MyConnection.getInstance().getCnx();
-             PreparedStatement ps = conn.prepareStatement(query)) {
-            ps.setString(1, email.trim());
-            ps.setString(2, password.trim());
-
-            System.out.println("Executing query with email: " + email.trim() + " and password: " + password.trim()); // Debugging
-
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                Utilisateur user = new Utilisateur();
-                user.setId(rs.getInt("id"));
-                user.setEmail(rs.getString("email"));
-                user.setMdp(rs.getString("mdp"));
-                user.setNom(rs.getString("nom"));
-                user.setPrenom(rs.getString("prenom"));
-                user.setNumTel(rs.getInt("numTel"));
-                user.setGenre(rs.getString("genre"));
-                user.setAdresse(rs.getString("adresse"));
-                user.setBanned(rs.getBoolean("banned"));
-                user.setRole(Utilisateur.Role.valueOf(rs.getString("role")));
-
-                return user;
-            } else {
-                System.out.println("Email or password incorrect!");
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
     }
 
 

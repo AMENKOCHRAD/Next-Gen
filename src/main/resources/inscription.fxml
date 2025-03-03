@@ -20,7 +20,7 @@
 
       </ImageView>
       <fx:include source="Navbar.fxml" />
-      <Text fill="WHITE" layoutX="244.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Saisir vos informations personnelles ">
+      <Text fill="WHITE" layoutX="246.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Saisir vos informations personnelles ">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -61,23 +61,26 @@
          </font>
       </Text>
       <TextField fx:id="numTel_textfield" layoutX="337.0" layoutY="173.0" prefHeight="25.0" prefWidth="200.0" />
-      <ComboBox fx:id="genre_combobox" layoutX="337.0" layoutY="234.0" prefHeight="25.0" prefWidth="200.0" />
+      <ComboBox fx:id="genre_combobox" layoutX="337.0" layoutY="234.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: ffffff;" />
       <Text fill="WHITE" layoutX="337.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Genre :">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="337.0" layoutY="282.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adresse :">
+      <Text fill="WHITE" layoutX="337.0" layoutY="284.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adresse :">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <TextField fx:id="adresse_textfield" layoutX="337.0" layoutY="294.0" prefHeight="25.0" prefWidth="200.0" />
-      <Button fx:id="sinscrire2Button" layoutX="339.0" layoutY="392.0" mnemonicParsing="false" onAction="#AjouterUtilisateurAction" prefHeight="52.0" prefWidth="200.0" stylesheets="@ButtonStyle.css" text="S'inscrire" />
-      <Label fx:id="label_message" layoutX="582.0" layoutY="385.0" prefHeight="60.0" prefWidth="245.0" textFill="WHITE">
+      <TextField fx:id="adresse_textfield" layoutX="337.0" layoutY="295.0" prefHeight="25.0" prefWidth="200.0" />
+      <Button fx:id="uploadButton" layoutX="337.0" layoutY="355.0" mnemonicParsing="false" onAction="#handleUploadImage" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: ffffff;" text="Inserer Une Image" />
+      <ImageView fx:id="imageView" fitHeight="203.0" fitWidth="253.0" layoutX="586.0" layoutY="166.0" />
+      <Button fx:id="sinscrire2Button" layoutX="339.0" layoutY="405.0" mnemonicParsing="false" onAction="#AjouterUtilisateurAction" prefHeight="43.0" prefWidth="200.0" stylesheets="@ButtonStyle.css" text="S'inscrire" />
+      <Label fx:id="label_message" layoutX="582.0" layoutY="392.0" prefHeight="51.0" prefWidth="245.0" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
+      <Text fill="WHITE" layoutX="338.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Votre Image : " />
    </children>
 </AnchorPane>

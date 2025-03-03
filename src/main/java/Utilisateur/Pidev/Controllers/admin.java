@@ -3,6 +3,7 @@ package Utilisateur.Pidev.Controllers;
 import Utilisateur.Pidev.Entites.Utilisateur;
 import Utilisateur.Pidev.Services.UtilisateurService;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,9 +14,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutorService;
@@ -27,7 +28,6 @@ public class admin {
 
     @FXML
     private TableColumn<Utilisateur, Integer> column_id;
-
     @FXML
     private TableColumn<Utilisateur, String> column_email;
 
@@ -58,14 +58,14 @@ public class admin {
     @FXML
     private TableColumn<Utilisateur, Boolean> column_banned;
 
+    @FXML
+    private TableColumn<Utilisateur, Image> column_image;
+
     private UtilisateurService utilisateurService = new UtilisateurService();
-
-
     private ExecutorService executorService = Executors.newCachedThreadPool();
 
     @FXML
     public void initialize() {
-
         column_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         column_email.setCellValueFactory(new PropertyValueFactory<>("email"));
         column_mdp.setCellValueFactory(new PropertyValueFactory<>("mdp"));
@@ -77,32 +77,51 @@ public class admin {
         column_adresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));
         column_role.setCellValueFactory(new PropertyValueFactory<>("role"));
         column_banned.setCellValueFactory(new PropertyValueFactory<>("banned"));
+        column_mdp.setCellFactory(new JFXCellFactory());
 
-column_mdp.setCellFactory(new JFXCellFactory());
+        column_image.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getImage()));
+        column_image.setCellFactory(new Callback<TableColumn<Utilisateur, Image>, TableCell<Utilisateur, Image>>() {
+            @Override
+            public TableCell<Utilisateur, Image> call(TableColumn<Utilisateur, Image> param) {
+                return new TableCell<Utilisateur, Image>() {
+                    private final ImageView imageView = new ImageView();
+
+                    @Override
+                    protected void updateItem(Image item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty || item == null) {
+                            setGraphic(null);
+                        } else {
+                            imageView.setImage(item);
+                            imageView.setFitHeight(50);
+                            imageView.setFitWidth(50);
+                            setGraphic(imageView);
+                        }
+                    }
+                };
+            }
+        });
 
         loadUserData();
     }
-
 
     private void loadUserData() {
         List<Utilisateur> utilisateurs = utilisateurService.getAllData2();
         table_adherents.getItems().setAll(utilisateurs);
     }
 
-
     public void shutdown() {
         executorService.shutdown();
     }
+
     @FXML
     private void handleAddAdherent(ActionEvent event) {
         try {
-
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/inscription.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
-
 
             Stage currentStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
             currentStage.close();

@@ -2,17 +2,29 @@ package Utilisateur.Pidev.Controllers;
 
 import Utilisateur.Pidev.Entites.Utilisateur;
 import Utilisateur.Pidev.Services.UtilisateurService;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
+import javafx.scene.image.ImageView;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.sql.Blob;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class UpdateController {
+public class UpdateController implements Initializable {
 
     @FXML
     private TextField mail_textfield;
@@ -33,17 +45,28 @@ public class UpdateController {
     private TextField numTel_textfield;
 
     @FXML
-    private ComboBox<String> genre_combobox;
-
-    @FXML
     private TextField adresse_textfield;
 
     @FXML
     private Button update_button;
 
+    @FXML
+    private ImageView imageView;
+
+    @FXML
+    private File selectedFile;
+
     private UtilisateurService utilisateurService = new UtilisateurService();
     private Utilisateur selectedUser;
     private admin adminController;
+
+    @FXML
+    private ComboBox<String> genre_combobox;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        genre_combobox.getItems().addAll("Homme", "Femme");
+    }
 
     public void setUserData(Utilisateur user) {
         this.selectedUser = user;
@@ -58,6 +81,25 @@ public class UpdateController {
 
     public void setAdminController(admin adminController) {
         this.adminController = adminController;
+    }
+
+    @FXML
+    void handleUploadImage(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+        );
+        selectedFile = fileChooser.showOpenDialog(null);
+
+        if (selectedFile != null) {
+            try {
+                // Just select the file, no need to set it to the ImageView
+                new FileInputStream(selectedFile); // Ensure the file exists
+            } catch (FileNotFoundException e) {
+                showAlert("Erreur Fichier non trouvé.");
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML
@@ -89,6 +131,14 @@ public class UpdateController {
             selectedUser.setNumTel(Integer.parseInt(numTel_textfield.getText()));
             selectedUser.setGenre(genre_combobox.getValue());
             selectedUser.setAdresse(adresse_textfield.getText());
+
+            // Update the image if a new file is selected
+            if (selectedFile != null) {
+                try (FileInputStream fis = new FileInputStream(selectedFile)) {
+                    Blob blob = utilisateurService.createBlob(fis, (int) selectedFile.length());
+                    selectedUser.setImage_user(blob);
+                }
+            }
 
             utilisateurService.updateEntity(selectedUser.getId(), selectedUser);
 

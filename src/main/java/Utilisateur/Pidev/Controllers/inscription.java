@@ -1,5 +1,4 @@
 package Utilisateur.Pidev.Controllers;
-
 import Utilisateur.Pidev.Entites.Utilisateur;
 import Utilisateur.Pidev.Services.UtilisateurService;
 import Utilisateur.Pidev.Tools.MyConnection;
@@ -11,13 +10,19 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import Utilisateur.Pidev.Utils.EmailValidator;
-
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.sql.Blob;
+import java.io.InputStream;
+import java.nio.file.StandardOpenOption;
 
 public class inscription {
 
@@ -51,6 +56,13 @@ public class inscription {
     @FXML
     private Label label_message;
 
+    @FXML
+    private Button uploadButton;
+
+    @FXML
+    private ImageView imageView;
+
+    private File selectedFile;
     private UtilisateurService utilisateurService = new UtilisateurService();
     private EmailValidator emailValidator;
 
@@ -60,6 +72,24 @@ public class inscription {
         emailValidator = new EmailValidator(MyConnection.getInstance().getCnx());
 
     }
+
+
+    @FXML
+    void handleUploadImage(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+        );
+        Stage stage = (Stage) uploadButton.getScene().getWindow();
+        selectedFile = fileChooser.showOpenDialog(stage);
+
+        if (selectedFile != null) {
+            Image image = new Image(selectedFile.toURI().toString());
+            imageView.setImage(image);
+        }
+    }
+
+
 
     @FXML
     void AjouterUtilisateurAction(ActionEvent event) {
@@ -95,7 +125,20 @@ public class inscription {
             utilisateur.setAdresse(adresse);
             utilisateur.setRole(Utilisateur.Role.Adherent);
             utilisateur.setBanned(false);
-            UtilisateurService utilisateurService = new UtilisateurService();
+
+            if (selectedFile != null) {
+                try (InputStream inputStream = Files.newInputStream(selectedFile.toPath(), StandardOpenOption.READ)) {
+                    byte[] imageBytes = inputStream.readAllBytes();
+                    Blob imageBlob = MyConnection.getInstance().getCnx().createBlob();
+                    imageBlob.setBytes(1, imageBytes);
+                    utilisateur.setImage_user(imageBlob);
+                } catch (IOException | SQLException e) {
+                    showAlert("Erreur", "Erreur lors de la lecture de l'image.");
+                    e.printStackTrace();
+                    return;
+                }
+            }
+
             utilisateurService.addEntity(utilisateur);
 
             label_message.setText("Bienvenue, vous êtes inscrit à Sportify !");
@@ -119,6 +162,7 @@ public class inscription {
             e.printStackTrace();
         }
     }
+
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

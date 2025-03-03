@@ -1,6 +1,12 @@
 package Utilisateur.Pidev.Entites;
 
 
+import javafx.scene.image.Image;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.Date;
 
 public class Utilisateur {
@@ -23,6 +29,7 @@ public class Utilisateur {
  private Role role;
  private float salaire;
  private boolean banned;
+ private Blob image_user;
 
  public Utilisateur()
  {
@@ -31,7 +38,7 @@ public class Utilisateur {
 
  public Utilisateur(String email,String mdp,
                     String nom,String prenom,Date dateNai,int numTel,
-                    String genre, String adresse,Role role,float salaire,boolean banned)
+                    String genre, String adresse,Role role,float salaire,boolean banned,Blob image_user)
  {
      this.email=email;
   this.mdp=mdp;
@@ -44,11 +51,12 @@ public class Utilisateur {
   this.role=role;
   this.salaire=salaire;
   this.banned=banned;
+  this.image_user = image_user;
  }
  //admin
     public Utilisateur(String email,String mdp,
                        String nom,String prenom,int numTel,
-                       String genre,Role role)
+                       String genre,Role role,Blob image_user)
     {
         this.email=email;
         this.mdp=mdp;
@@ -57,12 +65,13 @@ public class Utilisateur {
         this.numTel=numTel;
         this.genre=genre;
         this.role=role;
+        this.image_user = image_user;
 
     }
     //coach
     public Utilisateur(String email,String mdp,
                        String nom,String prenom,int numTel,
-                       String genre, String adresse,Role role,float salaire,boolean banned)
+                       String genre, String adresse,Role role,float salaire,boolean banned,Blob image_user)
     {
         this.email=email;
         this.mdp=mdp;
@@ -74,11 +83,12 @@ public class Utilisateur {
         this.role=role;
         this.salaire=salaire;
         this.banned=banned;
+        this.image_user = image_user;
     }
     //adherent
     public Utilisateur(String email,String mdp,
                        String nom,String prenom,Date dateNai,int numTel,
-                       String genre, String adresse)
+                       String genre, String adresse,Blob image_user)
     {
         this.email=email;
         this.mdp=mdp;
@@ -88,9 +98,9 @@ public class Utilisateur {
         this.numTel=numTel;
         this.genre=genre;
         this.adresse=adresse;
+        this.image_user = image_user;
 
     }
-
 
     public int getId() {
         return id;
@@ -172,22 +182,17 @@ public class Utilisateur {
         this.role = role;
     }
 
+    public float getSalaire() { return salaire; }
 
-    public float getSalaire() {
-        return salaire;
-    }
+    public void setSalaire(float salaire) { this.salaire = salaire; }
 
-    public void setSalaire(float salaire) {
-        this.salaire = salaire;
-    }
+    public boolean isBanned() { return banned; }
 
-    public boolean isBanned() {
-        return banned;
-    }
+    public void setBanned(boolean banned) { this.banned = banned; }
 
-    public void setBanned(boolean banned) {
-        this.banned = banned;
-    }
+    public Blob getImage_user() { return image_user; }
+
+    public void setImage_user(Blob image_user) { this.image_user = image_user; }
 
     @Override
     public String toString() {
@@ -204,6 +209,17 @@ public class Utilisateur {
                 ", email='" + email + '\'' +
                 ", mdp='" + mdp + '\'' +
                 ", id=" + id +
+                ", image_user=" + image_user +
                 '}';
+    }
+    public Image getImage() {
+        if (image_user != null) {
+            try (InputStream is = image_user.getBinaryStream()) {
+                return new Image(is);
+            } catch (SQLException | IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 }
