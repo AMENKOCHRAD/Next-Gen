@@ -60,6 +60,68 @@
             <artifactId>slf4j-simple</artifactId>
             <version>1.7.36</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.sun.speech</groupId>
+            <artifactId>freetts</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.speech</groupId>
+            <artifactId>cmu_us_kal</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.speech</groupId>
+            <artifactId>freetts-jsapi10</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.speech</groupId>
+            <artifactId>cmulex</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.sun.speech</groupId>
+            <artifactId>cmu_time_awb</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.speech</groupId>
+            <artifactId>cmudict04</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.speech</groupId>
+            <artifactId>cmutimelex</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.speech</groupId>
+            <artifactId>en_us</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alphacephei</groupId>
+            <artifactId>vosk</artifactId>
+            <version>0.3.45</version>
+        </dependency>
+
+
+
+
+
+
+
+
+
+
     </dependencies>
     <build>
         <plugins>
