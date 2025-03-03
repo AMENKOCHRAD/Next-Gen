@@ -9,15 +9,36 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="875.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.pidev3A8.controllers.ModifierCommandeController">
+<AnchorPane prefHeight="438.0" prefWidth="508.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.pidev3A8.controllers.ModifierCommandeController">
     <children>
-        <!-- Barre de navigation -->
-        <fx:include source="Navbar.fxml">
+        <GridPane hgap="10" layoutX="20" layoutY="20" vgap="10">
+            <!-- Produit -->
+            <Label text="Produit:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <ComboBox fx:id="produitComboBox" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-        </fx:include>
-        <GridPane hgap="10" layoutX="79.0" layoutY="78.0" vgap="10">
+            <!-- ID Client -->
+            <Label text="ID Client:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <TextField fx:id="idClientField" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+            <!-- Quantité -->
+            <Label text="Quantité:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <TextField fx:id="quantiteField" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+            <!-- Prix Total -->
+            <Label text="Prix Total:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+            <TextField fx:id="prixTotalField" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+            <!-- Date Commande -->
+            <Label text="Date Commande:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+            <DatePicker fx:id="dateCommandePicker" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+            <!-- Statut -->
+            <Label text="Statut:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+            <ComboBox fx:id="statutComboBox" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+            <!-- Bouton Modifier -->
+            <Button onAction="#handleModifierCommande" prefWidth="200" text="Modifier" GridPane.columnIndex="1" GridPane.rowIndex="6" />
          <columnConstraints>
             <ColumnConstraints />
             <ColumnConstraints />
@@ -30,58 +51,7 @@
             <RowConstraints />
             <RowConstraints />
             <RowConstraints />
-            <RowConstraints />
          </rowConstraints>
         </GridPane>
-         <ComboBox fx:id="statutComboBox" layoutX="357.0" layoutY="433.0" prefHeight="26.0" prefWidth="130.0" />
-
-         <!-- Bouton Modifier -->
-         <Button fx:id="modifierc" layoutX="732.0" layoutY="442.0" onAction="#handleModifierCommande" prefHeight="42.0" prefWidth="130.0" text="Modifier" />
-         <ComboBox fx:id="produitComboBox" layoutX="356.0" layoutY="87.0" prefHeight="26.0" prefWidth="130.0" />
-         <!-- Produit -->
-         <Label layoutX="355.0" layoutY="62.0" text="Produit:" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
-
-         <!-- Statut -->
-         <Label layoutX="357.0" layoutY="404.0" text="Statut:" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
-         <DatePicker fx:id="dateCommandePicker" layoutX="357.0" layoutY="292.0" prefHeight="26.0" prefWidth="172.0" />
-
-         <!-- Date Commande -->
-         <Label layoutX="358.0" layoutY="265.0" text="Date Commande:" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
-         <TextField fx:id="prixTotalField" layoutX="357.0" layoutY="224.0" prefHeight="26.0" prefWidth="172.0" />
-         <TextField fx:id="quantiteField" layoutX="358.0" layoutY="364.0" prefHeight="26.0" prefWidth="172.0" />
-
-         <!-- Quantité -->
-         <Label layoutX="357.0" layoutY="334.0" text="Quantité:" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
-         <TextField fx:id="idClientField" layoutX="355.0" layoutY="155.0" prefHeight="26.0" prefWidth="172.0" />
-
-         <!-- ID Client -->
-         <Label layoutX="358.0" layoutY="130.0" text="ID Client:" textFill="#fff8f8">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
-
-         <!-- Prix Total -->
-         <Label layoutX="356.0" layoutY="198.0" text="Prix Total:" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
     </children>
 </AnchorPane>

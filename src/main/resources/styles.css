@@ -1,9 +1,5 @@
 /* styles.css */
-.root {
-    -fx-background-image: url("images/imageback.png");
-    -fx-background-size: cover;
-    -fx-background-position: center center;
-}
+
 /* Style de base pour les boutons */
 .button {
     -fx-font-size: 14px;
@@ -15,96 +11,53 @@
 }
 
 /* Style pour le bouton "Ajouter un produit" */
-#Ajouterc {
-    -fx-background-color: #6a11cb; /* Dégradé violet */
+#ajouterButton {
+    -fx-background-color: #4CAF50; /* Vert */
 }
 
-#Ajouterc:hover {
-    -fx-background-color: #5611a1; /* Violet plus foncé au survol */
-}
-#VenteButton{
-    -fx-background-color: #6a11cb; /* Dégradé violet */
-
-}
-#VenteButton:hover{
-    -fx-background-color:#5611a1;  /* Dégradé violet */
-
-}
-#uploadButton{
-    -fx-background-color: #6a11cb; /* Dégradé violet */
-
-}
-#uploadButton:hover{
-    -fx-background-color:#5611a1;  /* Dégradé violet */
-
-}
-#ajouterButton{
-    -fx-background-color: #6a11cb; /* Dégradé violet */
-
-}
-#ajouterButton:hover{
-    -fx-background-color:#5611a1;  /* Dégradé violet */
-
-}
-#modifierc{
-    -fx-background-color: #6a11cb; /* Dégradé violet */
-}
-#modifierc:hover{
-    -fx-background-color:#5611a1;  /* Dégradé violet */
-
+#ajouterButton:hover {
+    -fx-background-color: #45a049; /* Vert plus foncé au survol */
 }
 #ajouterCommandeButton {
-    -fx-background-color: #6a11cb; /* Dégradé violet */
+    -fx-background-color: #4CAF50; /* Vert */
 }
 
 #ajouterCommandeButton:hover {
-    -fx-background-color: #5611a1; /* Violet plus foncé au survol */
+    -fx-background-color: #45a049; /* Vert plus foncé au survol */
 }
 
 /* Style pour le bouton "Supprimer" */
 #supprimerButton {
-    -fx-background-color:  #6a11cb; /* Rouge */
+    -fx-background-color: #f44336; /* Rouge */
 }
-#handleAjouter {
-    -fx-background-color: #6a11cb; /* Dégradé violet */
-}
-#handleAjouter{
-    -fx-background-color: #6a11cb; /* Dégradé violet */
-
-}
-#handleAjouter:hover {
-    -fx-background-color: #5611a1; /* Violet plus foncé au survol */
-}
-
 
 #supprimerButton:hover {
-    -fx-background-color: #5611a1; /* Rouge plus foncé au survol */
+    -fx-background-color: #d32f2f; /* Rouge plus foncé au survol */
 }
 
 /* Style pour le bouton "Modifier" */
 #modifierButton {
-    -fx-background-color: #6a11cb; /* Dégradé violet */
+    -fx-background-color: #2196F3; /* Bleu */
 }
 
 #modifierButton:hover {
-    -fx-background-color: #5611a1; /* Violet plus foncé au survol */
+    -fx-background-color: #1976D2; /* Bleu plus foncé au survol */
 }
-
 #modifierCommandeButton {
-    -fx-background-color: #6a11cb; /* Dégradé violet */
+    -fx-background-color: #2196F3; /* Bleu */
 }
 
 #modifierCommandeButton:hover {
-    -fx-background-color: #5611a1; /* Violet plus foncé au survol */
+    -fx-background-color: #1976D2; /* Bleu plus foncé au survol */
 }
 
 /* Style pour le bouton "Voir Commandes" */
 #voirCommandesButton {
-    -fx-background-color: #6a11cb; /* Dégradé violet */
+    -fx-background-color: #FF9800; /* Orange */
 }
 
 #voirCommandesButton:hover {
-    -fx-background-color: #5611a1; /* Violet plus foncé au survol */
+    -fx-background-color: #F57C00; /* Orange plus foncé au survol */
 }
 
 /* Style pour la TableView */
@@ -149,27 +102,4 @@
 
 .table-view .button:hover {
     -fx-text-fill: #1976D2; /* Bleu plus foncé au survol */
-}
-
-/* Gradient Button */
-.button-gradient {
-    -fx-background-color: #6a11cb;
-    -fx-text-fill: white;
-    -fx-font-size: 14px;
-    -fx-padding: 10px 20px;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
-    -fx-border-color: #ffffff;
-    -fx-border-width: 1px;
-    -fx-cursor: hand;
-}
-
-/* Hover Effect */
-.button-gradient:hover {
-    -fx-background-color: #5611a1;
-}
-
-/* Pressed Effect */
-.button-gradient:pressed {
-    -fx-background-color: linear-gradient(to bottom, #d1d1d1, #000033);
 }

@@ -7,52 +7,29 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="875.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.pidev3A8.controllers.AjouterCommandeController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.pidev3A8.controllers.AjouterCommandeController">
     <children>
-        <!-- Barre de navigation -->
-        <fx:include source="Navbar.fxml">
-
-        </fx:include>
-        <VBox layoutX="293.0" layoutY="75.0" prefHeight="383.0" prefWidth="262.0" spacing="10.0">
-            <Label text="Produit:" textFill="#fafafa">
-            <font>
-               <Font name="System Bold" size="14.0" />
-            </font></Label>
+        <VBox layoutX="50.0" layoutY="50.0" spacing="10.0">
+            <Label text="Produit:" />
             <ComboBox fx:id="produitComboBox" />
 
-            <Label text="ID Client:" textFill="WHITE">
-            <font>
-               <Font name="System Bold" size="14.0" />
-            </font></Label>
+            <Label text="ID Client:" />
             <TextField fx:id="idClientField" />
 
-            <Label text="Quantité:" textFill="WHITE">
-            <font>
-               <Font name="System Bold" size="14.0" />
-            </font></Label>
+            <Label text="Quantité:" />
             <TextField fx:id="quantiteField" />
 
-            <Label text="Prix Total:" textFill="WHITE">
-            <font>
-               <Font name="System Bold" size="14.0" />
-            </font></Label>
+            <Label text="Prix Total:" />
             <TextField fx:id="prixTotalField" />
 
-            <Label text="Date Commande:" textFill="WHITE">
-            <font>
-               <Font name="System Bold" size="14.0" />
-            </font></Label>
+            <Label text="Date Commande:" />
             <DatePicker fx:id="dateCommandePicker" />
 
-            <Label text="Statut:" textFill="WHITE">
-            <font>
-               <Font name="System Bold Italic" size="14.0" />
-            </font></Label>
+            <Label text="Statut:" />
             <ComboBox fx:id="statutComboBox" />
-        </VBox>
 
-         <Button fx:id="Ajouterc" layoutX="468.0" layoutY="445.0" onAction="#handleAjouter" prefHeight="34.0" prefWidth="122.0" text="Ajouter" />
+            <Button text="Ajouter" onAction="#handleAjouter" />
+        </VBox>
     </children>
 </AnchorPane>

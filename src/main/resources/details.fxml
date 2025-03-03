@@ -7,15 +7,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane prefHeight="500.0" prefWidth="875.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.pidev3A8.controllers.DetailsController">
+<AnchorPane prefHeight="400.0" prefWidth="767.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.pidev3A8.controllers.DetailsController" stylesheets="@styles.css">
     <children>
-        <!-- Barre de navigation -->
-        <fx:include source="Navbar.fxml">
-
-        </fx:include>
-
         <!-- TableView pour afficher les produits -->
-        <TableView fx:id="produitTable" layoutX="41.0" layoutY="104.0" prefHeight="259.0" prefWidth="823.0">
+        <TableView fx:id="produitTable" prefHeight="318.0" prefWidth="767.0" layoutX="0.0" layoutY="0.0">
             <columns>
                 <!-- Colonne ID -->
                 <TableColumn fx:id="idColumn" prefWidth="50.0" text="ID">
@@ -53,21 +48,21 @@
                 </TableColumn>
 
                 <!-- Colonne Description -->
-                <TableColumn fx:id="descriptionColumn" prefWidth="151.99993896484375" text="Description">
+                <TableColumn fx:id="descriptionColumn" prefWidth="118.4" text="Description">
                     <cellValueFactory>
                         <PropertyValueFactory property="description" />
                     </cellValueFactory>
                 </TableColumn>
 
                 <!-- Colonne Statut -->
-                <TableColumn fx:id="statusColumn" prefWidth="115.2000732421875" text="Statut">
+                <TableColumn fx:id="statusColumn" prefWidth="88.0" text="Statut">
                     <cellValueFactory>
                         <PropertyValueFactory property="status" />
                     </cellValueFactory>
                 </TableColumn>
 
                 <!-- Colonne Image -->
-                <TableColumn fx:id="imageColumn" prefWidth="190.4000244140625" text="Image">
+                <TableColumn fx:id="imageColumn" prefWidth="147.2" text="Image">
                     <cellValueFactory>
                         <PropertyValueFactory property="image" />
                     </cellValueFactory>
@@ -75,19 +70,19 @@
             </columns>
         </TableView>
 
-        <!-- Boutons supplémentaires -->
-        <HBox layoutX="14.0" layoutY="330.0" spacing="10" />
+        <!-- Boutons supplémentaires dans un HBox -->
+        <HBox layoutX="14.0" layoutY="330.0" spacing="10">
+            <!-- Bouton Ajouter un produit -->
+            <Button fx:id="ajouterButton" onAction="#handleAjouterProduit" text="Ajouter un produit" styleClass="button" />
 
-        <!-- Bouton Modifier -->
-        <Button fx:id="modifierButton" layoutX="234.0" layoutY="385.0" onAction="#handleModifierProduit" styleClass="button-gradient" text="Modifier" />
+            <!-- Bouton Supprimer -->
+            <Button fx:id="supprimerButton" onAction="#handleSupprimerProduit" text="Supprimer" styleClass="button" />
 
-        <!-- Bouton Voir Commandes -->
-        <Button fx:id="voirCommandesButton" layoutX="705.0" layoutY="442.0" onAction="#handleVoirCommandes" styleClass="button-gradient" text="Voir Commandes" />
+            <!-- Bouton Modifier -->
+            <Button fx:id="modifierButton" onAction="#handleModifierProduit" text="Modifier" styleClass="button" />
 
-        <!-- Bouton Supprimer -->
-        <Button fx:id="supprimerButton" layoutX="353.0" layoutY="385.0" onAction="#handleSupprimerProduit" styleClass="button-gradient" text="Supprimer" />
-
-        <!-- Bouton Ajouter un produit -->
-        <Button fx:id="ajouterButton" layoutX="53.0" layoutY="385.0" onAction="#handleAjouterProduit" styleClass="button-gradient" text="Ajouter un produit" />
+            <!-- Bouton Voir Commandes -->
+            <Button fx:id="voirCommandesButton" onAction="#handleVoirCommandes" text="Voir Commandes" styleClass="button" />
+        </HBox>
     </children>
 </AnchorPane>
