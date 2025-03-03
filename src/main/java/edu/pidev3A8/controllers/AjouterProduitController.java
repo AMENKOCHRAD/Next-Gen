@@ -1,9 +1,5 @@
 package edu.pidev3A8.controllers;
 
-import com.stripe.Stripe;
-import com.stripe.exception.StripeException;
-import com.stripe.model.PaymentIntent;
-import com.stripe.param.PaymentIntentCreateParams;
 import edu.pidev3A8.entities.Etat;
 import edu.pidev3A8.entities.Produit;
 import edu.pidev3A8.entities.Status;
@@ -14,8 +10,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -50,9 +44,6 @@ public class AjouterProduitController {
     @FXML
     private Label imageLabel;
 
-    @FXML
-    private ImageView imageView; // Référence à l'ImageView dans le FXML
-
     private Produitservice produitservice = new Produitservice();
 
     private DetailsController detailsController; // Référence à DetailsController
@@ -70,7 +61,6 @@ public class AjouterProduitController {
         etatComboBox.getItems().setAll(Etat.values());
         statusComboBox.getItems().setAll(Status.values());
     }
-
     @FXML
     private void handleUploadImage() {
         FileChooser fileChooser = new FileChooser();
@@ -96,14 +86,8 @@ public class AjouterProduitController {
                 Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
                 // Stocker uniquement le nom du fichier (au lieu du chemin absolu)
-              imagePath = "src/main/resources/images/" + fileName;
-
-                // Charger l'image dans l'ImageView
-                Image image = new Image(destinationFile.toURI().toString());
-                imageView.setImage(image);
-
-                // Afficher le nom du fichier dans le label (optionnel)
-               imageLabel.setText(fileName);
+                imagePath = "src/main/resources/images/" + fileName;
+                imageLabel.setText(fileName);
 
                 System.out.println("Image enregistrée : " + imagePath);
             } catch (IOException e) {
@@ -112,11 +96,9 @@ public class AjouterProduitController {
             }
         }
     }
-
     private boolean isValidNomType(String input) {
         return input.matches("^[A-Za-z][A-Za-z ]*$");
     }
-
     @FXML
     private void handleAjouterProduit() {
         // Récupérer les valeurs des champs
@@ -125,7 +107,7 @@ public class AjouterProduitController {
         String prixStr = prixField.getText();
         Etat etat = etatComboBox.getValue();
         String description = descriptionField.getText();
-        Status status = Status.NON_VENDU;
+        Status status = statusComboBox.getValue();
 
         if (nom.isEmpty() || type.isEmpty() || prixStr.isEmpty() || description.isEmpty() || etat == null || status == null) {
             showAlert("Erreur", "Tous les champs doivent être remplis !");
@@ -164,25 +146,31 @@ public class AjouterProduitController {
             return;
         }
 
-        // Créer un nouveau produit
+        // Afficher les valeurs avant insertion
+        System.out.println("Produit à ajouter :");
+        System.out.println("Nom: " + nom);
+        System.out.println("Type: " + type);
+        System.out.println("Prix: " + prix);
+        System.out.println("État: " + etat);
+        System.out.println("Description: " + description);
+        System.out.println("Status: " + status);
+        System.out.println("ImagePath: " + imagePath);
+
         Produit produit = new Produit(nom, type, prix, etat, description, status, imagePath);
 
-        // Ajouter le produit à la base de données
         produitservice.addProduit(produit);
 
-        // Rafraîchir la liste des produits dans DetailsController
         if (detailsController != null) {
             detailsController.loadProduits();
         }
 
-        // Fermer la fenêtre
         Stage stage = (Stage) nomField.getScene().getWindow();
         stage.close();
     }
 
     // Méthode pour afficher une alerte
     private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);

@@ -3,7 +3,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -80,26 +79,15 @@
         <HBox layoutX="14.0" layoutY="330.0" spacing="10" />
 
         <!-- Bouton Modifier -->
-        <Button fx:id="modifierButton" layoutX="234.0" layoutY="385.0" onAction="#handleModifierProduit" style="-fx-background-color: #6a11cb;" text="Modifier" />
+        <Button fx:id="modifierButton" layoutX="234.0" layoutY="385.0" onAction="#handleModifierProduit" styleClass="button-gradient" text="Modifier" />
 
         <!-- Bouton Voir Commandes -->
-        <Button fx:id="voirCommandesButton" layoutX="705.0" layoutY="442.0" onAction="#handleVoirCommandes" style="-fx-background-color: #6a11cb;" text="Voir Commandes" />
+        <Button fx:id="voirCommandesButton" layoutX="705.0" layoutY="442.0" onAction="#handleVoirCommandes" styleClass="button-gradient" text="Voir Commandes" />
 
         <!-- Bouton Supprimer -->
-        <Button fx:id="supprimerButton" layoutX="353.0" layoutY="385.0" onAction="#handleSupprimerProduit" style="-fx-background-color: #6a11cb;" text="Supprimer" />
+        <Button fx:id="supprimerButton" layoutX="353.0" layoutY="385.0" onAction="#handleSupprimerProduit" styleClass="button-gradient" text="Supprimer" />
 
         <!-- Bouton Ajouter un produit -->
-        <Button fx:id="ajouterButton" layoutX="53.0" layoutY="385.0" onAction="#handleAjouterProduit" text="Ajouter un produit" />
-
-        <!-- Section des boutons -->
-        <TextField fx:id="searchField" layoutX="40" layoutY="70" prefWidth="200" promptText="Rechercher un produit" />
-        <Button fx:id="rechercher" layoutX="270" layoutY="60" onAction="#handleRechercheProduit" text="Rechercher" />
-        <Button fx:id="triPrixButton" layoutX="400" layoutY="60" onAction="#handleTriParPrix" text="Trier par Prix" />
-
-
-        <Button fx:id="ajouterAuPanierButton" layoutX="500.0" layoutY="385.0" onAction="#handleAjouterAuPanier" style="-fx-background-color: #6a11cb;" text="Ajouter au Panier" />
-            <Button fx:id="voirPanierButton" layoutX="700.0" layoutY="385.0" onAction="#handleVoirPanier" text="Voir Panier" />
-        <Button fx:id="generateQRCodeButton" layoutX="500.0" layoutY="442.0" onAction="#handleShowQRCode" text="Générer QR Code" />
-
+        <Button fx:id="ajouterButton" layoutX="53.0" layoutY="385.0" onAction="#handleAjouterProduit" styleClass="button-gradient" text="Ajouter un produit" />
     </children>
 </AnchorPane>

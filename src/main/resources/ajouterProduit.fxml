@@ -47,12 +47,12 @@
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Label>
-        <ImageView fx:id="imageView" fitHeight="80.0" fitWidth="90.0" layoutX="55.0" layoutY="405.0" preserveRatio="true" />
+
         <!-- Bouton pour sélectionner une image -->
         <Button fx:id="uploadButton" layoutX="381.0" layoutY="436.0" onAction="#handleUploadImage" text="Sélectionner une image" />
 
         <!-- Label pour afficher le nom du fichier image -->
-        <Label fx:id="imageLabel" layoutX="167.0" layoutY="457.0" prefHeight="9.0" prefWidth="125.0" text="Aucune image sélectionnée" textFill="WHITE">
+        <Label fx:id="imageLabel" layoutX="167.0" layoutY="446.0" text="Aucune image sélectionnée" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Label>

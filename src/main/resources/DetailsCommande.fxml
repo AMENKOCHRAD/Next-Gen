@@ -3,72 +3,67 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="500.0" prefWidth="875.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.pidev3A8.controllers.DetailsCommandeController">
     <children>
 
         <!-- Barre de navigation -->
-        <fx:include source="Navbar.fxml" />
+        <fx:include source="Navbar.fxml">
+
+        </fx:include>
+
+
 
         <!-- TableView pour afficher les commandes -->
-        <TableView fx:id="commandeTable" layoutX="46.0" layoutY="111.0" prefHeight="278.0" prefWidth="800.0">
+        <TableView fx:id="commandeTable" layoutX="46.0" layoutY="76.0" prefHeight="278.0" prefWidth="800.0">
             <columns>
-                <TableColumn fx:id="idCommandeColumn" prefWidth="96.8" text="ID Commande">
+                <TableColumn fx:id="idCommandeColumn" prefWidth="109.59997749328613" text="ID Commande">
                     <cellValueFactory>
                         <PropertyValueFactory property="id_commande" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="idProduitColumn" prefWidth="131.2" text="ID Produit">
+                <TableColumn fx:id="idProduitColumn" prefWidth="84.80001068115234" text="ID Produit">
                     <cellValueFactory>
                         <PropertyValueFactory property="id_produit" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="idClientColumn" prefWidth="114.4" text="ID Client">
+                <TableColumn fx:id="idClientColumn" prefWidth="111.20001220703125" text="ID Client">
                     <cellValueFactory>
                         <PropertyValueFactory property="id_client" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="quantiteColumn" prefWidth="118.4" text="Quantité">
+                <TableColumn fx:id="quantiteColumn" prefWidth="108.79998779296875" text="Quantité">
                     <cellValueFactory>
                         <PropertyValueFactory property="quantite" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="adressecolumn" prefWidth="152.8" text="Adresse">
+                <TableColumn fx:id="prixTotalColumn" prefWidth="122.39999389648438" text="Prix Total">
                     <cellValueFactory>
-                        <PropertyValueFactory property="adresse" />
+                        <PropertyValueFactory property="prix_total" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="mailcolumn" prefWidth="183.2" text="Adresse Email">
+                <TableColumn fx:id="dateCommandeColumn" prefWidth="120.0" text="Date Commande">
                     <cellValueFactory>
-                        <PropertyValueFactory property="adresseEmail" />
+                        <PropertyValueFactory property="date_commande" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="prixtotalcolumn" prefWidth="200.2" text="Prix Total">
+                <TableColumn fx:id="statutColumn" prefWidth="141.59991455078125" text="Statut">
                     <cellValueFactory>
-                        <PropertyValueFactory property="prixTotal" />
+                        <PropertyValueFactory property="statut" />
                     </cellValueFactory>
                 </TableColumn>
             </columns>
         </TableView>
-        <TextField fx:id="quantiteSearchField" layoutX="49.0" layoutY="67.0" prefHeight="26.0" prefWidth="162.0" promptText="Rechercher par quantité" />
-        <Button layoutX="220.0" layoutY="61.0" onAction="#handleSearchByQuantite" style="-fx-background-color: #6a11cb;" text="Rechercher" />
-        <Button graphicTextGap="3.0" layoutX="720.0" layoutY="64.0" onAction="#handleSortByQuantite" prefHeight="17.0" prefWidth="120.0" style="-fx-background-color: #6a11cb;" text="Trier (ASC)">
-         <font>
-            <Font size="3.0" />
-         </font></Button>
         <!-- Bouton Ajouter Commande -->
-        <Button fx:id="ajouterCommandeButton" layoutX="46.0" layoutY="423.0" onAction="#handleAjouterCommande" style="-fx-background-color: #6a11cb;" text="Ajouter Commande" />
+        <Button fx:id="ajouterCommandeButton" layoutX="46.0" layoutY="369.0" onAction="#handleAjouterCommande" text="Ajouter Commande" />
 
         <!-- Bouton Modifier Commande -->
-        <Button fx:id="modifierCommandeButton" layoutX="222.0" layoutY="422.0" onAction="#handleModifierCommande" prefHeight="41.0" prefWidth="110.0" style="-fx-background-color: #6a11cb;" text="Modifier" />
+        <Button fx:id="modifierCommandeButton" layoutX="224.0" layoutY="368.0" onAction="#handleModifierCommande" prefHeight="41.0" prefWidth="110.0" text="Modifier" />
 
         <!-- Bouton Supprimer Commande -->
-        <Button fx:id="supprimerButton" layoutX="351.0" layoutY="423.0" onAction="#handleSupprimerCommande" style="-fx-background-color: #6a11cb;" text="Supprimer" />
-        <Button fx:id="produitPlusVenduButton" layoutX="485.0" layoutY="421.0" onAction="#handleProduitPlusVendu" text="Produit le plus vendu" />
-        <Button layoutX="560.0" layoutY="64.0" onAction="#exportToPDF" style="-fx-background-color: #6a11cb;" text="Exporter en PDF" />
+        <Button fx:id="supprimerButton" layoutX="348.0" layoutY="368.0" onAction="#handleSupprimerCommande" text="Supprimer" />
+
     </children>
 </AnchorPane>

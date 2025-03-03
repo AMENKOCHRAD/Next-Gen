@@ -18,7 +18,7 @@ public class Mainclass {
         //ps.addProduit(p);
         //ps.addProduit(p1);
         // p.setId_produit(16);
-Payment p;
+
         //ps.deleteProduit(p);
         //Produit updatedProduit = new Produit("sweat", "vetement", 15.5, Etat.NEUF, "hhgvvvvv", Status.VENDU);
         // ps.updateProduit(14, updatedProduit);
@@ -28,11 +28,11 @@ Payment p;
 //Convertir en java.sql.Date (format YYYY-MM-DD compatible MySQL)
         // Date sqlDate = new Date(calendar.getTimeInMillis());
 
-        //Commande c = new Commande(17, 2, 6,  sqlDate, StatutCommande.ANNULEE);
+        //Commande c = new Commande(17, 2, 6, 3.6, sqlDate, StatutCommande.ANNULEE);
 
         //Commandeservice cs = new Commandeservice();
         //cs.addCommande(c);
-        // Commande updatecommande = new Commande(16, 2, 5,  new Date(), StatutCommande.EN_ROUTE);
+        // Commande updatecommande = new Commande(16, 2, 5, 7.5, new Date(), StatutCommande.EN_ROUTE);
 
         //Commandeservice cs = new Commandeservice();
 

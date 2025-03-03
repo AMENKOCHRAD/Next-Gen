@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -32,9 +33,10 @@
             <RowConstraints />
          </rowConstraints>
         </GridPane>
+         <ComboBox fx:id="statutComboBox" layoutX="357.0" layoutY="433.0" prefHeight="26.0" prefWidth="130.0" />
 
          <!-- Bouton Modifier -->
-         <Button fx:id="modifierc" layoutX="681.0" layoutY="442.0" onAction="#handleModifierCommande" prefHeight="42.0" prefWidth="130.0" style="-fx-background-color: #6a11cb;" text="Modifier" />
+         <Button fx:id="modifierc" layoutX="732.0" layoutY="442.0" onAction="#handleModifierCommande" prefHeight="42.0" prefWidth="130.0" text="Modifier" />
          <ComboBox fx:id="produitComboBox" layoutX="356.0" layoutY="87.0" prefHeight="26.0" prefWidth="130.0" />
          <!-- Produit -->
          <Label layoutX="355.0" layoutY="62.0" text="Produit:" textFill="WHITE">
@@ -42,11 +44,26 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-        
-         <TextField fx:id="quantiteField" layoutX="355.0" layoutY="236.0" prefHeight="26.0" prefWidth="172.0" />
+
+         <!-- Statut -->
+         <Label layoutX="357.0" layoutY="404.0" text="Statut:" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+         <DatePicker fx:id="dateCommandePicker" layoutX="357.0" layoutY="292.0" prefHeight="26.0" prefWidth="172.0" />
+
+         <!-- Date Commande -->
+         <Label layoutX="358.0" layoutY="265.0" text="Date Commande:" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+         <TextField fx:id="prixTotalField" layoutX="357.0" layoutY="224.0" prefHeight="26.0" prefWidth="172.0" />
+         <TextField fx:id="quantiteField" layoutX="358.0" layoutY="364.0" prefHeight="26.0" prefWidth="172.0" />
 
          <!-- Quantité -->
-         <Label layoutX="357.0" layoutY="203.0" text="Quantité:" textFill="WHITE">
+         <Label layoutX="357.0" layoutY="334.0" text="Quantité:" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -59,19 +76,12 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="357.0" layoutY="281.0" text="Adresse:" textFill="WHITE">
+
+         <!-- Prix Total -->
+         <Label layoutX="356.0" layoutY="198.0" text="Prix Total:" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="AdresseField" layoutX="355.0" layoutY="313.0" prefHeight="26.0" prefWidth="172.0" />
-      <Label layoutX="356.0" layoutY="358.0" text="Adressse_Email:" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
-      <TextField fx:id="mailField" layoutX="355.0" layoutY="386.0" prefHeight="26.0" prefWidth="172.0" />
-
-
     </children>
 </AnchorPane>

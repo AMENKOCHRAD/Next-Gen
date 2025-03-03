@@ -30,22 +30,6 @@
     -fx-background-color:#5611a1;  /* Dégradé violet */
 
 }
-
-#showQRCodeButton{
-    -fx-background-color: #6a11cb; /* Dégradé violet */
-
-}
-
-#showQRCodeButton:hover{
-    -fx-background-color:#5611a1;  /* Dégradé violet */
-
-}
-#produitPlusVenduButton{
-  -fx-background-color: #6a11cb; /* Dégradé violet */
-}
-#produitPlusVenduButton:hover{
-  -fx-background-color: #5611a1; /* Dégradé violet */
-}
 #uploadButton{
     -fx-background-color: #6a11cb; /* Dégradé violet */
 
@@ -54,48 +38,13 @@
     -fx-background-color:#5611a1;  /* Dégradé violet */
 
 }
-#rechercher{
--fx-background-color: #6a11cb;
-}
-#rechercher:hover{
--fx-background-color: #5611a1;
-}
-#passerCommandeButton{
--fx-background-color: #6a11cb;
-}
-#passerCommandeButton:hover{
--fx-background-color: #5611a1;
-}
-#voirPanierButton{
-                 -fx-background-color: #6a11cb;
-                 }
-                 #voirPanierButton:hover{
-                 -fx-background-color: #5611a1;
-                 }
-#generateQRCodeButton{
-                                      -fx-background-color: #6a11cb;
-                                      }
-                                      #generateQRCodeButton{
-                                      -fx-background-color: #5611a1;
-                                      }
 #ajouterButton{
     -fx-background-color: #6a11cb; /* Dégradé violet */
 
 }
-#triPrixButton{
--fx-background-color: #6a11cb;
-}
-#triPrixButton:hover{
--fx-background-color: #5611a1;
-}
 #ajouterButton:hover{
     -fx-background-color:#5611a1;  /* Dégradé violet */
-#generateQRCodeButton{
--fx-background-color: #6a11cb;
-}
-#generateQRCodeButton:hover{
--fx-background-color: #5611a1;
-}
+
 }
 #modifierc{
     -fx-background-color: #6a11cb; /* Dégradé violet */
@@ -126,32 +75,21 @@
 #handleAjouter:hover {
     -fx-background-color: #5611a1; /* Violet plus foncé au survol */
 }
-#ajouterAuPanierButton{
- -fx-background-color: #6a11cb;
-}
-#ajouterAuPanierButton:hover{
- -fx-background-color: #5611a1;
-}
-#voirPanierButton{
--fx-background-color: #6a11cb;
-}
-#voirPanierButton:hover{
--fx-background-color:#5611a1;
-}
+
 
 #supprimerButton:hover {
     -fx-background-color: #5611a1; /* Rouge plus foncé au survol */
 }
 
-#supprimerButton: {
-    -fx-background-color: #6a11cb; /* Rouge plus foncé au survol */
+/* Style pour le bouton "Modifier" */
+#modifierButton {
+    -fx-background-color: #6a11cb; /* Dégradé violet */
 }
-#modifierButton{
-               -fx-background-color: #6a11cb;
-               }
-               #modifierButton:hover{
-               -fx-background-color:#5611a1;
-               }
+
+#modifierButton:hover {
+    -fx-background-color: #5611a1; /* Violet plus foncé au survol */
+}
+
 #modifierCommandeButton {
     -fx-background-color: #6a11cb; /* Dégradé violet */
 }

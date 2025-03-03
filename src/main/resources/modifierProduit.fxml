@@ -20,7 +20,6 @@
         <ComboBox fx:id="etatComboBox" layoutX="368.0" layoutY="280.0" prefHeight="26.0" prefWidth="117.0" promptText="État" />
         <TextField fx:id="descriptionField" layoutX="367.0" layoutY="344.0" prefHeight="26.0" prefWidth="178.0" promptText="Description" />
         <ComboBox fx:id="statusComboBox" layoutX="364.0" layoutY="406.0" prefHeight="26.0" prefWidth="118.0" promptText="Statut" />
-        <ImageView fx:id="imageVieww" fitHeight="76.0" fitWidth="80.0" layoutX="53.0" layoutY="405.0" preserveRatio="true" />
 
         <Label layoutX="365.0" layoutY="61.0" text="Nom:" textFill="WHITE">
          <font>
@@ -47,11 +46,11 @@
             <Font name="System Bold" size="14.0" />
          </font></Label>
         <Button fx:id="uploadButton" layoutX="359.0" layoutY="445.0" onAction="#handleUploadImage" prefHeight="26.0" prefWidth="134.0" text="Upload Image" />
-        <Label fx:id="imageLabel" layoutX="203.0" layoutY="464.0" prefHeight="14.0" prefWidth="111.0" text="No image selected" textFill="#fcfcfc">
+        <Label fx:id="imageLabel" layoutX="203.0" layoutY="458.0" text="No image selected" textFill="#fcfcfc">
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Label>
         <ImageView fx:id="imagePreview" fitHeight="100" fitWidth="100" layoutX="400.0" layoutY="50.0" preserveRatio="true" />
-        <Button fx:id="modifierButton" layoutX="763.0" layoutY="445.0" onAction="#handleModifierProduit" style="-fx-background-color: #6a11cb;" text="Modifier" />
+        <Button fx:id="modifierButton" layoutX="763.0" layoutY="445.0" onAction="#handleModifierProduit" text="Modifier" />
     </children>
 </AnchorPane>
