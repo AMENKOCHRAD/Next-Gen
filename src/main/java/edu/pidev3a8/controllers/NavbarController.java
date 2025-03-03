@@ -1,4 +1,4 @@
-package gestion.pidev.controllers;
+package edu.pidev3a8.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

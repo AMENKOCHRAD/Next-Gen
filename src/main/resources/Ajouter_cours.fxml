@@ -8,7 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestion.pidev.controllers.Ajouter_coursController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.pidev3a8.controllers.Ajouter_coursController">
    <children>
       <TextField fx:id="nom_cours" layoutX="226.0" layoutY="37.0" />
       <ComboBox fx:id="typeComboBox" layoutX="226.0" layoutY="84.0" />

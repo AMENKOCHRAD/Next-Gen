@@ -1,4 +1,4 @@
-package gestion.pidev.interfaces;
+package edu.pidev3a8.interfaces;
 
 import java.util.List;
 

@@ -1,9 +1,9 @@
-package gestion.pidev.controllers;
+package edu.pidev3a8.controllers;
 
+import edu.pidev3a8.entities.Cours;
+import edu.pidev3a8.services.CoursService;
 import org.vosk.Model;
 import org.vosk.Recognizer;
-import gestion.pidev.entities.Cours;
-import gestion.pidev.services.CoursService;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

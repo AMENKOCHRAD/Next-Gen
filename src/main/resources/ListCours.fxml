@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="875.0" stylesheets="styles.css"
             xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="gestion.pidev.controllers.ListCoursController">
+            fx:controller="edu.pidev3a8.controllers.ListCoursController">
     <children>
         <VBox spacing="10.0" alignment="CENTER">
             <!-- Inclusion de la navbar -->

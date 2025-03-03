@@ -1,4 +1,4 @@
-package gestion.pidev.entities;
+package edu.pidev3a8.entities;
 
 import java.util.Date;
 

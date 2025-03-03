@@ -1,7 +1,7 @@
-package gestion.pidev.controllers;
+package edu.pidev3a8.controllers;
 
-import gestion.pidev.entities.Cours;
-import gestion.pidev.services.CoursService;
+import edu.pidev3a8.entities.Cours;
+import edu.pidev3a8.services.CoursService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

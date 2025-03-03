@@ -1,13 +1,11 @@
-package gestion.pidev.controllers;
+package edu.pidev3a8.controllers;
 
-import gestion.pidev.entities.Cours;
-import gestion.pidev.entities.Cours_type;
-import gestion.pidev.services.CoursService;
-import gestion.pidev.services.Cours_typeService;
+import edu.pidev3a8.entities.Cours;
+import edu.pidev3a8.entities.Cours_type;
+import edu.pidev3a8.services.CoursService;
+import edu.pidev3a8.services.Cours_typeService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;

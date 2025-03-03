@@ -1,8 +1,8 @@
-package gestion.pidev.services;
+package edu.pidev3a8.services;
 
-import gestion.pidev.entities.Cours;
-import gestion.pidev.interfaces.IService;
-import gestion.pidev.tools.MyConnection;
+import edu.pidev3a8.entities.Cours;
+import edu.pidev3a8.interfaces.IService;
+import edu.pidev3a8.tools.MyConnection;
 
 import java.sql.*;
 import java.util.ArrayList;

@@ -1,7 +1,10 @@
-package gestion.pidev.controllers;
+package edu.pidev3a8.controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -9,9 +12,32 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
+import javafx.event.ActionEvent;
 
-public class CoursPlansController {
+import java.io.IOException;
 
+public class CoursFrontController {
+
+    // Section des exercices (CoursFrontController)
+    @FXML
+    private VBox vbox1;
+
+    @FXML
+    private VBox vbox2;
+
+    @FXML
+    private VBox vbox3;
+
+    @FXML
+    private ImageView imageView1;
+
+    @FXML
+    private ImageView imageView2;
+
+    @FXML
+    private ImageView imageView3;
+
+    // Section des plans d'entraînement (CoursPlansController)
     @FXML
     private ImageView image1;
 
@@ -26,7 +52,7 @@ public class CoursPlansController {
 
     @FXML
     public void initialize() {
-        // Chargement des images statiques
+        // Chargement des images statiques (CoursPlansController)
         try {
             image1.setImage(new Image(getClass().getResource("/Images/abs_wk.png").toExternalForm()));
             image2.setImage(new Image(getClass().getResource("/Images/beginner.png").toExternalForm()));
@@ -36,7 +62,7 @@ public class CoursPlansController {
             e.printStackTrace();
         }
 
-        // Initialisation de la voix FreeTTS
+        // Initialisation de la voix FreeTTS (CoursPlansController)
         System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
         VoiceManager voiceManager = VoiceManager.getInstance();
         voice = voiceManager.getVoice("kevin16");
@@ -48,6 +74,32 @@ public class CoursPlansController {
         }
     }
 
+    // Méthodes pour les exercices (CoursFrontController)
+    @FXML
+    private void handleSquatsAction(ActionEvent event) {
+        runPythonScript("C:/Users/Fedy_/Desktop/exos_python/squats.py");
+    }
+
+    @FXML
+    private void handleSautsAmericainsAction(ActionEvent event) {
+        runPythonScript("C:/Users/Fedy_/Desktop/exos_python/sauts_americains.py");
+    }
+
+    @FXML
+    private void handleElevationDeGenouxAction(ActionEvent event) {
+        runPythonScript("C:/Users/Fedy_/Desktop/exos_python/elevation_de_genoux.py");
+    }
+
+    private void runPythonScript(String scriptPath) {
+        try {
+            ProcessBuilder processBuilder = new ProcessBuilder("python", scriptPath);
+            processBuilder.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Méthodes pour les plans d'entraînement (CoursPlansController)
     @FXML
     private void showImagePopup(Image image, String text) {
         Stage popupStage = new Stage();
@@ -102,5 +154,18 @@ public class CoursPlansController {
     @FXML
     private void showImage3() {
         showImagePopup(image3.getImage(), "This program is dedicated to people who are advanced in sports!.");
+    }
+
+    // Méthode pour naviguer vers ListCours.fxml
+    @FXML
+    private void handleListCoursAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListCours.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) vbox1.getScene().getWindow(); // Récupère la fenêtre actuelle
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestion.pidev.controllers.Ajouter_cours_typeController">
+<AnchorPane prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.pidev3a8.controllers.Ajouter_cours_typeController">
     <children>
         <Label layoutX="50.0" layoutY="30.0" text="Type Cours" />
         <TextField fx:id="typeCoursField" layoutX="150.0" layoutY="25.0" />

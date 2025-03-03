@@ -1,10 +1,8 @@
-package gestion.pidev.tests;
+package edu.pidev3a8.tests;
 
-import gestion.pidev.entities.Cours;
-import gestion.pidev.entities.Cours_type;
-import gestion.pidev.services.CoursService;
-import gestion.pidev.services.Cours_typeService;
-import gestion.pidev.tools.MyConnection;
+import edu.pidev3a8.services.CoursService;
+import edu.pidev3a8.entities.Cours_type;
+import edu.pidev3a8.services.Cours_typeService;
 
 public class MainClass {
 
