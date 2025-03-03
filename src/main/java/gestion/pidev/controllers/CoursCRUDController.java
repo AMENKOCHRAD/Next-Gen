@@ -197,10 +197,7 @@ public class CoursCRUDController {
         }
     }
 
-    /**
-     * Méthode pour afficher les statistiques sous forme d'un graphique en camembert,
-     * représentant le pourcentage de cours par type.
-     */
+
     @FXML
     private void handleStats() {
         // Récupérer tous les cours et les grouper par type
