@@ -1,10 +1,17 @@
 package edu.pidev3a8.services;
 
+import edu.pidev3a8.entities.PurgoMalumService;
 import edu.pidev3a8.entities.Reclamation;
 import edu.pidev3a8.entities.Categorie;
 import edu.pidev3a8.interfaces.IService;
 import edu.pidev3a8.tools.MyConnection;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,21 +23,24 @@ public class ReclamtionService implements IService<Reclamation> {
     @Override
     public void addEntity(Reclamation reclamation) {
         try {
+            //reclamation.setDate(LocalDateTime.now().minusDays(8));
+            String filteredDescription = PurgoMalumService.filterBadWords(reclamation.getDescription());
+            reclamation.setDescription(filteredDescription);
             // Vérifier si l'utilisateur a déjà déposé 3 réclamations aujourd'hui
-            String countQuery = "SELECT COUNT(*) FROM reclamation WHERE user = ? AND DATE(date) = CURDATE()";
+            String countQuery = "SELECT COUNT(*) FROM reclamationn WHERE user = ? AND DATE(date) = CURDATE()";
             PreparedStatement countStmt = MyConnection.getInstance().getCnx().prepareStatement(countQuery);
             countStmt.setInt(1, reclamation.getUser());
             ResultSet rs = countStmt.executeQuery();
 
             if (rs.next()) {
                 int count = rs.getInt(1);
-                if (count >= 3) {
+                if (count >=20) {
                     throw new SQLException("Vous avez  déjà déposé 3 réclamations aujourd'hui.");
                 }
             }
 
             // Ajouter la réclamation si la limite n'est pas atteinte
-            String requete = "INSERT INTO reclamation (sujet, description, statut, date, user, categorie, pieces_jointes) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String requete = "INSERT INTO reclamationn (sujet, description, statut, date, user, categorie, pieces_jointes) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pst = MyConnection.getInstance().getCnx().prepareStatement(requete);
             pst.setString(1, reclamation.getSujet());
             pst.setString(2, reclamation.getDescription());
@@ -46,10 +56,11 @@ public class ReclamtionService implements IService<Reclamation> {
             throw new RuntimeException(e); // Propager l'exception pour la gérer dans le contrôleur
         }
     }
+
     @Override
     public void deleteEntity(Reclamation reclamation) {
         try {
-            String requete = "DELETE FROM reclamation WHERE id = ?";
+            String requete = "DELETE FROM reclamationn WHERE id = ?";
             PreparedStatement pst = MyConnection.getInstance().getCnx().prepareStatement(requete);
             pst.setInt(1, reclamation.getId());
             int rowsDeleted = pst.executeUpdate();
@@ -66,7 +77,7 @@ public class ReclamtionService implements IService<Reclamation> {
     @Override
     public void updateEntity(int id, Reclamation reclamation) {
         try {
-            String requete = "UPDATE reclamation SET sujet = ?, description = ?, statut = ?, date = ?, user = ?, categorie = ?, pieces_jointes = ? WHERE id = ?";
+            String requete = "UPDATE reclamationn SET sujet = ?, description = ?, statut = ?, date = ?, user = ?, categorie = ?, pieces_jointes = ? WHERE id = ?";
 
             PreparedStatement pst = MyConnection.getInstance().getCnx().prepareStatement(requete);
             pst.setString(1, reclamation.getSujet());
@@ -95,11 +106,19 @@ public class ReclamtionService implements IService<Reclamation> {
         }
     }
 
+
     @Override
     public List<Reclamation> getAllData() {
         List<Reclamation> result = new ArrayList<>();
         try {
-            String requete = "SELECT * FROM reclamation";
+            String requete = "SELECT r.id, r.sujet, r.description, "
+                    + "CASE "
+                    + "WHEN (SELECT COUNT(*) FROM traitementreclamationn tr WHERE tr.reclamation_id = r.id) = 0 "
+                    + "AND DATEDIFF(NOW(), r.date) >= 7 THEN 'URGENT' "
+                    + "ELSE r.statut "
+                    + "END AS statut, "
+                    + "r.date, r.user, r.categorie, r.pieces_jointes "
+                    + "FROM reclamationn r";
             Statement st = MyConnection.getInstance().getCnx().createStatement();
             ResultSet rs = st.executeQuery(requete);
             while (rs.next()) {
@@ -143,7 +162,7 @@ public class ReclamtionService implements IService<Reclamation> {
     public Reclamation getReclamationById(int id) {
         Reclamation reclamation = null;
         try {
-            String requete = "SELECT * FROM reclamation WHERE id = ?";
+            String requete = "SELECT * FROM reclamationn WHERE id = ?";
             PreparedStatement pst = MyConnection.getInstance().getCnx().prepareStatement(requete);
             pst.setInt(1, id);
             ResultSet rs = pst.executeQuery();
@@ -156,6 +175,7 @@ public class ReclamtionService implements IService<Reclamation> {
                 reclamation.setStatut(rs.getString("statut"));
                 reclamation.setDate(rs.getTimestamp("date").toLocalDateTime());
                 reclamation.setUser(rs.getInt("user"));
+                reclamation.setEmail(rs.getString("email")); // Récupérer l'e-mail
 
                 // Gestion de la catégorie
                 String categorieStr = rs.getString("categorie");
@@ -185,7 +205,7 @@ public class ReclamtionService implements IService<Reclamation> {
     public Map<String, Integer> getReclamationsByCategory() {
         Map<String, Integer> reclamationsByCategory = new HashMap<>();
         try {
-            String query = "SELECT categorie, COUNT(*) as count FROM reclamation GROUP BY categorie";
+            String query = "SELECT categorie, COUNT(*) as count FROM reclamationn GROUP BY categorie";
             Statement st = MyConnection.getInstance().getCnx().createStatement();
             ResultSet rs = st.executeQuery(query);
 
@@ -204,7 +224,7 @@ public class ReclamtionService implements IService<Reclamation> {
     public Map<String, Integer> getReclamationsByStatut() {
         Map<String, Integer> reclamationsByStatut = new HashMap<>();
         try {
-            String query = "SELECT statut, COUNT(*) as count FROM reclamation GROUP BY statut";
+            String query = "SELECT statut, COUNT(*) as count FROM reclamationn GROUP BY statut";
             Statement st = MyConnection.getInstance().getCnx().createStatement();
             ResultSet rs = st.executeQuery(query);
 

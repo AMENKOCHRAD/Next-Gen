@@ -49,4 +49,7 @@
 
     <!-- Bouton Ajouter -->
     <Button text="Ajouter Traitement" onAction="#handleAjouterTraitement" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20;"/>
+    <Button text="Analyser Priorité" onAction="#handleAnalyserPriorite"
+            style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 10;"/>
+
 </VBox>

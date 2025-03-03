@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.regex.Pattern;
 
 public class ChatbotController {
     @FXML
@@ -122,19 +123,120 @@ public class ChatbotController {
     }
 
     private String generateResponse(String userMessage) {
-        // Logique de génération de réponse (similaire à l'exemple précédent)
         String message = userMessage.toLowerCase();
 
-        if (message.contains("bonjour") || message.contains("salut") || message.contains("coucou")) {
-            return "Bonjour ! 😊 Comment puis-je vous aider aujourd'hui ?";
+        // Ajout des motifs de reconnaissance pour les réclamations
+        boolean isReclamationContext = message.contains("reclam")
+                || message.contains("réclam")
+                || message.contains("document")
+                || message.contains("papier")
+                || message.contains("statut")
+                || message.contains("status")
+                || message.contains("temps")
+                || message.contains("délai")
+                || message.contains("modif")
+                || message.contains("annul");
+        if (isReclamationContext) {
+            return handleReclamationQuestions(message);
+        } else if (message.contains("bonjour") || message.contains("salut") || message.contains("coucou")) {
+            return "Bonjour ! 😊 Comment puis-je vous aider concernant votre réclamation aujourd'hui ?";
         } else if (message.contains("merci") || message.contains("remercie")) {
-            return "Je vous en prie ! N'hésitez pas à me demander si vous avez d'autres questions. 😊";
-        } else if (message.contains("problème technique") || message.contains("bug") || message.contains("plante") || message.contains("connexion")) {
-            return "Je suis désolé pour ce problème technique. Avez-vous essayé de redémarrer l'application ou de vider le cache ? Si le problème persiste, fournissez-moi plus de détails (message d'erreur, capture d'écran).";
+            return "Je vous en prie ! Pour toute autre question sur les réclamations, n'hésitez pas à demander. 😊";
+        } else if (message.contains("problème technique") || message.contains("bug") || message.contains("plante")) {
+            return handleTechnicalIssues(message);
         } else {
-            return "Je ne comprends pas votre demande. Pouvez-vous reformuler ou me poser une question plus précise ?";
+            return "Pour une meilleure assistance, veuillez formuler votre question en rapport avec les réclamations. Exemples :\n"
+                    + "- Comment suivre ma réclamation ?\n"
+                    + "- Quel est le délai de traitement ?\n"
+                    + "- Quels documents fournir ?";
         }
     }
+
+    private String handleReclamationQuestions(String message) {
+        if (message.contains("statut") || message.contains("status")) {
+            return "Pour vérifier le statut de votre réclamation :\n"
+                    + "1. Accédez à l'onglet 'Mes Réclamations'\n"
+                    + "2. Sélectionnez la réclamation concernée\n"
+                    + "3. Le statut s'affiche en temps réel (En cours/Traitée/En attente)\n"
+                    + "Vous recevrez également une notification par email à chaque mise à jour ! 📧";
+
+        } else if (message.contains("temps") || message.contains("délai")) {
+            return "Le délai de traitement moyen est de 3 à 5 jours ouvrables. ⏳\n"
+                    + "Pour les cas complexes (ex : demande de remboursement), cela peut prendre jusqu'à 10 jours.\n"
+                    + "Vous pouvez suivre l'avancement dans votre espace personnel.";
+
+        } else if (message.contains("document") || message.contains("papier")) {
+            return "Documents nécessaires pour une réclamation :\n"
+                    + "✅ Pièce d'identité\n"
+                    + "✅ Facture/Preuve d'achat\n"
+                    + "✅ Photos/vidéos du problème\n"
+                    + "✅ Description détaillée\n"
+                    + "Les formats acceptés : PDF, JPG, PNG (taille max 5MB)";
+
+        } else if (message.contains("modifier") || message.contains("changer")) {
+            return "Pour modifier une réclamation :\n"
+                    + "1. Allez dans 'Mes Réclamations'\n"
+                    + "2. Cliquez sur 'Modifier' (si statut 'En attente')\n"
+                    + "3. Soumettez les nouvelles informations\n"
+                    + "⚠️ Impossible de modifier après le début du traitement";
+
+        } else if (message.contains("annuler") || message.contains("supprimer")) {
+            return "Annulation de réclamation possible uniquement si :\n"
+                    + "- Le traitement n'a pas encore commencé\n"
+                    + "- Vous fournissez une raison valable\n"
+                    + "Contactez notre support via le formulaire de contact pour plus d'assistance 📞";
+
+        } else if (message.contains("email") || message.contains("confirmation")) {
+            return "Un email de confirmation est automatiquement envoyé :\n"
+                    + "- À la création de réclamation\n"
+                    + "- À chaque changement de statut\n"
+                    + "- À la clôture du dossier\n"
+                    + "Vérifiez vos spams si vous ne l'avez pas reçu !";
+
+        } else if (message.contains("refus") || message.contains("rejet")) {
+            return "En cas de réclamation rejetée :\n"
+                    + "1. Consultez les motifs dans la notification\n"
+                    + "2. Vous pouvez :\n"
+                    + "   a) Fournir des éléments complémentaires\n"
+                    + "   b) Faire un recours (dans 15 jours)\n"
+                    + "   c) Contacter un médiateur";
+
+        } else if (message.contains("urgence") || message.contains("prioritaire")) {
+            return "Service de traitement prioritaire disponible pour :\n"
+                    + "🔴 Problèmes de sécurité\n"
+                    + "🔴 Erreurs de facturation importantes\n"
+                    + "🔴 Membres Premium\n"
+                    + "Délai réduit à 48h (sur justification)";
+
+        } else {
+            return "Je comprends que vous avez une question sur les réclamations. Pour mieux vous aider :\n"
+                    + "- Décrivez précisément votre problème\n"
+                    + "- Mentionnez le numéro de réclamation\n"
+                    + "- Précisez ce que vous souhaitez savoir";
+        }
+    }
+
+    private String handleTechnicalIssues(String message) {
+        if (message.contains("connexion")) {
+            return "Problème de connexion ? Essayez :\n"
+                    + "1. Vérifiez votre connexion Internet 🌐\n"
+                    + "2. Redémarrez l'application\n"
+                    + "3. Réinitialisez votre mot de passe\n"
+                    + "Si le problème persiste, contactez-nous par téléphone au 01 23 45 67 89";
+        } else if (message.contains("cache")) {
+            return "Pour vider le cache :\n"
+                    + "1. Allez dans Paramètres > Stockage\n"
+                    + "2. Sélectionnez 'Nettoyer le cache'\n"
+                    + "3. Redémarrez l'application\n"
+                    + "⚠️ Cela ne supprimera pas vos données personnelles";
+        } else {
+            return "Pour les problèmes techniques complexes :\n"
+                    + "1. Notez le code d'erreur (ex : ERR-456)\n"
+                    + "2. Faites une capture d'écran\n"
+                    + "3. Contactez notre support technique via le formulaire dédié";
+        }
+    }
+
 
     // Mettre à jour la liste de l'historique des conversations
     private List<String> conversationDates = new ArrayList<>(); // Stocker les dates des conversations

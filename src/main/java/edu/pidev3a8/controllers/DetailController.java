@@ -64,6 +64,38 @@ public class DetailController {
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         statutColumn.setCellValueFactory(new PropertyValueFactory<>("statut"));
 
+        // Configuration du style pour la colonne "statut"
+        statutColumn.setCellFactory(column -> new TableCell<Reclamation, String>() {
+            @Override
+            protected void updateItem(String statut, boolean empty) {
+                super.updateItem(statut, empty);
+                if (empty || statut == null) {
+                    setText(null);
+                    setStyle("");
+                } else {
+                    setText(statut);
+                    if ("URGENT".equals(statut)) {
+                        setStyle("-fx-background-color: #ff0000; -fx-text-fill: white;");
+                    } else {
+                        setStyle("");
+                    }
+                }
+            }
+        });
+
+        // Configuration du masquage pour la colonne "description"
+        descriptionColumn.setCellFactory(column -> new TableCell<Reclamation, String>() {
+            @Override
+            protected void updateItem(String description, boolean empty) {
+                super.updateItem(description, empty);
+                if (empty || description == null) {
+                    setText(null);
+                } else {
+                    setText(masquerAffichage(description)); // Appliquer le masquage à la description
+                }
+            }
+        });
+
         // Configurer la colonne des pièces jointes
         piecesJointesColumn.setCellValueFactory(new PropertyValueFactory<>("piecesJointesBox"));
         piecesJointesColumn.setCellFactory(param -> new TableCell<Reclamation, HBox>() {
@@ -88,6 +120,19 @@ public class DetailController {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             filterReclamations(newValue);
         });
+    }
+
+    /**
+     * Méthode pour masquer partiellement une description (par exemple, masquer après un certain nombre de caractères)
+     */
+    private String masquerAffichage(String description) {
+        if (description == null || description.isEmpty()) {
+            return ""; // Retourner une chaîne vide si la description est null ou vide
+        }
+        if (description.length() > 50) {
+            return description.substring(0, 50) + "..."; // Tronquer et ajouter "..."
+        }
+        return description;
     }
 
     private void filterReclamations(String searchText) {

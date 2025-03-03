@@ -18,6 +18,7 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -78,6 +79,11 @@ public class CamembertStatutController {
                 // Sauvegarder le PDF
                 document.save(file);
 
+                // Ouvrir automatiquement le fichier PDF après l'enregistrement
+                if (Desktop.isDesktopSupported()) {
+                    Desktop.getDesktop().open(file);
+                }
+
                 // Afficher une alerte de succès
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Exportation réussie");
@@ -96,6 +102,7 @@ public class CamembertStatutController {
 
                 System.err.println("Erreur lors de l'exportation du camembert : " + e.getMessage());
             }
+
         }
     }
 

@@ -6,24 +6,25 @@ import java.util.List;
 
 public class Reclamation {
     private int id;
-    private String sujet; // Correction : Utilisation de "sujet" au lieu de "Sujet" pour respecter les conventions de nommage
+    private String sujet;
     private String description;
     private String statut;
     private LocalDateTime date;
     private int user;
-    private Categorie categorie; // Utilisation de l'enum Categorie
+    private Categorie categorie;
     private List<String> piecesJointes;
-    private HBox piecesJointesBox; // Nouveau champ pour stocker les pièces jointes sous forme de HBox
+    private HBox piecesJointesBox;
+    private String email; // Nouvel attribut
 
     // Constructeur par défaut
     public Reclamation() {
-        this.date = LocalDateTime.now(); // Initialiser la date avec la date et l'heure actuelles
+        this.date = LocalDateTime.now();//.minusDays(8); // Simule une date vieille de 8 jours
         this.statut = "EN_ATTENTE"; // Statut par défaut
-        this.user = 1; // ID de l'utilisateur par défaut (à adapter selon votre logique)
+        this.user = 2; // ID de l'utilisateur par défaut (à adapter selon votre logique)
     }
 
     // Constructeur avec tous les attributs
-    public Reclamation(int id, String sujet, String description, String statut, LocalDateTime date, int user, Categorie categorie, List<String> piecesJointes) {
+    public Reclamation(int id, String sujet, String description, String statut, LocalDateTime date, int user, Categorie categorie, List<String> piecesJointes, String email) {
         this.id = id;
         this.sujet = sujet;
         this.description = description;
@@ -32,14 +33,16 @@ public class Reclamation {
         this.user = user;
         this.categorie = categorie;
         this.piecesJointes = piecesJointes;
+        this.email = email; // Initialisation de l'e-mail
     }
 
     // Constructeur pour l'ajout d'une réclamation (sans ID ni date)
-    public Reclamation(String sujet, String description, Categorie categorie, List<String> piecesJointes) {
+    public Reclamation(String sujet, String description, Categorie categorie, List<String> piecesJointes, String email) {
         this.sujet = sujet;
         this.description = description;
         this.categorie = categorie;
         this.piecesJointes = piecesJointes;
+        this.email = email; // Initialisation de l'e-mail
         this.date = LocalDateTime.now(); // Initialiser la date avec la date et l'heure actuelles
         this.statut = "EN_ATTENTE"; // Statut par défaut
         this.user = 1; // ID de l'utilisateur par défaut (à adapter selon votre logique)
@@ -52,6 +55,9 @@ public class Reclamation {
         this.date = LocalDateTime.now(); // Initialiser la date avec la date et l'heure actuelles
         this.statut = "EN_ATTENTE"; // Statut par défaut
         this.user = 1; // ID de l'utilisateur par défaut (à adapter selon votre logique)
+    }
+
+    public Reclamation(String sujet, String description, Categorie categorie, List<String> piecesJointes) {
     }
 
     // Getters et Setters
@@ -127,6 +133,14 @@ public class Reclamation {
         this.piecesJointesBox = piecesJointesBox;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public String toString() {
         return "Reclamation{" +
@@ -138,6 +152,7 @@ public class Reclamation {
                 ", user=" + user +
                 ", categorie=" + categorie +
                 ", piecesJointes=" + piecesJointes +
+                ", email='" + email + '\'' +
                 '}';
     }
 }

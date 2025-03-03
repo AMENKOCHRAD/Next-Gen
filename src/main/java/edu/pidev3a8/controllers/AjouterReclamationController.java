@@ -1,6 +1,8 @@
 package edu.pidev3a8.controllers;
 
 import edu.pidev3a8.entities.Categorie;
+import edu.pidev3a8.entities.FiltrageTexte;
+import edu.pidev3a8.entities.PurgoMalumService;
 import edu.pidev3a8.entities.Reclamation;
 import edu.pidev3a8.services.ReclamtionService;
 import javafx.collections.FXCollections;
@@ -76,6 +78,16 @@ public class AjouterReclamationController {
         });
     }
 
+    private String masquerMotsInterdits(String texte) {
+        List<String> motsInterdits = List.of("nul", "raté", "idiot", "stupide", "imbécile");
+
+        for (String mot : motsInterdits) {
+            texte = texte.replaceAll("(?i)\\b" + mot + "\\b", "****"); // Remplace par **** dans la base de données
+        }
+
+        return texte;
+    }
+
     @FXML
     void AjouterReclamationAction(ActionEvent event) {
         String sujet = sujet_textfield.getText().trim();
@@ -83,20 +95,30 @@ public class AjouterReclamationController {
         Categorie categorie = categorieComboBox.getValue();
         List<String> piecesJointesList = new ArrayList<>(piecesJointes);
 
+        // Afficher la description avant le filtrage
+        System.out.println("Description avant filtrage : " + description);
+
+        // Vérifier que la description n'est pas vide
+        if (description == null || description.isEmpty()) {
+            afficherErreur("La description ne peut pas être vide.");
+            return;
+        }
+
+        // Filtrer les mots interdits dans la description avec l'API PurgoMalum
+        String filteredDescription = PurgoMalumService.filterBadWords(description);
+
+        // Afficher la description après le filtrage
+        System.out.println("Description après filtrage : " + filteredDescription);
+
         // Validation du sujet
         if (!validerSujet(sujet)) {
             afficherErreur("Le sujet est obligatoire et doit contenir entre 5 et 100 caractères.");
             return;
         }
 
-        // Validation de la description (mots interdits)
-        if (contientMotsInterdits(description)) {
-            afficherErreur("La description contient des mots interdits : 'nul', 'raté', 'idiot', 'stupide', 'imbécile'. Veuillez la modifier.");
-            return;
-        }
-
         // Créer une réclamation
-        Reclamation r = new Reclamation(sujet, description, categorie, piecesJointesList);
+        String email = "utilisateur@example.com"; // Ajoutez un e-mail statique pour les tests
+        Reclamation r = new Reclamation(sujet, filteredDescription, categorie, piecesJointesList, email);
         ReclamtionService rs = new ReclamtionService();
 
         try {
@@ -211,5 +233,19 @@ public class AjouterReclamationController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+    @FXML
+    public void ouvrirChatbot() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ChatbotView.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Chatbot - Assistance");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

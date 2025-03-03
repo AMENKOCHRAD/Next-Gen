@@ -61,6 +61,8 @@ public class DetailTraitementController {
 
         // Appliquer le style en fonction du statut
         applyRowStyling();
+        applyPriorityStyling();
+
 
         System.out.println("actionColumn: " + actionColumn);
     }
@@ -201,4 +203,35 @@ public class DetailTraitementController {
             e.printStackTrace();
         }
     }
+
+
+    private void applyPriorityStyling() {
+        prioriteColumn.setCellFactory(column -> new TableCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    setStyle("");
+                } else {
+                    setText(item);
+                    switch (item) {
+                        case "HAUTE":
+                            setStyle("-fx-background-color: #ff4c4c; -fx-text-fill: white;"); // Rouge
+                            break;
+                        case "MOYENNE":
+                            setStyle("-fx-background-color: #ffcc00; -fx-text-fill: black;"); // Jaune
+                            break;
+                        case "BASSE":
+                            setStyle("-fx-background-color: #66cc66; -fx-text-fill: white;"); // Vert
+                            break;
+                        default:
+                            setStyle("");
+                            break;
+                    }
+                }
+            }
+        });
+    }
+
 }

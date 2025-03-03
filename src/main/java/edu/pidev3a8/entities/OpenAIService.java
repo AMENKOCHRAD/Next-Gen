@@ -4,7 +4,7 @@ import com.theokanning.openai.service.OpenAiService;
 import com.theokanning.openai.completion.CompletionRequest;
 
 public class OpenAIService {
-    private static final String API_KEY = "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";
+    private static final String API_KEY = "";
     private OpenAiService service;
 
     public OpenAIService() {

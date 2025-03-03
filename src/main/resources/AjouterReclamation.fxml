@@ -69,10 +69,8 @@
                     style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 10 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 5, 0, 0);"
                     onAction="#AjouterReclamationAction"/>
 
-            <!-- Bouton Assistance IA -->
-            <Button fx:id="assistanceIAButton" text="Assistance IA"
-                    style="-fx-background-color: #FF9800; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 10 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 5, 0, 0);"
-                    onAction="#handleAssistanceIA"/>
+            <Button text="Besoin d'aide ?" onAction="#ouvrirChatbot" />
+
          </children>
       </VBox>
    </children>

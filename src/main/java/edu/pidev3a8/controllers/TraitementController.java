@@ -1,7 +1,9 @@
 package edu.pidev3a8.controllers;
 
+import edu.pidev3a8.entities.SentimentAnalyzer;
 import edu.pidev3a8.entities.Reclamation;
 import edu.pidev3a8.entities.TraitementReclamation;
+import edu.pidev3a8.services.EmailService;
 import edu.pidev3a8.services.ReclamtionService;
 import edu.pidev3a8.services.TraitementService;
 import javafx.fxml.FXML;
@@ -90,7 +92,12 @@ public class TraitementController {
 
             // Mettre à jour le statut de la réclamation associée
             reclamation.setStatut(statut); // Mettre à jour le statut de la réclamation
-            reclamationService.updateEntity(reclamation.getId(), reclamation); // Sauvegarder les modifications
+            reclamationService.updateEntity(reclamation.getId(), reclamation);
+            EmailService.sendTreatmentNotification(
+                    statut, // Ex: "RESOLU"
+                    commentaireField.getText() // Commentaire de l'admin
+            );
+            // Sauvegarder les modifications
 
             // Afficher une alerte de succès
             showAlert("Succès", "Traitement ajouté avec succès !", Alert.AlertType.INFORMATION);
@@ -162,4 +169,20 @@ public class TraitementController {
             pieceJointeImageView.setImage(null);
         }
     }
+    @FXML
+    private void handleAnalyserPriorite() {
+        if (descriptionField.getText().isEmpty()) {
+            showAlert("Erreur", "Aucune description à analyser.", Alert.AlertType.ERROR);
+            return;
+        }
+
+        // Analyse du sentiment et classification
+        String priorite = SentimentAnalyzer.analyzeSentiment(descriptionField.getText());
+
+        // Mettre à jour la ComboBox Priorité
+        prioriteComboBox.setValue(TraitementReclamation.Priorite.valueOf(priorite));
+
+        showAlert("Analyse Terminée", "Priorité déterminée: " + priorite, Alert.AlertType.INFORMATION);
+    }
+
 }
