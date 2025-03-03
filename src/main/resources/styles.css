@@ -1,0 +1,237 @@
+/* styles.css */
+.root {
+    -fx-background-image: url("images/imageback.png");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+/* Style de base pour les boutons */
+.button {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
+}
+
+/* Style pour le bouton "Ajouter un produit" */
+#Ajouterc {
+    -fx-background-color: #6a11cb; /* Dégradé violet */
+}
+
+#Ajouterc:hover {
+    -fx-background-color: #5611a1; /* Violet plus foncé au survol */
+}
+#VenteButton{
+    -fx-background-color: #6a11cb; /* Dégradé violet */
+
+}
+#VenteButton:hover{
+    -fx-background-color:#5611a1;  /* Dégradé violet */
+
+}
+
+#showQRCodeButton{
+    -fx-background-color: #6a11cb; /* Dégradé violet */
+
+}
+
+#showQRCodeButton:hover{
+    -fx-background-color:#5611a1;  /* Dégradé violet */
+
+}
+#produitPlusVenduButton{
+  -fx-background-color: #6a11cb; /* Dégradé violet */
+}
+#produitPlusVenduButton:hover{
+  -fx-background-color: #5611a1; /* Dégradé violet */
+}
+#uploadButton{
+    -fx-background-color: #6a11cb; /* Dégradé violet */
+
+}
+#uploadButton:hover{
+    -fx-background-color:#5611a1;  /* Dégradé violet */
+
+}
+#rechercher{
+-fx-background-color: #6a11cb;
+}
+#rechercher:hover{
+-fx-background-color: #5611a1;
+}
+#passerCommandeButton{
+-fx-background-color: #6a11cb;
+}
+#passerCommandeButton:hover{
+-fx-background-color: #5611a1;
+}
+#voirPanierButton{
+                 -fx-background-color: #6a11cb;
+                 }
+                 #voirPanierButton:hover{
+                 -fx-background-color: #5611a1;
+                 }
+#generateQRCodeButton{
+                                      -fx-background-color: #6a11cb;
+                                      }
+                                      #generateQRCodeButton{
+                                      -fx-background-color: #5611a1;
+                                      }
+#ajouterButton{
+    -fx-background-color: #6a11cb; /* Dégradé violet */
+
+}
+#triPrixButton{
+-fx-background-color: #6a11cb;
+}
+#triPrixButton:hover{
+-fx-background-color: #5611a1;
+}
+#ajouterButton:hover{
+    -fx-background-color:#5611a1;  /* Dégradé violet */
+#generateQRCodeButton{
+-fx-background-color: #6a11cb;
+}
+#generateQRCodeButton:hover{
+-fx-background-color: #5611a1;
+}
+}
+#modifierc{
+    -fx-background-color: #6a11cb; /* Dégradé violet */
+}
+#modifierc:hover{
+    -fx-background-color:#5611a1;  /* Dégradé violet */
+
+}
+#ajouterCommandeButton {
+    -fx-background-color: #6a11cb; /* Dégradé violet */
+}
+
+#ajouterCommandeButton:hover {
+    -fx-background-color: #5611a1; /* Violet plus foncé au survol */
+}
+
+/* Style pour le bouton "Supprimer" */
+#supprimerButton {
+    -fx-background-color:  #6a11cb; /* Rouge */
+}
+#handleAjouter {
+    -fx-background-color: #6a11cb; /* Dégradé violet */
+}
+#handleAjouter{
+    -fx-background-color: #6a11cb; /* Dégradé violet */
+
+}
+#handleAjouter:hover {
+    -fx-background-color: #5611a1; /* Violet plus foncé au survol */
+}
+#ajouterAuPanierButton{
+ -fx-background-color: #6a11cb;
+}
+#ajouterAuPanierButton:hover{
+ -fx-background-color: #5611a1;
+}
+#voirPanierButton{
+-fx-background-color: #6a11cb;
+}
+#voirPanierButton:hover{
+-fx-background-color:#5611a1;
+}
+
+#supprimerButton:hover {
+    -fx-background-color: #5611a1; /* Rouge plus foncé au survol */
+}
+
+#supprimerButton: {
+    -fx-background-color: #6a11cb; /* Rouge plus foncé au survol */
+}
+#modifierButton{
+               -fx-background-color: #6a11cb;
+               }
+               #modifierButton:hover{
+               -fx-background-color:#5611a1;
+               }
+#modifierCommandeButton {
+    -fx-background-color: #6a11cb; /* Dégradé violet */
+}
+
+#modifierCommandeButton:hover {
+    -fx-background-color: #5611a1; /* Violet plus foncé au survol */
+}
+
+/* Style pour le bouton "Voir Commandes" */
+#voirCommandesButton {
+    -fx-background-color: #6a11cb; /* Dégradé violet */
+}
+
+#voirCommandesButton:hover {
+    -fx-background-color: #5611a1; /* Violet plus foncé au survol */
+}
+
+/* Style pour la TableView */
+.table-view {
+    -fx-background-color: #f9f9f9; /* Fond clair */
+    -fx-border-color: #ccc; /* Bordure grise */
+    -fx-border-width: 1px;
+}
+
+/* Style pour les en-têtes de colonnes */
+.table-view .column-header {
+    -fx-background-color: #2196F3; /* Bleu */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+/* Style pour les cellules de la TableView */
+.table-row-cell {
+    -fx-background-color: white; /* Fond blanc */
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f2f2f2; /* Fond gris clair pour les lignes impaires */
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #2196F3; /* Bleu pour les cellules sélectionnées */
+    -fx-text-fill: white;
+}
+
+/* Style pour les cellules de la colonne d'image */
+.table-cell {
+    -fx-alignment: center; /* Centrer le contenu des cellules */
+}
+
+/* Style pour les boutons dans la TableView (si vous en avez) */
+.table-view .button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: #2196F3; /* Bleu */
+}
+
+.table-view .button:hover {
+    -fx-text-fill: #1976D2; /* Bleu plus foncé au survol */
+}
+
+/* Gradient Button */
+.button-gradient {
+    -fx-background-color: #6a11cb;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-border-color: #ffffff;
+    -fx-border-width: 1px;
+    -fx-cursor: hand;
+}
+
+/* Hover Effect */
+.button-gradient:hover {
+    -fx-background-color: #5611a1;
+}
+
+/* Pressed Effect */
+.button-gradient:pressed {
+    -fx-background-color: linear-gradient(to bottom, #d1d1d1, #000033);
+}
