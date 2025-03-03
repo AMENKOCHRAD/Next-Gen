@@ -1,6 +1,10 @@
 package edu.pidev3A8.controllers;
 
-import edu.pidev3A8.entities.Commande;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import edu.pidev3A8.entities.Produit;
 import edu.pidev3A8.services.Produitservice;
 import javafx.collections.FXCollections;
@@ -11,12 +15,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image; // Importation correcte pour JavaFX
 
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 import java.io.File;
 public class DetailsController {
@@ -47,7 +58,21 @@ public class DetailsController {
     @FXML
     private TableColumn<Produit, String> imageColumn; // Assurez-vous que cette ligne existe
 
+    @FXML
+    private Button ajouterAuPanierButton;
+    @FXML
+    private Button voirPanierButton;
+
     private Produitservice produitservice = new Produitservice();
+    private List<Produit> panier = new ArrayList<>();
+
+    @FXML
+    private TextField searchField;
+
+    @FXML
+    private Button searchButton;
+
+    private boolean isAscendant = true;  // Pour garder la trace du sens du tri
 
     @FXML
     public void initialize() {
@@ -112,6 +137,81 @@ public class DetailsController {
         ObservableList<Produit> produits = FXCollections.observableArrayList(produitservice.getAllData());
         produitTable.setItems(produits);
     }
+    @FXML
+    private void handleAjouterAuPanier() {
+        Produit selectedProduit = produitTable.getSelectionModel().getSelectedItem();
+        if (selectedProduit != null) {
+            panier.add(selectedProduit);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Ajout au panier");
+            alert.setHeaderText(null);
+            alert.setContentText("Produit ajouté au panier avec succès !");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Aucun produit sélectionné");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez sélectionner un produit à ajouter au panier.");
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    private void handleVoirPanier() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Panier.fxml"));
+            Parent root = loader.load();
+
+            // Passer la référence du PanierController
+            PanierController panierController = loader.getController();
+            panierController.setProduitsPanier(panier);
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("Panier");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("Erreur de chargement de Panier.fxml : " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+
+    @FXML
+    private void handleRechercheProduit() {
+        String searchQuery = searchField.getText().toLowerCase();
+
+        if (searchQuery.isEmpty()) {
+            // Si le champ de recherche est vide, afficher tous les produits
+            loadProduits();
+        } else {
+            // Filtrer les produits en fonction du nom
+            List<Produit> filteredProduits = produitservice.searchProduitsByName(searchQuery);
+            ObservableList<Produit> produits = FXCollections.observableArrayList(filteredProduits);
+            produitTable.setItems(produits);
+        }
+    }
+    @FXML
+    private void handleTriParPrix() {
+        ObservableList<Produit> produits = produitTable.getItems();
+
+        if (isAscendant) {
+            // Tri ascendant
+            produits.sort(Comparator.comparingDouble(Produit::getPrix));
+        } else {
+            // Tri descendant
+            produits.sort(Comparator.comparingDouble(Produit::getPrix).reversed());
+        }
+
+        // Rafraîchir le tableau avec la nouvelle liste triée
+        produitTable.setItems(produits);
+
+        // Inverser le sens du tri pour le prochain clic
+        isAscendant = !isAscendant;
+    }
+
+
 
     // Méthode pour gérer l'ajout d'un produit
     @FXML
@@ -142,7 +242,58 @@ public class DetailsController {
             e.printStackTrace();
         }
     }
+    @FXML
+    private void handleShowQRCode() {
+        // Récupérer le produit sélectionné
+        Produit selectedProduit = produitTable.getSelectionModel().getSelectedItem();
 
+        if (selectedProduit != null) {
+            // Générer le texte du code QR avec l'image
+            String qrCodeText = "Produit ID: " + selectedProduit.getId_produit() + "\n"
+                    + "Nom: " + selectedProduit.getNom_produit() + "\n"
+                    + "Type: " + selectedProduit.getType_produit() + "\n"
+                    + "Prix: " + selectedProduit.getPrix() + "\n"
+                    + "État: " + selectedProduit.getEtat() + "\n"
+                    + "Description: " + selectedProduit.getDescription() + "\n"
+                    + "Statut: " + selectedProduit.getStatus() + "\n"
+                    + "Image: " + selectedProduit.getImage(); // Ajouter l'image
+
+            try {
+                // Générer le code QR en mémoire
+                QRCodeWriter qrCodeWriter = new QRCodeWriter();
+                BitMatrix bitMatrix = qrCodeWriter.encode(qrCodeText, BarcodeFormat.QR_CODE, 200, 200);
+
+                // Convertir le code QR en image JavaFX
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                MatrixToImageWriter.writeToStream(bitMatrix, "PNG", outputStream);
+                ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
+                Image qrCodeImage = new Image(inputStream);
+
+                // Afficher l'image dans une nouvelle fenêtre
+                ImageView imageView = new ImageView(qrCodeImage);
+                VBox vbox = new VBox(imageView);
+                Scene scene = new Scene(vbox, 250, 250);
+                Stage stage = new Stage();
+                stage.setTitle("Code QR du Produit");
+                stage.setScene(scene);
+                stage.show();
+            } catch (WriterException | IOException e) {
+                // Afficher un message d'erreur en cas de problème
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur");
+                alert.setHeaderText(null);
+                alert.setContentText("Erreur lors de la génération du code QR : " + e.getMessage());
+                alert.showAndWait();
+            }
+        } else {
+            // Afficher un message d'erreur si aucun produit n'est sélectionné
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Aucun produit sélectionné");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez sélectionner un produit pour afficher son code QR.");
+            alert.showAndWait();
+        }
+    }
     // Méthode pour gérer la suppression d'un produit
     @FXML
     private void handleSupprimerProduit() {

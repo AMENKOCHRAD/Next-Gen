@@ -4,27 +4,54 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-
 <?import javafx.scene.image.ImageView?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.pidev3A8.controllers.ModifierProduitController">
-    <children>
-        <TextField fx:id="nomField" layoutX="150.0" layoutY="50.0" promptText="Nom du produit"/>
-        <TextField fx:id="typeField" layoutX="150.0" layoutY="90.0" promptText="Type du produit"/>
-        <TextField fx:id="prixField" layoutX="150.0" layoutY="130.0" promptText="Prix"/>
-        <ComboBox fx:id="etatComboBox" layoutX="150.0" layoutY="170.0" promptText="État"/>
-        <TextField fx:id="descriptionField" layoutX="150.0" layoutY="210.0" promptText="Description"/>
-        <ComboBox fx:id="statusComboBox" layoutX="150.0" layoutY="250.0" promptText="Statut"/>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-        <Label layoutX="50.0" layoutY="54.0" text="Nom"/>
-        <Label layoutX="50.0" layoutY="94.0" text="Type"/>
-        <Label layoutX="50.0" layoutY="134.0" text="Prix"/>
-        <Label layoutX="50.0" layoutY="174.0" text="État"/>
-        <Label layoutX="50.0" layoutY="214.0" text="Description"/>
-        <Label layoutX="50.0" layoutY="254.0" text="Statut"/>
-        <Button fx:id="uploadButton" layoutX="150.0" layoutY="290.0" text="Upload Image" onAction="#handleUploadImage"/>
-        <Label fx:id="imageLabel" layoutX="260.0" layoutY="294.0" text="No image selected"/>
-        <ImageView fx:id="imagePreview" fitWidth="100" fitHeight="100" preserveRatio="true" layoutX="400.0" layoutY="50.0"/>
-        <Button fx:id="modifierButton" layoutX="250.0" layoutY="330.0" text="Modifier" onAction="#handleModifierProduit"/>
+<AnchorPane prefHeight="500.0" prefWidth="875.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.pidev3A8.controllers.ModifierProduitController">
+    <children>
+        <!-- Barre de navigation -->
+        <fx:include source="Navbar.fxml">
+
+        </fx:include>
+        <TextField fx:id="nomField" layoutX="365.0" layoutY="87.0" prefHeight="26.0" prefWidth="178.0" promptText="Nom du produit" />
+        <TextField fx:id="typeField" layoutX="366.0" layoutY="150.0" prefHeight="26.0" prefWidth="178.0" promptText="Type du produit" />
+        <TextField fx:id="prixField" layoutX="368.0" layoutY="215.0" prefHeight="26.0" prefWidth="178.0" promptText="Prix" />
+        <ComboBox fx:id="etatComboBox" layoutX="368.0" layoutY="280.0" prefHeight="26.0" prefWidth="117.0" promptText="État" />
+        <TextField fx:id="descriptionField" layoutX="367.0" layoutY="344.0" prefHeight="26.0" prefWidth="178.0" promptText="Description" />
+        <ComboBox fx:id="statusComboBox" layoutX="364.0" layoutY="406.0" prefHeight="26.0" prefWidth="118.0" promptText="Statut" />
+        <ImageView fx:id="imageVieww" fitHeight="76.0" fitWidth="80.0" layoutX="53.0" layoutY="405.0" preserveRatio="true" />
+
+        <Label layoutX="365.0" layoutY="61.0" text="Nom:" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+        <Label layoutX="365.0" layoutY="122.0" text="Type:" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+        <Label layoutX="367.0" layoutY="189.0" text="Prix:" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+        <Label layoutX="370.0" layoutY="253.0" text="État:" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+        <Label layoutX="369.0" layoutY="318.0" text="Description:" textFill="#fffcfc">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+        <Label layoutX="366.0" layoutY="380.0" text="Statut:" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+        <Button fx:id="uploadButton" layoutX="359.0" layoutY="445.0" onAction="#handleUploadImage" prefHeight="26.0" prefWidth="134.0" text="Upload Image" />
+        <Label fx:id="imageLabel" layoutX="203.0" layoutY="464.0" prefHeight="14.0" prefWidth="111.0" text="No image selected" textFill="#fcfcfc">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+        <ImageView fx:id="imagePreview" fitHeight="100" fitWidth="100" layoutX="400.0" layoutY="50.0" preserveRatio="true" />
+        <Button fx:id="modifierButton" layoutX="763.0" layoutY="445.0" onAction="#handleModifierProduit" style="-fx-background-color: #6a11cb;" text="Modifier" />
     </children>
 </AnchorPane>

@@ -2,17 +2,14 @@ package edu.pidev3A8.controllers;
 
 import edu.pidev3A8.entities.Commande;
 import edu.pidev3A8.entities.Produit;
-import edu.pidev3A8.entities.StatutCommande;
 import edu.pidev3A8.services.Commandeservice;
 import edu.pidev3A8.services.Produitservice;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import javafx.scene.control.Alert;
@@ -29,13 +26,12 @@ public class ModifierCommandeController {
     private TextField quantiteField; // Champ pour la quantité
 
     @FXML
-    private TextField prixTotalField; // Champ pour le prix total
+    private  TextField AdresseField;
 
     @FXML
-    private DatePicker dateCommandePicker; // DatePicker pour la date de la commande
+    private TextField mailField;
 
-    @FXML
-    private ComboBox<StatutCommande> statutComboBox; // ComboBox pour le statut de la commande
+
 
     private Commande commandeToModify; // Commande à modifier
     private Commandeservice commandeservice = new Commandeservice();
@@ -59,17 +55,12 @@ public class ModifierCommandeController {
 
         idClientField.setText(String.valueOf(commande.getId_client()));
         quantiteField.setText(String.valueOf(commande.getQuantite()));
-        prixTotalField.setText(String.valueOf(commande.getPrix_total()));
+        AdresseField.setText(commande.getAdresse());
+        mailField.setText(commande.getAdresseEmail());
 
-        // Convertir java.util.Date en java.sql.Date
-        java.util.Date utilDate = commande.getDate_commande();
-        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-        LocalDate localDate = sqlDate.toLocalDate();
 
-        // Définir la valeur dans le DatePicker
-        dateCommandePicker.setValue(localDate);
 
-        statutComboBox.setValue(commande.getStatut());
+
     }
 
     // Méthode pour définir la référence à DetailsCommandeController
@@ -109,8 +100,7 @@ public class ModifierCommandeController {
             }
         });
 
-        // Remplir la ComboBox des statuts
-        statutComboBox.getItems().setAll(StatutCommande.values());
+
     }
 
     // Méthode pour gérer la modification d'une commande
@@ -121,10 +111,12 @@ public class ModifierCommandeController {
             Produit produit = produitComboBox.getValue(); // Produit sélectionné
             int idClient = Integer.parseInt(idClientField.getText());
             int quantite = Integer.parseInt(quantiteField.getText());
-            double prixTotal = Double.parseDouble(prixTotalField.getText());
-            LocalDate localDate = dateCommandePicker.getValue();
-            Date dateCommande = Date.valueOf(localDate);
-            StatutCommande statut = statutComboBox.getValue();
+            String adresse = AdresseField.getText();
+            String adresseEmail=mailField.getText();
+
+
+
+
 
             // Contrôle de saisie pour idClient
             if (idClient <= 0) {
@@ -137,32 +129,26 @@ public class ModifierCommandeController {
                 showAlert(AlertType.ERROR, "Erreur de saisie", "Quantité invalide", "La quantité doit être comprise entre 1 et 20.");
                 return;
             }
-
-            // Contrôle de saisie pour le prix total
-            if (prixTotal < 0) {
-                showAlert(AlertType.ERROR, "Erreur de saisie", "Prix total invalide", "Le prix total ne peut pas être négatif.");
+            // Contrôle de saisie pour l'adresse (doit commencer par une lettre)
+            if (!adresse.matches("^[A-Za-z].*")) {
+                showAlert(AlertType.ERROR, "Erreur de saisie", "Adresse invalide", "L'adresse doit commencer par une lettre.");
                 return;
             }
 
-            // Contrôle de saisie pour la date de commande
-            if (localDate.getYear() != 2025) { // Vérifier que l'année est exactement 2025
-                showAlert(AlertType.ERROR, "Erreur de saisie", "Date invalide", "La date de commande doit être en 2025.");
+            // Contrôle de saisie pour l'email (doit contenir '@')
+            if (!adresseEmail.contains("@")) {
+                showAlert(AlertType.ERROR, "Erreur de saisie", "Adresse e-mail invalide", "L'adresse e-mail doit contenir '@'.");
                 return;
             }
 
-            // Vérifier que tous les champs sont valides
-            if (produit == null || dateCommande == null || statut == null) {
-                showAlert(AlertType.ERROR, "Erreur de saisie", "Champs manquants", "Veuillez remplir tous les champs correctement.");
-                return;
-            }
+
 
             // Mettre à jour la commande
             commandeToModify.setId_produit(produit.getId_produit());
             commandeToModify.setId_client(idClient);
             commandeToModify.setQuantite(quantite);
-            commandeToModify.setPrix_total(prixTotal);
-            commandeToModify.setDate_commande(dateCommande);
-            commandeToModify.setStatut(statut);
+            commandeToModify.setAdresse(adresse);
+            commandeToModify.setAdresseEmail(adresseEmail);
 
             // Modifier la commande via le service
             commandeservice.updateCommande(commandeToModify.getId_commande(), commandeToModify);

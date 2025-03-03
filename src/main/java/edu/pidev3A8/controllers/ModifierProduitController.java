@@ -6,6 +6,8 @@ import edu.pidev3A8.entities.Status;
 import edu.pidev3A8.services.Produitservice;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -36,7 +38,8 @@ public class ModifierProduitController {
 
     @FXML
     private Button uploadButton;
-
+    @FXML
+    private ImageView imageVieww; // Référence à l'ImageView dans le FXML
     @FXML
     private Label imageLabel;
 
@@ -100,8 +103,10 @@ public class ModifierProduitController {
 
                 // Stocker le chemin relatif de l'image (pour la base de données)
                 imagePath = "src/main/resources/images/" + fileName;
-                imageLabel.setText(fileName); // Afficher le nom de l'image dans l'interface
-
+                //imageLabel.setText(fileName); // Afficher le nom de l'image dans l'interface
+                // Charger l'image dans l'ImageView
+                Image image = new Image(destinationFile.toURI().toString());
+                imageVieww.setImage(image);
                 // Afficher un message de succès
                 System.out.println("Image uploadée avec succès. Chemin : " + imagePath);
             } catch (IOException e) {

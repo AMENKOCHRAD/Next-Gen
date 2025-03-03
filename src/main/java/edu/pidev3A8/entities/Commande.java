@@ -9,31 +9,41 @@ public class Commande {
     private int id_produit;  // Utilisation d'un ID au lieu de l'objet Produit
     private int id_client;
     private int quantite;
-    private double prix_total;
-    private Date date_commande;
-    private StatutCommande statut;
+    private String adresse;
+    private String adresseEmail;
+    private  Double prixTotal;
 
-    public Commande(int id_produit, int id_client, int quantite, double prix_total, java.sql.Date date_commande, Status statut) {
+    public Commande() {
     }
 
-    public Commande(int id_commande, int id_produit, int id_client, int quantite, double prix_total, Date date_commande, StatutCommande statut) {
+    public Commande(int id_commande, int id_produit, int id_client, int quantite, String adresse, String adresseEmail, Double prixTotal	   ) {
         this.id_commande = id_commande;
         this.id_produit = id_produit;
         this.id_client = id_client;
         this.quantite = quantite;
-        this.prix_total = prix_total;
-        this.date_commande = date_commande;
-        this.statut = statut;
+        this.adresse=adresse;
+        this.	adresseEmail=	adresseEmail;
+        this.prixTotal=prixTotal;
+
     }
 
 
-    public Commande(int id_produit, int id_client, int quantite, double prix_total, Date date_commande, StatutCommande statut) {
+    public Commande(int id_produit, int id_client, int quantite, String adresse , String  adresseEmail, Double prixTotal	 ) {
         this.id_produit = id_produit;
         this.id_client = id_client;
         this.quantite = quantite;
-        this.prix_total = prix_total;
-        this.date_commande = date_commande;
-        this.statut = statut;
+        this.adresse=adresse;
+        this.adresseEmail=	adresseEmail;
+        this.prixTotal=prixTotal;
+
+    }
+
+    public Double getPrixTotal() {
+        return prixTotal;
+    }
+
+    public void setPrixTotal(Double prixTotal) {
+        this.prixTotal = prixTotal;
     }
 
     public int getId_commande() {
@@ -52,18 +62,14 @@ public class Commande {
         return quantite;
     }
 
-    public double getPrix_total() {
-        return prix_total;
+    public String getAdresseEmail() {
+        return adresseEmail;
     }
 
-    public Date getDate_commande() {
-        return date_commande;
+    public void setAdresseEmail(String adresseEmail) {
+        this.adresseEmail = adresseEmail;
     }
 
-
-    public StatutCommande getStatut() {
-        return statut;
-    }
 
     public void setId_commande(int id_commande) {
         this.id_commande = id_commande;
@@ -81,15 +87,12 @@ public class Commande {
         this.quantite = quantite;
     }
 
-    public void setPrix_total(double prix_total) {
-        this.prix_total = prix_total;
+    public String getAdresse() {
+        return adresse;
     }
 
-    public void setDate_commande(Date date_commande) {
-        this.date_commande = date_commande;
-    }
-    public void setStatut(StatutCommande statut) {
-        this.statut = statut;  // Utilisation de l'Enum
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
     }
 
     @Override
@@ -99,9 +102,9 @@ public class Commande {
                 ", id_produit=" + id_produit +
                 ", id_client=" + id_client +
                 ", quantite=" + quantite +
-                ", prix_total=" + prix_total +
-                ", date_commande=" + date_commande +
-                ", statut='" + statut + '\'' +
+                ",adresse="+ adresse +
+                ",adresseEmail" + adresseEmail +
+
                 '}';
     }
 
