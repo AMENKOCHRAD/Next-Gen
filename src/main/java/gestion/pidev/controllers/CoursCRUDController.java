@@ -1,7 +1,10 @@
 package gestion.pidev.controllers;
 
+import org.vosk.Model;
+import org.vosk.Recognizer;
 import gestion.pidev.entities.Cours;
 import gestion.pidev.services.CoursService;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,11 +20,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.geometry.Pos;
+import javafx.scene.control.TableCell;
+
+import javax.sound.sampled.*;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import javafx.geometry.Pos;
-import javafx.scene.control.TableCell;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -51,9 +56,11 @@ public class CoursCRUDController {
 
     private CoursService coursService = new CoursService();
     private ObservableList<Cours> coursList;
+    private Recognizer recognizer;
 
     @FXML
     public void initialize() {
+        // Initialisation de la table et autres éléments
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
         nomCoursColumn.setCellValueFactory(new PropertyValueFactory<>("nom_cours"));
@@ -90,11 +97,74 @@ public class CoursCRUDController {
         });
 
         loadCoursData();
+
+        // Initialisation de la reconnaissance vocale
+        initVoiceRecognition();
     }
 
     public void loadCoursData() {
         coursList = FXCollections.observableArrayList(coursService.getAllData());
         coursTable.setItems(coursList);
+    }
+
+    private void initVoiceRecognition() {
+        new Thread(() -> {
+            try {
+                // Charger le modèle de langue Vosk
+                Model model = new Model("src/main/resources/models/vosk-model-small-fr-0.22");
+                recognizer = new Recognizer(model, 16000);
+
+                // Configuration du microphone
+                AudioFormat format = new AudioFormat(16000, 16, 1, true, false);
+                DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
+
+                if (!AudioSystem.isLineSupported(info)) {
+                    System.err.println("Microphone non supporté");
+                    return;
+                }
+
+                TargetDataLine microphone = (TargetDataLine) AudioSystem.getLine(info);
+                microphone.open(format);
+                microphone.start();
+
+                byte[] buffer = new byte[4096];
+                System.out.println("Enregistrement en cours...");
+
+                // Enregistrement et reconnaissance en temps réel
+                while (true) {
+                    int bytesRead = microphone.read(buffer, 0, buffer.length);
+                    if (bytesRead > 0) {
+                        if (recognizer.acceptWaveForm(buffer, bytesRead)) {
+                            String result = recognizer.getResult();
+                            handleVoiceCommand(result);
+                        } else {
+                            String partialResult = recognizer.getPartialResult();
+                            System.out.println("Reconnaissance partielle : " + partialResult);
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+    private void handleVoiceCommand(String command) {
+        Platform.runLater(() -> {
+            if (command.toLowerCase().contains("liste")) {
+                handleListCours();
+            } else if (command.toLowerCase().contains("ajouter")) {
+                handleAdd();
+            } else if (command.toLowerCase().contains("supprimer")) {
+                handleDelete();
+            } else if (command.toLowerCase().contains("modifier")) {
+                handleUpdate();
+            } else if (command.toLowerCase().contains("statistiques")) {
+                handleStats();
+            } else {
+                System.out.println("Commande non reconnue : " + command);
+            }
+        });
     }
 
     @FXML
@@ -109,7 +179,7 @@ public class CoursCRUDController {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.showAndWait();
-            loadCoursData(); // Refresh the table after adding a new course
+            loadCoursData(); // Rafraîchir la table après l'ajout d'un cours
         } catch (IOException e) {
             showAlert("Erreur", "Erreur de chargement", "Impossible de charger l'interface d'ajout.");
         }
@@ -122,7 +192,7 @@ public class CoursCRUDController {
             coursService.deleteEntity(selectedCours);
             loadCoursData();
         } else {
-            showAlert("No Selection", "No Cours Selected", "Please select a cours in the table.");
+            showAlert("Aucune sélection", "Aucun cours sélectionné", "Veuillez sélectionner un cours dans le tableau.");
         }
     }
 
@@ -140,12 +210,12 @@ public class CoursCRUDController {
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
                 stage.showAndWait();
-                loadCoursData(); // Refresh the table after updating the course
+                loadCoursData(); // Rafraîchir la table après la modification d'un cours
             } catch (IOException e) {
                 showAlert("Erreur", "Erreur de chargement", "Impossible de charger l'interface de modification.");
             }
         } else {
-            showAlert("No Selection", "No Cours Selected", "Please select a cours in the table.");
+            showAlert("Aucune sélection", "Aucun cours sélectionné", "Veuillez sélectionner un cours dans le tableau.");
         }
     }
 
@@ -159,7 +229,7 @@ public class CoursCRUDController {
             stage.setScene(new Scene(root));
             stage.show();
 
-            // Close the current stage
+            // Fermer la fenêtre actuelle
             Stage currentStage = (Stage) coursTable.getScene().getWindow();
             currentStage.close();
         } catch (IOException e) {
@@ -189,14 +259,13 @@ public class CoursCRUDController {
             stage.setScene(new Scene(root));
             stage.show();
 
-            // Close the current stage
+            // Fermer la fenêtre actuelle
             Stage currentStage = (Stage) coursTable.getScene().getWindow();
             currentStage.close();
         } catch (IOException e) {
             showAlert("Erreur", "Erreur de chargement", "Impossible de charger l'interface de la liste des cours.");
         }
     }
-
 
     @FXML
     private void handleStats() {
