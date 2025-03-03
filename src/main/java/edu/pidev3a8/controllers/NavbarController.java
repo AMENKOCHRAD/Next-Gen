@@ -1,7 +1,7 @@
-package Utilisateur.Pidev.Controllers;
+package edu.pidev3a8.controllers;
 
-import Utilisateur.Pidev.Utils.CurrentUser;
-import Utilisateur.Pidev.Entites.Utilisateur;
+import edu.pidev3a8.utils.CurrentUser;
+import edu.pidev3a8.entities.Utilisateur;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

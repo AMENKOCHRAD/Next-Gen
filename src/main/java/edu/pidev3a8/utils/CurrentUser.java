@@ -1,6 +1,6 @@
-package Utilisateur.Pidev.Utils;
+package edu.pidev3a8.utils;
 
-import Utilisateur.Pidev.Entites.Utilisateur;
+import edu.pidev3a8.entities.Utilisateur;
 
 public class CurrentUser {
     private static CurrentUser instance;

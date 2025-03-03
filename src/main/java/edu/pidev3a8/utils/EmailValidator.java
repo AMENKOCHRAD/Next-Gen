@@ -1,4 +1,4 @@
-package Utilisateur.Pidev.Utils;
+package edu.pidev3a8.utils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

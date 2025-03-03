@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="875.0" stylesheets="@navbar.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Utilisateur.Pidev.Controllers.admin">
+<AnchorPane prefHeight="500.0" prefWidth="875.0" stylesheets="@navbar.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.pidev3a8.controllers.admin">
 
     <children>
         <ImageView fitHeight="500.0" fitWidth="875.0" layoutX="-1.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">

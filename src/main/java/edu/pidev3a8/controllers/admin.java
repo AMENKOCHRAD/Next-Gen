@@ -1,7 +1,7 @@
-package Utilisateur.Pidev.Controllers;
+package edu.pidev3a8.controllers;
 
-import Utilisateur.Pidev.Entites.Utilisateur;
-import Utilisateur.Pidev.Services.UtilisateurService;
+import edu.pidev3a8.entities.Utilisateur;
+import edu.pidev3a8.services.UtilisateurService;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;

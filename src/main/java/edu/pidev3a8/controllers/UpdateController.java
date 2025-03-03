@@ -1,14 +1,13 @@
-package Utilisateur.Pidev.Controllers;
+package edu.pidev3a8.controllers;
 
-import Utilisateur.Pidev.Entites.Utilisateur;
-import Utilisateur.Pidev.Services.UtilisateurService;
+import edu.pidev3a8.entities.Utilisateur;
+import edu.pidev3a8.services.UtilisateurService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.image.ImageView;
@@ -18,7 +17,7 @@ import java.io.FileNotFoundException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.sql.Blob;
-import javafx.fxml.FXML;
+
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import java.net.URL;

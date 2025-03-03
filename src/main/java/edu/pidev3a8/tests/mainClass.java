@@ -1,13 +1,6 @@
-package Utilisateur.Pidev.Tests;
+package edu.pidev3a8.tests;
 
-import Utilisateur.Pidev.Entites.Utilisateur;
-import Utilisateur.Pidev.Services.UtilisateurService;
-import Utilisateur.Pidev.Tools.MyConnection;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import edu.pidev3a8.tools.MyConnection;
 
 public class mainClass {
     public static void main(String[] args) {

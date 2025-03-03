@@ -1,4 +1,4 @@
-package Utilisateur.Pidev.Entites;
+package edu.pidev3a8.entities;
 
 
 import javafx.scene.image.Image;

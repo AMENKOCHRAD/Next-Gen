@@ -1,10 +1,9 @@
-package Utilisateur.Pidev.Controllers;
+package edu.pidev3a8.controllers;
 
-import Utilisateur.Pidev.Entites.Utilisateur;
-import Utilisateur.Pidev.Services.UtilisateurService;
-import Utilisateur.Pidev.Utils.CurrentUser;
+import edu.pidev3a8.entities.Utilisateur;
+import edu.pidev3a8.services.UtilisateurService;
+import edu.pidev3a8.utils.CurrentUser;
 import com.github.sarxos.webcam.Webcam;
-import com.github.sarxos.webcam.WebcamResolution;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,21 +15,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import org.json.JSONObject;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
 import javax.activation.DataHandler;
 import javax.imageio.ImageIO;
 import javax.mail.*;

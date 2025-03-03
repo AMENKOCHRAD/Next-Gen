@@ -1,7 +1,7 @@
-package Utilisateur.Pidev.Interfaces;
+package edu.pidev3a8.interfaces;
 
-import Utilisateur.Pidev.Entites.Utilisateur;
-import Utilisateur.Pidev.Tools.MyConnection;
+import edu.pidev3a8.entities.Utilisateur;
+import edu.pidev3a8.tools.MyConnection;
 
 import java.sql.*;
 import java.util.ArrayList;

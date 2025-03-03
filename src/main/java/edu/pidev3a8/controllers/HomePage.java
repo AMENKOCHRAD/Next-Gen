@@ -1,4 +1,4 @@
-package Utilisateur.Pidev.Controllers;
+package edu.pidev3a8.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.media.Media;

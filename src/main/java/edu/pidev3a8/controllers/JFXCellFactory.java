@@ -1,7 +1,7 @@
-package Utilisateur.Pidev.Controllers;
+package edu.pidev3a8.controllers;
 
 
-import Utilisateur.Pidev.Entites.Utilisateur;
+import edu.pidev3a8.entities.Utilisateur;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.util.Callback;

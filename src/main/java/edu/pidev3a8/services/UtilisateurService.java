@@ -1,14 +1,13 @@
-package Utilisateur.Pidev.Services;
+package edu.pidev3a8.services;
 
-import Utilisateur.Pidev.Entites.Utilisateur;
-import Utilisateur.Pidev.Interfaces.IService;
-import Utilisateur.Pidev.Tools.MyConnection;
+import edu.pidev3a8.entities.Utilisateur;
+import edu.pidev3a8.interfaces.IService;
+import edu.pidev3a8.tools.MyConnection;
 
 import javax.sql.rowset.serial.SerialBlob;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
