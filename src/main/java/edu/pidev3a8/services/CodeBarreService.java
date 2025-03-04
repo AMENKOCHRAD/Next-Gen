@@ -2,36 +2,42 @@ package edu.pidev3a8.services;
 
 import edu.pidev3a8.entities.CodeBarre;
 import edu.pidev3a8.tools.MyConnection;
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CodeBarreService {
 
+    // Ajouter un CodeBarre
     public void addCodeBarre(CodeBarre codeBarre) {
         try {
-            String requete = "INSERT INTO codebarre(nom_produit, ingredients, marque, fk_utilisateur) VALUES (?, ?, ?, ?)";
+            String requete = "INSERT INTO codebarre(nom_produit, ingredients, marque, fk_utilisateur, ref_produit, calories, proteines, glucides, lipides) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pst = MyConnection.getInstance().getCnx().prepareStatement(requete);
+
             pst.setString(1, codeBarre.getNom_produit());
             pst.setString(2, codeBarre.getIngredients());
             pst.setString(3, codeBarre.getMarque());
             pst.setInt(4, codeBarre.getFk_utilisateur());
+            pst.setString(5, codeBarre.getRef_produit());
+            pst.setDouble(6, codeBarre.getCalories());
+            pst.setDouble(7, codeBarre.getProteines());
+            pst.setDouble(8, codeBarre.getGlucides());
+            pst.setDouble(9, codeBarre.getLipides());
+
             pst.executeUpdate();
-            System.out.println("Code-barre ajouté");
+            System.out.println("Code-barre ajouté avec succès !");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Erreur SQL (ajout) : " + e.getMessage());
         }
     }
 
+    // Supprimer un CodeBarre
     public void deleteCodeBarre(CodeBarre codeBarre) {
         try {
-            String requete = "DELETE FROM codebarre WHERE id_Code = " + codeBarre.getId_Code();
-            Statement st = MyConnection.getInstance().getCnx().createStatement();
-            int rowsAffected = st.executeUpdate(requete);
+            String requete = "DELETE FROM codebarre WHERE id_Code = ?";
+            PreparedStatement pst = MyConnection.getInstance().getCnx().prepareStatement(requete);
+            pst.setInt(1, codeBarre.getId_Code());
+            int rowsAffected = pst.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Code-barre supprimé avec succès !");
             } else {
@@ -42,6 +48,7 @@ public class CodeBarreService {
         }
     }
 
+    // Mise à jour d'un CodeBarre
     public void updateCodeBarre(int id_Code, CodeBarre codeBarre) {
         try {
             String requete = "UPDATE codebarre SET nom_produit = ?, ingredients = ?, marque = ?, fk_utilisateur = ? WHERE id_Code = ?";
@@ -50,7 +57,7 @@ public class CodeBarreService {
             pst.setString(2, codeBarre.getIngredients());
             pst.setString(3, codeBarre.getMarque());
             pst.setInt(4, codeBarre.getFk_utilisateur());
-            pst.setInt(5, id_Code);
+            pst.setInt(6, id_Code);
             int rowsAffected = pst.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Code-barre mis à jour avec succès pour l'ID " + id_Code);
@@ -61,7 +68,7 @@ public class CodeBarreService {
             System.out.println("Erreur SQL (mise à jour) : " + e.getMessage());
         }
     }
-
+    // Obtenir tous les CodeBarre
     public List<CodeBarre> getAllData() {
         List<CodeBarre> result = new ArrayList<>();
         String requete = "SELECT * FROM codebarre";
@@ -75,6 +82,12 @@ public class CodeBarreService {
                 codeBarre.setIngredients(rs.getString("ingredients"));
                 codeBarre.setMarque(rs.getString("marque"));
                 codeBarre.setFk_utilisateur(rs.getInt("fk_utilisateur"));
+                codeBarre.setRef_produit(rs.getString("ref_produit"));
+                codeBarre.setCalories(rs.getDouble("calories"));
+                codeBarre.setProteines(rs.getDouble("proteines"));
+                codeBarre.setGlucides(rs.getDouble("glucides"));
+                codeBarre.setLipides(rs.getDouble("lipides"));
+
                 result.add(codeBarre);
             }
 

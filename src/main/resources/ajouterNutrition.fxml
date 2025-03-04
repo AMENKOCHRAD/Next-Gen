@@ -37,7 +37,10 @@
             <!-- Affichage de l'IMC -->
             <Label style="-fx-font-size: 14px; -fx-text-fill: #555555;" text="IMC :" GridPane.columnIndex="0" GridPane.rowIndex="3" />
             <Label fx:id="imcLabel" style="-fx-font-size: 14px; -fx-text-fill: #333333;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-         <columnConstraints>
+            <Label text="Utilisateur:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+            <ComboBox fx:id="utilisateurComboBox" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+            <columnConstraints>
             <ColumnConstraints />
             <ColumnConstraints />
          </columnConstraints>

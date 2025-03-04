@@ -16,13 +16,13 @@ public class NutritionService implements INutrition<Nutrition> {
     @Override
     public void addNutrition(Nutrition nutrition) {
         try {
-            String requete = "INSERT INTO nutrition(id_nut, poids, taille, sexe, imc) VALUES (?, ?, ?, ?, ?)";
+            String requete = "INSERT INTO nutrition( poids, taille, sexe, imc ,id_utilisateur) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement pst = MyConnection.getInstance().getCnx().prepareStatement(requete);
-            pst.setInt(1, nutrition.getId_nut());
-            pst.setDouble(2, nutrition.getPoids());
-            pst.setDouble(3, nutrition.getTaille());
-            pst.setString(4, nutrition.getSexe());
-            pst.setDouble(5, nutrition.getImc()); // Ajout de l'IMC
+            pst.setDouble(1, nutrition.getPoids());
+            pst.setDouble(2, nutrition.getTaille());
+            pst.setString(3, nutrition.getSexe());
+            pst.setDouble(4, nutrition.getImc()); // Ajout de l'IMC
+            pst.setInt(5,nutrition.getId_utilisateur());
             pst.executeUpdate();
             System.out.println("Plan de nutrition ajouté avec succès !");
         } catch (SQLException e) {
@@ -47,18 +47,22 @@ public class NutritionService implements INutrition<Nutrition> {
             System.out.println("Erreur SQL (suppression) : " + e.getMessage());
         }
     }
-
     @Override
     public void updateNutrition(int id_nut, Nutrition nutrition) {
         try {
-            String requete = "UPDATE nutrition SET poids = ?, taille = ?, sexe = ?, imc = ? WHERE id_nut = ?";
+            // Requête SQL pour mettre à jour la nutrition, y compris id_utilisateur
+            String requete = "UPDATE nutrition SET poids = ?, taille = ?, sexe = ?, imc = ?, id_utilisateur = ? WHERE id_nut = ?";
             PreparedStatement pst = MyConnection.getInstance().getCnx().prepareStatement(requete);
+
+            // Définir les valeurs des paramètres
             pst.setDouble(1, nutrition.getPoids());
             pst.setDouble(2, nutrition.getTaille());
             pst.setString(3, nutrition.getSexe());
             pst.setDouble(4, nutrition.getImc()); // Ajout de l'IMC
-            pst.setInt(5, id_nut);
+            pst.setInt(5, nutrition.getId_utilisateur()); // Ajout de l'ID utilisateur (clé étrangère)
+            pst.setInt(6, id_nut); // ID de la nutrition à mettre à jour
 
+            // Exécuter la mise à jour
             int rowsAffected = pst.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Plan de nutrition mis à jour avec succès pour l'ID " + id_nut);
@@ -85,6 +89,7 @@ public class NutritionService implements INutrition<Nutrition> {
                 nutrition.setTaille(rs.getDouble("taille"));
                 nutrition.setSexe(rs.getString("sexe"));
                 nutrition.setImc(rs.getDouble("imc")); // Récupération de l'IMC
+                nutrition.setId_utilisateur(rs.getInt("id_utilisateur"));
                 result.add(nutrition);
             }
         } catch (SQLException e) {
@@ -93,5 +98,28 @@ public class NutritionService implements INutrition<Nutrition> {
         return result;
     }
 
+    public List<Nutrition> getDataByUserId(int userId) {
+        List<Nutrition> result = new ArrayList<>();
+        try {
+            String requete = "SELECT * FROM nutrition WHERE id_utilisateur = ?";
+            PreparedStatement pst = MyConnection.getInstance().getCnx().prepareStatement(requete);
+            pst.setInt(1, userId);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                Nutrition nutrition = new Nutrition();
+                nutrition.setId_nut(rs.getInt("id_nut"));
+                nutrition.setPoids(rs.getDouble("poids"));
+                nutrition.setTaille(rs.getDouble("taille"));
+                nutrition.setSexe(rs.getString("sexe"));
+                nutrition.setImc(rs.getDouble("imc"));
+                nutrition.setId_utilisateur(rs.getInt("id_utilisateur"));
+                result.add(nutrition);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur SQL (getDataByUserId) : " + e.getMessage());
+        }
+        return result;
+    }
 
 }

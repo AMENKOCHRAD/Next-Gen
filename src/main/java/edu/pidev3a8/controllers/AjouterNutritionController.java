@@ -2,6 +2,7 @@ package edu.pidev3a8.controllers;
 
 import edu.pidev3a8.entities.Nutrition;
 import edu.pidev3a8.services.NutritionService;
+import edu.pidev3a8.tools.MyConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,6 +19,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class AjouterNutritionController implements Initializable {
@@ -32,94 +37,100 @@ public class AjouterNutritionController implements Initializable {
     private ComboBox<String> sexeComboBox;
     @FXML
     private Label imcLabel;
+    @FXML
+    private ComboBox<Integer> utilisateurComboBox;
 
     private NutritionService nutritionService = new NutritionService();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Initialiser la ComboBox avec les options "Femme" et "Homme"
         ObservableList<String> options = FXCollections.observableArrayList("Femme", "Homme");
         sexeComboBox.setItems(options);
-        sexeComboBox.getSelectionModel().selectFirst(); // Sélectionner "Femme" par défaut
+        sexeComboBox.getSelectionModel().selectFirst();
+        loadUtilisateurs();
 
     }
+    private void loadUtilisateurs() {
+        ObservableList<Integer> utilisateursList = FXCollections.observableArrayList();
 
+        String query = "SELECT id FROM utilisateur";
+        try (Connection conn = MyConnection.getInstance().getCnx();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                int idUtilisateur = rs.getInt("id");
+                utilisateursList.add(idUtilisateur);
+            }
+            utilisateurComboBox.setItems(utilisateursList);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            afficherErreur("Erreur", "Erreur lors du chargement des utilisateurs : " + e.getMessage());
+        }
+    }
     @FXML
     void updateIMC() {
         try {
-            // Récupérer les valeurs des champs texte
+
             String poidsText = poidsTextField.getText();
             String tailleText = tailleTextField.getText();
 
-            // Vérifier si les deux champs ne sont pas vides
             if (!poidsText.isEmpty() && !tailleText.isEmpty()) {
-                // Convertir les valeurs en double
+
                 double poids = Double.parseDouble(poidsText.replace(",", "."));
                 double taille = Double.parseDouble(tailleText.replace(",", "."));
 
-                // Calculer l'IMC
-                double imc = calculerIMC(poids, taille);
 
-                // Mettre à jour l'IMC dans le label
+                double imc = calculerIMC(poids, taille);
                 imcLabel.setText(String.format("%.2f", imc));
             } else {
-                // Si l'un des champs est vide, afficher "Non calculé"
                 imcLabel.setText("Non calculé");
             }
         } catch (NumberFormatException e) {
-            // Si les valeurs saisies ne sont pas des nombres valides
             imcLabel.setText("Non calculé");
         }
     }
     @FXML
     void ajouterNutritionAction(ActionEvent event) {
         try {
-            // Récupérer les valeurs des champs texte
+
             String poidsText = poidsTextField.getText();
             String tailleText = tailleTextField.getText();
             String sexe = sexeComboBox.getValue();
+            Integer idUtilisateur = utilisateurComboBox.getValue();
 
-            // Valider le poids
             if (!validerNombre(poidsText, "poids")) {
                 return; // Arrêter si la validation échoue
             }
-
-            // Valider la taille
             if (!validerNombre(tailleText, "taille")) {
                 return; // Arrêter si la validation échoue
             }
 
-            // Convertir les valeurs en double
             double poids = Double.parseDouble(poidsText.replace(",", "."));
             double taille = Double.parseDouble(tailleText.replace(",", "."));
 
-            // Créer un nouvel objet Nutrition
-            Nutrition nutrition = new Nutrition(poids, taille, sexe);
 
-            // Ajouter la nutrition via le service
+            Nutrition nutrition = new Nutrition(poids, taille, sexe,idUtilisateur);
+
             nutritionService.addNutrition(nutrition);
 
-            // Afficher un message de succès
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Succès");
             alert.setHeaderText("Nutrition ajoutée avec succès !");
             alert.setContentText("IMC calculé : " + String.format("%.2f", nutrition.getImc()));
             alert.showAndWait();
 
-            // Rediriger vers la page Home
             goToHome();
 
         } catch (NumberFormatException e) {
-            // Gérer les erreurs de saisie
             afficherErreur("Erreur de saisie", "Le poids et la taille doivent être des nombres valides.");
         } catch (Exception e) {
-            // Gérer les autres erreurs
             System.out.println(e);
             afficherErreur("Erreur", "Une erreur s'est produite lors de l'ajout de la nutrition.");
         }
     }
 
-    // Méthode pour valider un nombre (avec virgule ou point)
+
     private boolean validerNombre(String valeur, String champ) {
         // Expression régulière pour valider un nombre avec virgule ou point
         String regex = "^[0-9]+([,.][0-9]+)?$";
@@ -137,7 +148,7 @@ public class AjouterNutritionController implements Initializable {
         return true;
     }
 
-    // Méthode pour afficher une erreur
+
     private void afficherErreur(String titre, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(titre);
@@ -146,15 +157,13 @@ public class AjouterNutritionController implements Initializable {
         alert.showAndWait();
     }
 
-    // Méthode pour naviguer vers la page Home
-    @FXML
-    private void goToHome() {
-        try {
-            // Charger la page Home
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Detail.fxml"));
-            Parent root = loader.load();
 
-            // Afficher la nouvelle scène
+    @FXML
+    private void goToHome() {//retour a la page home
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DetailNutrition.fxml"));
+            Parent root = loader.load();
             Stage stage = (Stage) poidsTextField.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();

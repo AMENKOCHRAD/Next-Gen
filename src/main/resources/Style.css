@@ -25,3 +25,16 @@
 .button:pressed {
     -fx-background-color: linear-gradient(to bottom, #d1d1d1, #000033);
 }
+.x-large-font {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+.some-class {
+    -fx-font-size: 20px; /* Correct */
+}
+#imcLabel {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}

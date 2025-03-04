@@ -6,23 +6,38 @@ public class CodeBarre {
     private String ingredients;
     private String marque;
     private int fk_utilisateur;
+    private String ref_produit;
+    private double calories;
+    private double proteines;
+    private double glucides;
+    private double lipides;
 
     public CodeBarre() {
     }
 
-    public CodeBarre(int id_Code, String nom_produit, String ingredients, String marque, int fk_utilisateur) {
+    public CodeBarre(int id_Code, String nom_produit, String ingredients, String marque, int fk_utilisateur, String ref_produit, double calories, double proteines, double glucides, double lipides) {
         this.id_Code = id_Code;
         this.nom_produit = nom_produit;
         this.ingredients = ingredients;
         this.marque = marque;
         this.fk_utilisateur = fk_utilisateur;
+        this.ref_produit = ref_produit;
+        this.calories = calories;
+        this.proteines = proteines;
+        this.glucides = glucides;
+        this.lipides = lipides;
     }
 
-    public CodeBarre(String nom_produit, String ingredients, String marque, int fk_utilisateur) {
+    public CodeBarre(String nom_produit, String ingredients, String marque, int fk_utilisateur, String ref_produit, double calories, double proteines, double glucides, double lipides) {
         this.nom_produit = nom_produit;
         this.ingredients = ingredients;
         this.marque = marque;
         this.fk_utilisateur = fk_utilisateur;
+        this.ref_produit = ref_produit;
+        this.calories = calories;
+        this.proteines = proteines;
+        this.glucides = glucides;
+        this.lipides = lipides;
     }
 
     public int getId_Code() { return id_Code; }
@@ -40,6 +55,21 @@ public class CodeBarre {
     public int getFk_utilisateur() { return fk_utilisateur; }
     public void setFk_utilisateur(int fk_utilisateur) { this.fk_utilisateur = fk_utilisateur; }
 
+    public String getRef_produit() { return ref_produit; }
+    public void setRef_produit(String ref_produit) { this.ref_produit = ref_produit; }
+
+    public double getCalories() { return calories; }
+    public void setCalories(double calories) { this.calories = calories; }
+
+    public double getProteines() { return proteines; }
+    public void setProteines(double proteines) { this.proteines = proteines; }
+
+    public double getGlucides() { return glucides; }
+    public void setGlucides(double glucides) { this.glucides = glucides; }
+
+    public double getLipides() { return lipides; }
+    public void setLipides(double lipides) { this.lipides = lipides; }
+
     @Override
     public String toString() {
         return "CodeBarre{" +
@@ -48,6 +78,11 @@ public class CodeBarre {
                 ", ingredients='" + ingredients + '\'' +
                 ", marque='" + marque + '\'' +
                 ", fk_utilisateur=" + fk_utilisateur +
+                ", ref_produit='" + ref_produit + '\'' +
+                ", calories=" + calories +
+                ", proteines=" + proteines +
+                ", glucides=" + glucides +
+                ", lipides=" + lipides +
                 '}';
     }
 }

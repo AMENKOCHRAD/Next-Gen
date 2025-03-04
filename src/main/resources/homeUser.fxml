@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<?import javafx.scene.control.Button?>
+<AnchorPane prefHeight="500" prefWidth="875" stylesheets="Style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.pidev3a8.controllers.HomeUserController">
+    <!-- Conteneur principal -->
+
+    <!-- Titre -->
+    <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Vos Coordonnées Nutritionnelles :" AnchorPane.leftAnchor="20" AnchorPane.topAnchor="20" />
+
+    <!-- TableView pour afficher les données -->
+    <TableView fx:id="nutritionTable" layoutX="67.0" layoutY="95.0" prefHeight="152.0" prefWidth="788.0" AnchorPane.bottomAnchor="253.0" AnchorPane.leftAnchor="67.0" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="95.0">
+        <columns>
+            <TableColumn fx:id="poidsColumn" text="Poids (kg)" />
+            <TableColumn fx:id="tailleColumn" text="Taille (cm)" />
+            <TableColumn fx:id="sexeColumn" text="Sexe" />
+            <TableColumn fx:id="imcColumn" text="IMC" />
+            <TableColumn fx:id="actionColumn" prefWidth="227.0" text="Action" />
+        </columns>
+    </TableView>
+
+
+</AnchorPane>

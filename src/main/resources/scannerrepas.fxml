@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.pidev3a8.controllers.scannerrepasController">
+    <center>
+        <ImageView fx:id="cameraView" fitWidth="640" fitHeight="480" />
+    </center>
+    <bottom>
+        <VBox alignment="CENTER" spacing="10">
+            <Label fx:id="detectedFoodLabel" text="Detected Food: None" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+            <Label fx:id="statusLabel" text="Status: Idle" style="-fx-font-size: 14px; -fx-text-fill: blue;" />
+            <Button text="Start Scanning" onAction="#startScanning" style="-fx-font-size: 14px;" />
+        </VBox>
+    </bottom>
+</BorderPane>

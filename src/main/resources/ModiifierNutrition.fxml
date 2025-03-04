@@ -25,13 +25,15 @@
     <Label layoutX="238.0" layoutY="275.0" style="-fx-font-size: 14px; -fx-font-weight: normal; -fx-text-fill: #F7F7F7;" text="Sexe :" />
     <ComboBox fx:id="sexeComboBox" layoutX="363.0" layoutY="264.0" prefWidth="150.0" style="-fx-font-size: 14px; -fx-background-color: #fff; -fx-border-color: #ddd; -fx-border-radius: 5px; -fx-padding: 5px;" />
 
-    <!-- Affichage de l'IMC calculé -->
+    <!-- IMC -->
     <Label layoutX="238.0" layoutY="321.0" style="-fx-font-size: 14px; -fx-font-weight: normal; -fx-text-fill: #F7F7F7;" text="IMC :" />
     <Label fx:id="imcLabel" layoutX="376.0" layoutY="331.0" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #F7F7F7;" text="Non calculé" />
+
+    <!-- ComboBox pour id_utilisateur -->
+    <Label layoutX="238.0" layoutY="365.0" style="-fx-font-size: 14px; -fx-font-weight: normal; -fx-text-fill: #F7F7F7;" text="Utilisateur :" />
+    <ComboBox fx:id="idUtilisateurComboBox" layoutX="363.0" layoutY="360.0" prefWidth="150.0" style="-fx-font-size: 14px; -fx-background-color: #fff; -fx-border-color: #ddd; -fx-border-radius: 5px; -fx-padding: 5px;" />
 
     <!-- Boutons -->
     <Button layoutX="210.0" layoutY="396.0" onAction="#enregistrerAction" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 0, 2);" text="Enregistrer" />
     <Button layoutX="428.0" layoutY="396.0" onAction="#annulerAction" style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 0, 2);" text="Annuler" />
-
-
 </AnchorPane>

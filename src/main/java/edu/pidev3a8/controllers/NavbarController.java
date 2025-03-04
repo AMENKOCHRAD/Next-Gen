@@ -38,7 +38,8 @@ public class NavbarController {
     @FXML
     private void handleNutritionButtonAction() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Detail.fxml"));
+            System.out.println("Bouton Nutrition cliqué !");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DetailNutrition.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -48,6 +49,7 @@ public class NavbarController {
             Stage currentStage = (Stage) coursButton.getScene().getWindow();
             currentStage.close();
         } catch (IOException e) {
+            System.out.println("Erreur lors du chargement de Detail.fxml : " + e.getMessage());
             e.printStackTrace();
         }
     }

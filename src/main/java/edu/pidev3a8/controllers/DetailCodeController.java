@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
+import javax.swing.JOptionPane;
 
 public class DetailCodeController {
 
@@ -32,6 +33,19 @@ public class DetailCodeController {
     @FXML
     private TableColumn<CodeBarre, Integer> fkUtilisateurColumn;
     @FXML
+    private TableColumn<CodeBarre, String> refproduitColumn;
+    @FXML
+    private TableColumn<CodeBarre, Double> caloriesColumn;
+
+    @FXML
+    private TableColumn<CodeBarre, Double> proteinesColumn;
+
+    @FXML
+    private TableColumn<CodeBarre, Double> glucidesColumn;
+
+    @FXML
+    private TableColumn<CodeBarre, Double> lipidesColumn;
+    @FXML
     private TableColumn<CodeBarre, Void> actionsColumn;
 
     private final CodeBarreService codeBarreService = new CodeBarreService();
@@ -39,10 +53,16 @@ public class DetailCodeController {
     @FXML
     public void initialize() {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id_Code"));
-        nomProduitColumn.setCellValueFactory(new PropertyValueFactory<>("nom_produit"));
-        ingredientsColumn.setCellValueFactory(new PropertyValueFactory<>("ingredients"));
-        marqueColumn.setCellValueFactory(new PropertyValueFactory<>("marque"));
+        nomProduitColumn.setCellValueFactory(new PropertyValueFactory<>("Nom_produit"));
+        refproduitColumn.setCellValueFactory(new PropertyValueFactory<>("Ref_produit"));
+        ingredientsColumn.setCellValueFactory(new PropertyValueFactory<>("Ingredients"));
+        marqueColumn.setCellValueFactory(new PropertyValueFactory<>("Marque"));
         fkUtilisateurColumn.setCellValueFactory(new PropertyValueFactory<>("fk_utilisateur"));
+        caloriesColumn.setCellValueFactory(new PropertyValueFactory<>("calories"));
+        proteinesColumn.setCellValueFactory(new PropertyValueFactory<>("proteines"));
+        glucidesColumn.setCellValueFactory(new PropertyValueFactory<>("glucides"));
+        lipidesColumn.setCellValueFactory(new PropertyValueFactory<>("lipides"));
+
 
         actionsColumn.setCellFactory(new Callback<TableColumn<CodeBarre, Void>, TableCell<CodeBarre, Void>>() {
             @Override
@@ -82,8 +102,25 @@ public class DetailCodeController {
     }
 
     private void deleteCodeBarre(CodeBarre codeBarre) {
-        codeBarreService.deleteCodeBarre(codeBarre);
-        loadCodeBarreData();
+        // Afficher une boîte de dialogue de confirmation
+        int response = JOptionPane.showConfirmDialog(
+                null,
+                "Êtes-vous sûr de vouloir supprimer ce code-barres ?",
+                "Confirmation de suppression",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+        );
+
+        // Vérifier la réponse de l'utilisateur
+        if (response == JOptionPane.YES_OPTION) {
+            // Si l'utilisateur confirme, procéder à la suppression
+            System.out.println("Suppression du code-barres : " + codeBarre);
+            codeBarreService.deleteCodeBarre(codeBarre);
+            loadCodeBarreData(); // Rafraîchir la liste après suppression
+        } else {
+            // Si l'utilisateur annule, ne rien faire
+            System.out.println("Suppression du code-barres annulée.");
+        }
     }
 
     @FXML
@@ -119,7 +156,7 @@ public class DetailCodeController {
     private void goToListedesNutrition(ActionEvent actionEvent) {
         try {
             // Charger le fichier FXML correspondant à la liste des codes à barre
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Detail.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DetailNutrition.fxml"));
             Parent root = loader.load();
 
             // Obtenir la scène de la fenêtre actuelle et la remplacer par la nouvelle scène
