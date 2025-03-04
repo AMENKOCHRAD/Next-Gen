@@ -1,8 +1,13 @@
 package edu.pidev3a8.controllers;
+import com.google.i18n.phonenumbers.NumberParseException;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.google.i18n.phonenumbers.Phonenumber;
 import edu.pidev3a8.entities.Utilisateur;
 import edu.pidev3a8.services.UtilisateurService;
 import edu.pidev3a8.tools.MyConnection;
 import edu.pidev3a8.utils.EmailValidator;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -44,6 +49,14 @@ public class inscription {
     private TextField numTel_textfield;
 
     @FXML
+    private ImageView countryFlagImageView;
+
+    @FXML
+    private Label countryCodeLabel;
+
+    private PhoneNumberUtil phoneNumberUtil = PhoneNumberUtil.getInstance();
+
+    @FXML
     private ComboBox<String> genre_combobox;
 
     @FXML
@@ -70,7 +83,14 @@ public class inscription {
         genre_combobox.setValue("Homme");
         emailValidator = new EmailValidator(MyConnection.getInstance().getCnx());
 
+        numTel_textfield.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                updateCountryInfo(newValue);
+            }
+        });
     }
+
 
 
     @FXML
@@ -87,8 +107,26 @@ public class inscription {
             imageView.setImage(image);
         }
     }
+    private void updateCountryInfo(String phoneNumber) {
+        try {
+            // Assume the phone number is from Tunisia if no country code is provided
+            Phonenumber.PhoneNumber number = phoneNumberUtil.parse(phoneNumber, "ZZ");
+            String regionCode = phoneNumberUtil.getRegionCodeForNumber(number);
+            String countryCode = "+" + number.getCountryCode();
 
+            // Update the country code label
+            countryCodeLabel.setText(countryCode);
 
+            // Update the country flag image view
+            String flagImagePath = "/flags/" + regionCode.toLowerCase() + ".png";
+            Image flagImage = new Image(getClass().getResourceAsStream(flagImagePath));
+            countryFlagImageView.setImage(flagImage);
+
+        } catch (NumberParseException e) {
+            countryCodeLabel.setText("");
+            countryFlagImageView.setImage(null);
+        }
+    }
 
     @FXML
     void AjouterUtilisateurAction(ActionEvent event) {

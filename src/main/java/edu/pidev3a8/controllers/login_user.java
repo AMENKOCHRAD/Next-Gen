@@ -40,7 +40,7 @@ public class login_user {
     @FXML private Button sendEmailButton;
 
 
-
+    private int failedLoginAttempts = 0;
     private boolean isPasswordVisible = false;
     private final UtilisateurService utilisateurService = new UtilisateurService();
 
@@ -52,17 +52,34 @@ public class login_user {
         if (!validateInput(email, password)) {
             return;
         }
-        authenticateAndNavigate(email, password, event);
+
+        Utilisateur user = utilisateurService.authenticateUser(email, password);
+
+        if (user == null) {
+            failedLoginAttempts++;
+            showAlert("Erreur de connexion", "Email ou mot de passe incorrect.");
+
+            if (failedLoginAttempts >= 3) {
+                handleSendEmail(email);
+                failedLoginAttempts = 0; // Reset the counter after sending the email
+            }
+            return;
+        }
+
+        failedLoginAttempts = 0; // Reset the counter on successful login
+        CurrentUser.getInstance().setCurrentUser(user);
+        navigateToProfile(user, event);
     }
+
     @FXML
-    private void handleSendEmail(ActionEvent event) {
+    private void handleSendEmail(String email) {
         new Thread(() -> {
             try {
                 // Capture photo
                 byte[] photoBytes = capturePhoto();
 
                 // Send email
-                sendEmailWithPhoto(photoBytes);
+                sendEmailWithPhoto(photoBytes, email);
 
                 // Show success message
                 Platform.runLater(() -> {
@@ -76,6 +93,57 @@ public class login_user {
                 });
             }
         }).start();
+    }
+
+    private void sendEmailWithPhoto(byte[] photoBytes, String recipientEmail) {
+        final String username = "bboumiza01@gmail.com"; // Replace with your email
+        final String password = "ppkf ddjq vrvm coor"; // Replace with your email password
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true"); // Use TLS
+        props.put("mail.smtp.host", "smtp.gmail.com"); // Replace with your SMTP server
+        props.put("mail.smtp.port", "587");
+
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, password);
+                    }
+                });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(username));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail)); // Use the recipient email
+            message.setSubject("Alerte Tentative de connexion à votre compte");
+
+            // Create the message part
+            BodyPart messageBodyPart = new MimeBodyPart();
+            messageBodyPart.setText("Si vous n'êtes pas à l'origine de cette tentative, veuillez contacter l'administrateur du site pour plus d'informations.\n\n" +
+                    "Cordialement,\nL'équipe de support.");
+
+            // Create a multipart message
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(messageBodyPart);
+
+            // Attach the photo
+            messageBodyPart = new MimeBodyPart();
+            ByteArrayDataSource dataSource = new ByteArrayDataSource(photoBytes, "image/jpeg");
+            messageBodyPart.setDataHandler(new DataHandler(dataSource));
+            messageBodyPart.setFileName("photo.jpg");
+            multipart.addBodyPart(messageBodyPart);
+
+            // Send the complete message parts
+            message.setContent(multipart);
+
+            Transport.send(message);
+
+            System.out.println("Email sent successfully.");
+
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private byte[] capturePhoto() {
@@ -104,57 +172,7 @@ public class login_user {
         return imageBytes;
     }
 
-    private void sendEmailWithPhoto(byte[] photoBytes) {
-        final String username = "bboumiza01@gmail.com"; // Replace with your email
-        final String password = "ppkf ddjq vrvm coor"; // Replace with your email password
 
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true"); // Use TLS
-        props.put("mail.smtp.host", "smtp.gmail.com"); // Replace with your SMTP server
-        props.put("mail.smtp.port", "587");
-
-        Session session = Session.getInstance(props,
-                new javax.mail.Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, password);
-                    }
-                });
-
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(username));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("badisstik@gmail.com")); // Replace with recipient email
-            message.setSubject("Alerte Tentative de connexion à votre compte");
-
-            // Create the message part
-            BodyPart messageBodyPart = new MimeBodyPart();
-            messageBodyPart.setText("Chere Adherent ,\n Nous avons détecté une tentative de connexion à votre compte depuis un appareil inconnu.\n" +
-                    "Si vous n'êtes pas à l'origine de cette tentative, veuillez contacter l'administrateur du site pour plus d'informations.\n\n" +
-                    "Cordialement,\nL'équipe de support.");
-
-            // Create a multipart message
-            Multipart multipart = new MimeMultipart();
-            multipart.addBodyPart(messageBodyPart);
-
-            // Attach the photo
-            messageBodyPart = new MimeBodyPart();
-            ByteArrayDataSource dataSource = new ByteArrayDataSource(photoBytes, "image/jpeg");
-            messageBodyPart.setDataHandler(new DataHandler(dataSource));
-            messageBodyPart.setFileName("photo.jpg");
-            multipart.addBodyPart(messageBodyPart);
-
-            // Send the complete message parts
-            message.setContent(multipart);
-
-            Transport.send(message);
-
-            System.out.println("Email sent successfully.");
-
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        }
-    }
     private boolean validateInput(String email, String password) {
         if (email.isEmpty() || password.isEmpty()) {
             showAlert("Erreur de saisie", "Veuillez remplir tous les champs.");
