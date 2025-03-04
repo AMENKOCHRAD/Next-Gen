@@ -15,3 +15,11 @@
 .navbar-button:pressed {
     -fx-background-color: #3e3abf; /* Slightly darker shade of the navbar color */
 }
+.root {
+    -fx-background-image: url("/images/background_event.png");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+}
+
+

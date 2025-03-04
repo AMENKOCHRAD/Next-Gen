@@ -3,41 +3,38 @@ package edu.pidev3a8.tools;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
 public class MyConnection {
 
 
-    private String url="jdbc:mysql://localhost:3306/sportify";
+    public final String URL = "jdbc:mysql://localhost:3306/pidev";
+    public final String USERNAME = "root";
+    public final String PWD = "";
+    //2 creer une variable de m type que la classe
+    public static MyConnection instance;
 
-    private String login="root";
+    private Connection connection;
 
-    private String pwd="";
-    private Connection cnx;
-    private static MyConnection instance;
+    //1 Rendre le constructeur Prive
+    private MyConnection() {
 
-
-
-
-
-    private MyConnection(){
         try {
-            cnx = DriverManager.getConnection(url,login,pwd);
-            System.out.println("Connection established");
+            connection = DriverManager.getConnection(URL,USERNAME,PWD);
+            System.out.println("Connected");
         } catch (SQLException e) {
-            System.out.println("Error , connection not established! /"+e.getMessage() );
+            System.out.println(e.getMessage());
         }
-
-
     }
 
-    public Connection getCnx() {
-        return cnx;
-    }
-
-    public static MyConnection getInstance() {
-        if(instance == null){
+    //3 creer une methode getInstance
+    public static MyConnection getInstance(){
+        if(instance==null){
             instance = new MyConnection();
         }
-        return instance ;
+        return instance;
+
+    }
+
+    public Connection getConnection() {
+        return connection;
     }
 }

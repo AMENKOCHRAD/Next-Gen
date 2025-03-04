@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stripe Payment</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-blue-500 to-purple-600 h-screen flex justify-center items-center">
+
+<div class="bg-white p-8 rounded-xl shadow-xl max-w-sm w-full text-center">
+    <h1 class="text-2xl font-semibold text-gray-800 mb-4">Secure Payment</h1>
+    <p id="ticket-info" class="text-gray-600">You are purchasing <span id="ticket-count">1</span> ticket(s).</p>
+
+    <form id="payment-form" class="space-y-4">
+        <div id="card-element" class="p-4 border border-gray-300 rounded-lg shadow-sm"></div>
+
+        <button id="submit"
+                class="w-full bg-blue-600 text-white py-2 rounded-lg text-lg font-semibold transition-all duration-300 hover:bg-blue-700 flex items-center justify-center">
+            <span id="button-text">Pay Now</span>
+            <svg id="loading-icon" class="animate-spin hidden w-5 h-5 ml-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+            </svg>
+        </button>
+    </form>
+
+    <div id="payment-result" class="mt-4 text-gray-700"></div>
+</div>
+
+<script>
+    const stripe = Stripe('pk_test_51Qy8NxLS1h5GXhF1lxPDaVZqFZsiDoW2wKF2fKQR1MhgE3Nz9qiaxRdPY6DzCuxwCjyd8G54XyCZxzgnVzAvA3GW00ci48S4NG'); // Replace with your public key
+    const elements = stripe.elements();
+    const cardElement = elements.create('card', { style: { base: { fontSize: '16px', color: '#333' } } });
+    cardElement.mount('#card-element');
+
+    const form = document.getElementById('payment-form');
+    const button = document.getElementById('submit');
+    const buttonText = document.getElementById('button-text');
+    const loadingIcon = document.getElementById('loading-icon');
+
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        buttonText.textContent = 'Processing...';
+        loadingIcon.classList.remove('hidden');
+
+        const { paymentIntent, error } = await stripe.confirmCardPayment(
+            client_secret_from_server, // Replace with the server-side value
+            { payment_method: { card: cardElement } }
+        );
+
+        if (error) {
+            document.getElementById('payment-result').textContent = error.message;
+            buttonText.textContent = 'Pay Now';
+            loadingIcon.classList.add('hidden');
+        } else {
+            document.getElementById('payment-result').textContent = '✅ Payment successful!';
+            if (window.javaController) {
+                window.javaController.paymentSuccess(); // Call the paymentSuccess method
+                window.javaController.closePaymentDialog(); // Call the closePaymentDialog method
+                window.javaController.updateTicketQuantity = function(quantity) {
+                    document.getElementById('ticket-count').textContent = quantity;
+                };
+
+
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

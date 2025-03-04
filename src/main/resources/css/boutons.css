@@ -1,0 +1,27 @@
+/* Gradient Button */
+.button {
+    -fx-background-color: #6a11cb;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 2px 20px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-border-color: #ffffff;
+    -fx-border-width: 1px;
+    -fx-cursor: hand;
+}
+
+/* Hover Effect */
+.button:hover {
+    -fx-background-color: #5611a1;
+}
+
+/* Pressed Effect */
+.button:pressed {
+    -fx-background-color: linear-gradient(to bottom, #d1d1d1, #000033);
+}
+.root {
+    -fx-background-image: url("../../../../../Desktop/pidev_event/src/main/resources/images/background_event.png");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
