@@ -1,0 +1,35 @@
+/* navbar-buttons.css */
+.button {
+    -fx-background-color: rgba(238, 130, 238, 0.5); /* Translucent violet */
+    -fx-border-color: white;
+    -fx-border-width: 1px;
+    -fx-border-radius:1px;
+    -fx-background-radius: 5px;
+    -fx-text-fill: white;
+    -fx-font-size: 12px; /* Smaller font size */
+    -fx-font-family: "Arial";
+    -fx-padding: 5px 10px; /* Reduced padding */
+    -fx-background-insets: 0, 1;
+    -fx-cursor: hand;
+    -fx-min-width: 80px; /* Minimum width to ensure text fits */
+    -fx-min-height: 30px; /* Minimum height to ensure text fits */
+    -fx-alignment: center; /* Center text inside the button */
+}
+
+.button:hover {
+    -fx-background-color: rgba(238, 130, 238, 0.7); /* More opaque on hover */
+    -fx-border-width: 2.5px;
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.3), 10, 0, 0, 0);
+}
+
+.button:pressed {
+    -fx-background-color: rgba(224, 102, 255, 0.8); /* Slightly brighter when pressed */
+    -fx-border-width: 2px;
+    -fx-translate-y: 1px; /* Creates a subtle push effect */
+}
+
+/* Optional: Style for when button is focused */
+.button:focused {
+    -fx-border-color: derive(white, 20%);
+    -fx-border-width: 3px;
+}

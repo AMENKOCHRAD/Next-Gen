@@ -1,7 +1,8 @@
-/* navbar.css */
+* navbar.css */
+
 .navbar-button {
     -fx-background-color: transparent;
-    -fx-text-fill: white;
+    -fx-text-fill: white; !important;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-padding: 10px 20px;
