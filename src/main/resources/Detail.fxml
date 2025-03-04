@@ -1,12 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.pidev3a8.controllers.DetailController">
+<AnchorPane prefHeight="500.0" prefWidth="875.0" stylesheets="style2.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.pidev3a8.controllers.DetailController">
    <children>
-      <TextField fx:id="a" layoutX="237.0" layoutY="107.0" />
-      <TextField fx:id="b" layoutX="237.0" layoutY="182.0" />
+      <fx:include source="Navbar.fxml" />
+      <!-- Conteneur principal -->
+      <VBox layoutX="-8.0" layoutY="17.0" prefHeight="500.0" prefWidth="875.0" spacing="20.0">
+         <padding>
+            <Insets bottom="20" left="60" right="20" top="50" />
+         </padding>
+         <children>
+            <!-- Barre de recherche -->
+            <HBox alignment="CENTER" spacing="10">
+               <TextField fx:id="searchField" promptText="Rechercher par catégorie..." />
+               <Button onAction="#handleSearch" text="Rechercher" />
+            </HBox>
+
+            <!-- TableView pour afficher les réclamations -->
+            <TableView fx:id="reclamationsTable" layoutX="50.0" layoutY="30.0" prefHeight="350.0" prefWidth="1268.0">
+               <columns>
+                  <!-- Colonne ID -->
+                  <TableColumn fx:id="idColumn" prefWidth="50" text="ID">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="id" />
+                     </cellValueFactory>
+                  </TableColumn>
+
+                  <!-- Colonne Sujet -->
+                  <TableColumn fx:id="sujetColumn" prefWidth="150" text="Sujet">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="sujet" />
+                     </cellValueFactory>
+                  </TableColumn>
+
+                  <!-- Colonne Description -->
+                  <TableColumn fx:id="descriptionColumn" prefWidth="300" text="Description">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="description" />
+                     </cellValueFactory>
+                  </TableColumn>
+
+                  <!-- Colonne Catégorie -->
+                  <TableColumn fx:id="categorieColumn" prefWidth="150" text="Catégorie">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="categorie" />
+                     </cellValueFactory>
+                  </TableColumn>
+
+                  <!-- Colonne Date -->
+                  <TableColumn fx:id="dateColumn" prefWidth="150" text="Date">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="date" />
+                     </cellValueFactory>
+                  </TableColumn>
+
+                  <!-- Colonne Statut -->
+                  <TableColumn fx:id="statutColumn" prefWidth="100" text="Statut">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="statut" />
+                     </cellValueFactory>
+                  </TableColumn>
+
+                  <!-- Colonne Pièces jointes -->
+                  <TableColumn fx:id="piecesJointesColumn" prefWidth="200" text="Pièces jointes">
+                     <!-- Cette colonne sera gérée dans le contrôleur -->
+                  </TableColumn>
+               </columns>
+            </TableView>
+
+            <!-- Boutons Supprimer, Modifier, Traiter et Ajouter une Réclamation -->
+            <HBox alignment="CENTER" spacing="20">
+               <Button onAction="#handleSupprimerReclamation" style="-fx-background-color: #ff4444; -fx-text-fill: white; -fx-font-weight: bold;" text="Supprimer" />
+               <Button onAction="#handleModifierReclamation" style="-fx-background-color: #33b5e5; -fx-text-fill: white; -fx-font-weight: bold;" text="Modifier" />
+               <Button onAction="#handleTraiterReclamation" style="-fx-background-color: #FF8800; -fx-text-fill: white; -fx-font-weight: bold;" text="Traiter" />
+               <Button onAction="#handleAjouterReclamation" style="-fx-background-color: #00C851; -fx-text-fill: white; -fx-font-weight: bold;" text="Ajouter une Réclamation" />
+               <Button onAction="#handleAfficherStatistiques" text="Afficher les Statistiques" />
+               <Button onAction="#handleAfficherCamembert" text="Afficher le Camembert" />
+            </HBox>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

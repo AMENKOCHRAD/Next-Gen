@@ -1,0 +1,52 @@
+/* --- style.css --- */
+
+/* Style de la fenêtre principale */
+.root {
+    -fx-background-color: #EAEAEA;
+}
+
+/* Carte (VBox principale) */
+.card {
+    -fx-background-color: white;
+    -fx-padding: 25px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 0, 5);
+}
+
+/* Style des Labels */
+.label-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+/* Style des ComboBox et TextArea */
+.combo-box, .text-area {
+    -fx-pref-width: 250px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-border-color: #ccc;
+}
+
+.text-area:focused {
+    -fx-border-color: #007bff;
+    -fx-focus-color: #007bff;
+    -fx-faint-focus-color: rgba(0,123,255,0.2);
+}
+
+/* Style du bouton */
+.button {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #0056b3;
+}
