@@ -1,9 +1,6 @@
 package edu.pidev3a8.controllers;
 
-import edu.pidev3a8.entities.Categorie;
-import edu.pidev3a8.entities.FiltrageTexte;
-import edu.pidev3a8.entities.PurgoMalumService;
-import edu.pidev3a8.entities.Reclamation;
+import edu.pidev3a8.entities.*;
 import edu.pidev3a8.services.ReclamtionService;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -25,6 +22,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class AjouterReclamationController {
@@ -125,6 +123,11 @@ public class AjouterReclamationController {
             // Ajouter la réclamation
             rs.addEntity(r);
 
+            // Ajouter un événement dans Google Calendar
+            Date startDate = new Date(); // Date de début (maintenant)
+            Date endDate = new Date(startDate.getTime() + 3600 * 1000); // Date de fin (1 heure plus tard)
+            CalendarManager.createEvent("Nouvelle Réclamation", sujet, startDate, endDate);
+
             // Ajouter la réclamation à la liste dans DetailController
             if (detailController != null) {
                 detailController.addReclamation(r);
@@ -156,6 +159,9 @@ public class AjouterReclamationController {
         } catch (RuntimeException e) {
             // Gérer l'exception si la limite de réclamations est atteinte
             afficherErreur(e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace(); // Ajoutez ceci pour voir la stacktrace complète
+            afficherErreur("Erreur d'authentification Google: " + e.getMessage());
         }
     }
     @FXML
