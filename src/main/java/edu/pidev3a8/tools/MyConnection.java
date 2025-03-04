@@ -3,38 +3,40 @@ package edu.pidev3a8.tools;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
 public class MyConnection {
+    private static MyConnection instance;
+    private Connection cnx;
 
-
-    public final String URL = "jdbc:mysql://localhost:3306/pidev";
-    public final String USERNAME = "root";
-    public final String PWD = "";
-    //2 creer une variable de m type que la classe
-    public static MyConnection instance;
-
-    private Connection connection;
-
-    //1 Rendre le constructeur Prive
     private MyConnection() {
-
         try {
-            connection = DriverManager.getConnection(URL,USERNAME,PWD);
-            System.out.println("Connected");
+            String url = "jdbc:mysql://localhost:3306/sportify";
+            String user = "root";
+            String password = "";
+            cnx = DriverManager.getConnection(url, user, password);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Erreur de connexion à la base de données: " + e.getMessage());
         }
     }
 
-    //3 creer une methode getInstance
-    public static MyConnection getInstance(){
-        if(instance==null){
+    public static MyConnection getInstance() {
+        if (instance == null) {
             instance = new MyConnection();
         }
         return instance;
-
     }
 
-    public Connection getConnection() {
-        return connection;
+    public Connection getCnx() {
+        try {
+            if (cnx == null || cnx.isClosed()) {
+                String url = "jdbc:mysql://localhost:3306/sportify";
+                String user = "root";
+                String password = "";
+                cnx = DriverManager.getConnection(url, user, password);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur de connexion à la base de données: " + e.getMessage());
+        }
+        return cnx;
     }
 }
