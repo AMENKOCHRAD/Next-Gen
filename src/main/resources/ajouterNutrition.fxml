@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="500" prefWidth="875" stylesheets="Style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.pidev3a8.controllers.AjouterNutritionController">
+
+    <!-- Conteneur principal VBox -->
+    <VBox alignment="CENTER" layoutX="89.0" prefHeight="500" prefWidth="701.0" spacing="20">
+        <padding>
+            <Insets bottom="30" left="30" right="30" top="30" />
+        </padding>
+
+        <!-- Titre -->
+        <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #F7F7F7;" text="Ajouter une nutrition" />
+
+        <!-- Formulaire -->
+        <GridPane hgap="15" prefHeight="195.0" prefWidth="698.0" style="-fx-background-color: white; -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);" vgap="15">
+            <Label style="-fx-font-size: 14px; -fx-text-fill: #555555;" text="Poids (kg):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <TextField fx:id="poidsTextField" onKeyReleased="#updateIMC" style="-fx-font-size: 14px; -fx-pref-width: 200px;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+            <Label style="-fx-font-size: 14px; -fx-text-fill: #555555;" text="Taille (cm):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <TextField fx:id="tailleTextField" onKeyReleased="#updateIMC" style="-fx-font-size: 14px; -fx-pref-width: 200px;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+            <Label style="-fx-font-size: 14px; -fx-text-fill: #555555;" text="Sexe:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <ComboBox fx:id="sexeComboBox" style="-fx-font-size: 14px; -fx-pref-width: 200px;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+            <!-- Affichage de l'IMC -->
+            <Label style="-fx-font-size: 14px; -fx-text-fill: #555555;" text="IMC :" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+            <Label fx:id="imcLabel" style="-fx-font-size: 14px; -fx-text-fill: #333333;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+         <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
+        </GridPane>
+
+        <!-- Boutons -->
+        <HBox alignment="CENTER" spacing="10">
+            <Button onAction="#ajouterNutritionAction" style="-fx-font-size: 14px; -fx-background-color: #4CAF50; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 5;" text="Ajouter" />
+            <Button onAction="#goToHome" style="-fx-font-size: 14px; -fx-background-color: #2196F3; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 5;" text="Retour à la liste" />
+        </HBox>
+    </VBox>
+
+    <!-- Positionner VBox dans l'AnchorPane -->
+    <AnchorPane.topAnchor>0.0</AnchorPane.topAnchor>
+    <AnchorPane.bottomAnchor>0.0</AnchorPane.bottomAnchor>
+    <AnchorPane.leftAnchor>0.0</AnchorPane.leftAnchor>
+    <AnchorPane.rightAnchor>0.0</AnchorPane.rightAnchor>
+
+</AnchorPane>

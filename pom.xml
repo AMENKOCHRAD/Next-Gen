@@ -21,9 +21,9 @@
             <version>8.0.30</version>
         </dependency>
         <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>20.0.2</version>
+            <groupId> org.openjfx</groupId>
+            <artifactId> javafx-fxml</artifactId>
+            <version> 20.0.2</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -201,6 +201,7 @@
             <classifier>models</classifier>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>

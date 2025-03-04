@@ -33,6 +33,12 @@ public class NavbarController {
     private void handleCoursButtonAction() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/CoursCRUD.fxml"));
+    private Button nutButton;
+
+    @FXML
+    private void handleNutritionButtonAction() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Detail.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
