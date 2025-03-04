@@ -1,71 +1,28 @@
 package edu.pidev3a8.tests;
 
-import edu.pidev3a8.tools.MyConnection;
+import edu.pidev3a8.services.CoursService;
+import edu.pidev3a8.entities.Cours_type;
+import edu.pidev3a8.services.Cours_typeService;
 
-public class mainClass {
+public class MainClass {
+
     public static void main(String[] args) {
-        MyConnection mc = MyConnection.getInstance();
 
-//        Utilisateur u = new Utilisateur("admin6@gmail.com", "mdpadmin6"
-//                , "boumiza", "badissadmin6", 92735731, "Homme", Utilisateur.Role.Admin
-//                , "im.png");
+       // Cours c = new Cours("arts_martiaux","lutte","13/06/25","coach@gmail.com");
+      //  Cours c1 = new Cours(11,"arts_martiaux","mma","13/06/25","entraineur@gmail.com");
+       // Cours c2 = new Cours("zumba","danse_bresillienne","25/06/25","danseuse@gmail.com");
+        Cours_type ct = new Cours_type("b"," b ");
+        CoursService cs = new CoursService();
+        Cours_typeService cst = new Cours_typeService();
+        //cst.addEntity(ct);
+        //cst.deleteEntity(ct);
+        //cst.updateEntity(15,ct);
+        System.out.println(cst.getAllData());
+      // cs.addEntity(c2);
+       System.out.println(cs.getAllData());
+        //cs.deleteEntity(c1);
+       // cs.updateEntity(9,c2);
 
-      //Affichage
-
-//        UtilisateurService us = new UtilisateurService();
-//        us.addEntity(u);
-
-        //List<Utilisateur> utilisateurs = us.getAllData2();
-
-        // Print the retrieved data
-        /* if (utilisateurs.isEmpty()) {
-            System.out.println("No users found in the database.");
-        } else {
-            System.out.println("List of all users:");
-            for (Utilisateur k : utilisateurs) {
-                System.out.println(k); // Ensure Utilisateur has a toString() method for proper output
-            }
-        } */
-    }
 
     }
-
-
-
-
-
-
-
-        //Delete
-        /*Utilisateur utilisateur = new Utilisateur();
-        utilisateur.setId(4); // Set the ID of the user you want to delete
-
-        // Create an instance of the service class
-        UtilisateurService ps = new UtilisateurService();
-
-        // Call the deleteEntity method to delete the user
-        ps.deleteEntity(utilisateur);
-
-        // Optional: Print all data to verify the deletion
-        System.out.println(ps.getAllData());/*
-         */
-
-    //Modifier
-    /* UtilisateurService us = new UtilisateurService();
-        us.updateEntity(4, u);
-        System.out.println(us.getAllData());  */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}

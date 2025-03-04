@@ -11,6 +11,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -27,6 +29,15 @@ public class NavbarController {
             Stage stage = new Stage();
             stage.show();
 
+    private void handleCoursButtonAction() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/CoursCRUD.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            // Fermer la fenêtre actuelle si nécessaire
             Stage currentStage = (Stage) coursButton.getScene().getWindow();
             currentStage.close();
         } catch (IOException e) {
@@ -116,5 +127,6 @@ public class NavbarController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+}
 }
 }
