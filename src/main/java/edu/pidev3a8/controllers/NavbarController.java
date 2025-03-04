@@ -63,6 +63,16 @@ public class NavbarController {
             // Close the current stage
             Stage currentStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
             currentStage.close();
+    private Button eventButton;
+
+    @FXML
+    private void handleEventButtonAction() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/event_view.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) eventButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -106,4 +116,5 @@ public class NavbarController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+}
 }

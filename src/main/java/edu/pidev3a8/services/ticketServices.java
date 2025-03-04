@@ -1,9 +1,9 @@
-package services;
+package edu.pidev3a8.services;
 
-import entities.Ticket;
-import interfaces.ITicketDAO;
-import tools.MyConnection;
-import java.sql.*;
+import edu.pidev3a8.entities.Ticket;
+import edu.pidev3a8.interfaces.ITicketDAO;
+import edu.pidev3a8.tools.MyConnection;
+
 import java.util.ArrayList;
 import java.util.List;
 

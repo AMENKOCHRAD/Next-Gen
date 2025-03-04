@@ -1,6 +1,6 @@
-package interfaces;
+package edu.pidev3a8.interfaces;
 
-import entities.Ticket;
+import edu.pidev3a8.entities.Ticket;
 import java.util.List;
 
 public interface ITicketDAO {

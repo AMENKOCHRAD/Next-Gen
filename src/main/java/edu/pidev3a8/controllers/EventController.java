@@ -1,16 +1,15 @@
-package controllers;
+package edu.pidev3a8.controllers;
 
-import entities.Event;
+import edu.pidev3a8.entities.Event;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import services.EventServices;
+import edu.pidev3a8.services.EventServices;
 
 import java.io.IOException;
 import java.sql.Date;

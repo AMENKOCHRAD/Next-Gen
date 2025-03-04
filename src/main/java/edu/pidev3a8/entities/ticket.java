@@ -1,4 +1,4 @@
-package entities;
+package edu.pidev3a8.entities;
 
 public class Ticket {
     private int idTicket;

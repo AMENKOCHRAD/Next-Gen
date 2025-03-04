@@ -1,4 +1,4 @@
-package entities;
+package edu.pidev3a8.entities;
 
 import java.util.Date;
 import java.util.List;
