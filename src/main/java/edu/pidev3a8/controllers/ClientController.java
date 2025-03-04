@@ -1,16 +1,15 @@
-package controllers;
+package edu.pidev3a8.controllers;
 
-import entities.Event;
+import edu.pidev3a8.entities.Event;
 import javafx.animation.PauseTransition;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
 import javafx.util.Duration;
-import services.EventServices;
-import services.TicketServices;
+import edu.pidev3a8.services.EventServices;
+import edu.pidev3a8.services.TicketServices;
 
 import java.text.SimpleDateFormat;
 import java.util.List;

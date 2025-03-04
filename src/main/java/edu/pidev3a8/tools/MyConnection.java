@@ -1,4 +1,4 @@
-package tools;
+package edu.pidev3a8.tools;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

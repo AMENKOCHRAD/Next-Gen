@@ -1,9 +1,9 @@
-package services;
+package edu.pidev3a8.services;
 
-import entities.Event;
-import interfaces.IEventDAO;
-import tools.MyConnection;
-import java.sql.*;
+import edu.pidev3a8.entities.Event;
+import edu.pidev3a8.interfaces.IEventDAO;
+import edu.pidev3a8.tools.MyConnection;
+
 import java.util.ArrayList;
 import java.util.List;
 

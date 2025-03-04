@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane prefHeight="512.0" prefWidth="854.0" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TicketController">
+<AnchorPane prefHeight="512.0" prefWidth="854.0" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.pidev3a8.controllers.TicketController">
    <fx:include source="Navbar.fxml" />
    <AnchorPane layoutX="-2.0" layoutY="61.0" prefHeight="422.0" prefWidth="877.0">
       <children>

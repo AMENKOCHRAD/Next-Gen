@@ -1,6 +1,6 @@
-package interfaces;
+package edu.pidev3a8.interfaces;
 
-import entities.Event;
+import edu.pidev3a8.entities.Event;
 import java.util.List;
 
 public interface IEventDAO {
