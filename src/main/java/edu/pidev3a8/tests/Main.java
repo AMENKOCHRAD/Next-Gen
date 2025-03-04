@@ -34,8 +34,8 @@ public class Main {
         String texteFiltre = filtrerTexte(texte);
         System.out.println("Texte filtré : " + texteFiltre);
 
-        //String email ="hbibbensalem20@gmail.com";
-        //String ms  = "reclamation changee";
-        //EmailService.sendResetEmail(email,ms);
+        String email ="hbibbensalem20@gmail.com";
+        String ms  = "reclamation changee";
+        EmailService.sendResetEmail(email,ms);
 
 }}

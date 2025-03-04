@@ -3,7 +3,6 @@ package edu.pidev3a8.controllers;
 import edu.pidev3a8.entities.SentimentAnalyzer;
 import edu.pidev3a8.entities.Reclamation;
 import edu.pidev3a8.entities.TraitementReclamation;
-import edu.pidev3a8.services.EmailService;
 import edu.pidev3a8.services.ReclamtionService;
 import edu.pidev3a8.services.TraitementService;
 import javafx.fxml.FXML;
@@ -92,12 +91,7 @@ public class TraitementController {
 
             // Mettre à jour le statut de la réclamation associée
             reclamation.setStatut(statut); // Mettre à jour le statut de la réclamation
-            reclamationService.updateEntity(reclamation.getId(), reclamation);
-            EmailService.sendTreatmentNotification(
-                    statut, // Ex: "RESOLU"
-                    commentaireField.getText() // Commentaire de l'admin
-            );
-            // Sauvegarder les modifications
+            reclamationService.updateEntity(reclamation.getId(), reclamation); // Sauvegarder les modifications
 
             // Afficher une alerte de succès
             showAlert("Succès", "Traitement ajouté avec succès !", Alert.AlertType.INFORMATION);

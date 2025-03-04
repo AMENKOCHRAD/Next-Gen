@@ -126,9 +126,6 @@ public class DetailController {
      * Méthode pour masquer partiellement une description (par exemple, masquer après un certain nombre de caractères)
      */
     private String masquerAffichage(String description) {
-        if (description == null || description.isEmpty()) {
-            return ""; // Retourner une chaîne vide si la description est null ou vide
-        }
         if (description.length() > 50) {
             return description.substring(0, 50) + "..."; // Tronquer et ajouter "..."
         }

@@ -1,6 +1,9 @@
 package edu.pidev3a8.controllers;
 
-import edu.pidev3a8.entities.*;
+import edu.pidev3a8.entities.Categorie;
+import edu.pidev3a8.entities.FiltrageTexte;
+import edu.pidev3a8.entities.PurgoMalumService;
+import edu.pidev3a8.entities.Reclamation;
 import edu.pidev3a8.services.ReclamtionService;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -22,7 +25,6 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class AjouterReclamationController {
@@ -96,14 +98,12 @@ public class AjouterReclamationController {
         // Afficher la description avant le filtrage
         System.out.println("Description avant filtrage : " + description);
 
-        // Vérifier que la description n'est pas vide
-        if (description == null || description.isEmpty()) {
-            afficherErreur("La description ne peut pas être vide.");
+        // Filtrer les mots interdits dans la description
+        String filteredDescription = FiltrageTexte.filtrerTexte(description);
+        if (filteredDescription.equals("Erreur lors du filtrage") || filteredDescription.trim().isEmpty()) {
+            afficherErreur("Erreur dans le filtrage du texte.");
             return;
         }
-
-        // Filtrer les mots interdits dans la description avec l'API PurgoMalum
-        String filteredDescription = PurgoMalumService.filterBadWords(description);
 
         // Afficher la description après le filtrage
         System.out.println("Description après filtrage : " + filteredDescription);
@@ -122,11 +122,6 @@ public class AjouterReclamationController {
         try {
             // Ajouter la réclamation
             rs.addEntity(r);
-
-            // Ajouter un événement dans Google Calendar
-            Date startDate = new Date(); // Date de début (maintenant)
-            Date endDate = new Date(startDate.getTime() + 3600 * 1000); // Date de fin (1 heure plus tard)
-            CalendarManager.createEvent("Nouvelle Réclamation", sujet, startDate, endDate);
 
             // Ajouter la réclamation à la liste dans DetailController
             if (detailController != null) {
@@ -159,9 +154,6 @@ public class AjouterReclamationController {
         } catch (RuntimeException e) {
             // Gérer l'exception si la limite de réclamations est atteinte
             afficherErreur(e.getMessage());
-        } catch (Exception e) {
-            e.printStackTrace(); // Ajoutez ceci pour voir la stacktrace complète
-            afficherErreur("Erreur d'authentification Google: " + e.getMessage());
         }
     }
     @FXML
