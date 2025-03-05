@@ -189,6 +189,18 @@ public class admin {
             alert.showAndWait();
         }
     }
+    @FXML
+    private void handleUserStatisticsButtonAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/user_statistics.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void refreshTable() {
         loadUserData();

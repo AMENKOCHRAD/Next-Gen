@@ -27,6 +27,7 @@ import java.time.LocalDate;
 import java.sql.Blob;
 import java.io.InputStream;
 import java.nio.file.StandardOpenOption;
+import java.time.Period;
 
 public class inscription {
 
@@ -73,7 +74,7 @@ public class inscription {
 
     @FXML
     private ImageView imageView;
-
+    private int age;
     private File selectedFile;
     private UtilisateurService utilisateurService = new UtilisateurService();
     private EmailValidator emailValidator;
@@ -163,6 +164,11 @@ public class inscription {
             utilisateur.setRole(Utilisateur.Role.Adherent);
             utilisateur.setBanned(false);
 
+            // Calculate age
+            int age = calculateAge(localDate);
+            System.out.println("Calculated Age: " + age); // Debug statement
+            utilisateur.setAge(age);
+
             if (selectedFile != null) {
                 try (InputStream inputStream = Files.newInputStream(selectedFile.toPath(), StandardOpenOption.READ)) {
                     byte[] imageBytes = inputStream.readAllBytes();
@@ -199,7 +205,12 @@ public class inscription {
             e.printStackTrace();
         }
     }
-
+    private int calculateAge(LocalDate birthDate) {
+        if (birthDate == null) {
+            return 0;
+        }
+        return Period.between(birthDate, LocalDate.now()).getYears();
+    }
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

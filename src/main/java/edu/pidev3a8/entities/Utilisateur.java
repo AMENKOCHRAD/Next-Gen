@@ -30,6 +30,7 @@ public class Utilisateur {
  private float salaire;
  private boolean banned;
  private Blob image_user;
+ private int age;
 
  public Utilisateur()
  {
@@ -88,7 +89,7 @@ public class Utilisateur {
     //adherent
     public Utilisateur(String email,String mdp,
                        String nom,String prenom,Date dateNai,int numTel,
-                       String genre, String adresse,Blob image_user)
+                       String genre, String adresse,Blob image_user,int age)
     {
         this.email=email;
         this.mdp=mdp;
@@ -99,6 +100,7 @@ public class Utilisateur {
         this.genre=genre;
         this.adresse=adresse;
         this.image_user = image_user;
+        this.age = age ;
 
     }
 
@@ -194,6 +196,10 @@ public class Utilisateur {
 
     public void setImage_user(Blob image_user) { this.image_user = image_user; }
 
+    public int getAge() { return age; }
+
+    public void setAge(int age) { this.age = age; }
+
     @Override
     public String toString() {
         return "Utilisateur{" +
@@ -210,6 +216,7 @@ public class Utilisateur {
                 ", mdp='" + mdp + '\'' +
                 ", id=" + id +
                 ", image_user=" + image_user +
+                ", age=" + age +
                 '}';
     }
     public Image getImage() {

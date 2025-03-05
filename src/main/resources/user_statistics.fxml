@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.layout.StackPane?>
+
+<?import javafx.scene.control.Button?>
+<StackPane style="-fx-background-color: ffffff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.pidev3a8.controllers.UserStatisticsController">
+    <BarChart fx:id="ageBarChart" title="Age Distribution of Adherents">
+        <xAxis>
+            <CategoryAxis label="Age" fx:id="xAxis" />
+        </xAxis>
+        <yAxis>
+            <NumberAxis fx:id="yAxis" label="Number of Adherents" />
+        </yAxis>
+    </BarChart>
+    <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleGeneratePdf" text="Generate PDF" />
+</StackPane>

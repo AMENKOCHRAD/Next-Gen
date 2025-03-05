@@ -26,7 +26,7 @@ public class UtilisateurService implements IService<Utilisateur> {
                 return;
             }
 
-            String requete = "INSERT INTO user (email, mdp, nom, prenom, dateNai, numTel, genre, adresse, role, salaire, banned, image_user) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String requete = "INSERT INTO user (email, mdp, nom, prenom, dateNai, numTel, genre, adresse, role, salaire, banned, image_user, age) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = MyConnection.getInstance().getCnx().prepareStatement(requete);
             ps.setString(1, utilisateur.getEmail());
             ps.setString(2, utilisateur.getMdp());
@@ -40,6 +40,7 @@ public class UtilisateurService implements IService<Utilisateur> {
             ps.setFloat(10, utilisateur.getSalaire());
             ps.setBoolean(11, utilisateur.isBanned());
             ps.setBlob(12, utilisateur.getImage_user());
+            ps.setInt(13, utilisateur.getAge());
 
             ps.executeUpdate();
             System.out.println("Utilisateur ajouté avec succès");
@@ -119,17 +120,12 @@ public class UtilisateurService implements IService<Utilisateur> {
 
     @Override
     public List<Utilisateur> getAllData() {
-
         List<Utilisateur> result = new ArrayList<>();
-
-
         String requete = "SELECT * FROM user";
-
 
         try (Connection conn = MyConnection.getInstance().getCnx();
              Statement st = conn.createStatement();
              ResultSet rs = st.executeQuery(requete)) {
-
 
             while (rs.next()) {
                 Utilisateur u = new Utilisateur();
@@ -139,14 +135,15 @@ public class UtilisateurService implements IService<Utilisateur> {
                 u.setNom(rs.getString("nom"));
                 u.setPrenom(rs.getString("prenom"));
                 java.sql.Date sqlDate = rs.getDate("dateNai");
-                u.setDateNai(new java.util.Date(sqlDate.getTime()));// Assuming dateNai is a java.sql.Date
+                u.setDateNai(sqlDate != null ? new java.util.Date(sqlDate.getTime()) : null);
                 u.setNumTel(rs.getInt("numTel"));
                 u.setGenre(rs.getString("genre"));
                 u.setAdresse(rs.getString("adresse"));
-                u.setRole(Utilisateur.Role.valueOf(rs.getString("role"))); // Convertir la String en enum
+                u.setRole(Utilisateur.Role.valueOf(rs.getString("role")));
                 u.setSalaire(rs.getFloat("salaire"));
                 u.setBanned(rs.getBoolean("banned"));
                 u.setImage_user(rs.getBlob("image_user"));
+                u.setAge(rs.getInt("age")); // Set the age attribute
                 result.add(u);
             }
 

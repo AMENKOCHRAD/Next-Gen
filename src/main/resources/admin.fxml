@@ -33,14 +33,14 @@
                 <TableColumn fx:id="column_image" prefWidth="118.0" text="Image" />
             </columns>
         </TableView>
-        <Button fx:id="ajout_adherent_button" layoutX="71.0" layoutY="436.0" mnemonicParsing="false" onAction="#handleAddAdherent" prefHeight="40.0" prefWidth="177.0" stylesheets="@ButtonStyle.css" text="Ajouter Un Adherent">
+        <Button fx:id="ajout_adherent_button" layoutX="53.0" layoutY="437.0" mnemonicParsing="false" onAction="#handleAddAdherent" prefHeight="40.0" prefWidth="150.0" stylesheets="@ButtonStyle.css" text="Ajouter Un Adherent">
             <font>
                 <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="modifier_adherent_button" layoutX="265.0" layoutY="437.0" mnemonicParsing="false" onAction="#handleUpdateAdherent" prefHeight="40.0" prefWidth="177.0" stylesheets="@ButtonStyle.css" text="Modifier Un Adherent" />
-        <Button fx:id="supprimer_adherent_button" layoutX="459.0" layoutY="437.0" mnemonicParsing="false" onAction="#handleDeleteAdherent" prefHeight="40.0" prefWidth="191.0" stylesheets="@ButtonStyle.css" text="Supprimer Un Adherent" />
-        <Button fx:id="gerer_coachs_button" layoutX="666.0" layoutY="437.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" stylesheets="@ButtonStyle.css" text="Gerer Coachs" />
-
+        <Button fx:id="modifier_adherent_button" layoutX="212.0" layoutY="437.0" mnemonicParsing="false" onAction="#handleUpdateAdherent" prefHeight="40.0" prefWidth="150.0" stylesheets="@ButtonStyle.css" text="Modifier Un Adherent" />
+        <Button fx:id="supprimer_adherent_button" layoutX="370.0" layoutY="437.0" mnemonicParsing="false" onAction="#handleDeleteAdherent" prefHeight="40.0" prefWidth="150.0" stylesheets="@ButtonStyle.css" text="Supprimer Un Adherent" />
+        <Button fx:id="gerer_coachs_button" layoutX="529.0" layoutY="437.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" stylesheets="@ButtonStyle.css" text="Gerer Coachs" />
+        <Button fx:id="userStatisticsButton" layoutX="687.0" layoutY="437.0" mnemonicParsing="false" onAction="#handleUserStatisticsButtonAction" prefHeight="40.0" prefWidth="160.0" stylesheets="@ButtonStyle.css" text="User Statistics" />
     </children>
 </AnchorPane>

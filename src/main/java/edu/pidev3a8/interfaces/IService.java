@@ -89,4 +89,33 @@ public interface IService<T>
         }
         return null;
     }
+    default Utilisateur findByEmail(String email) {
+        String query = "SELECT * FROM user WHERE email = ?";
+        try (Connection conn = MyConnection.getInstance().getCnx();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Utilisateur user = new Utilisateur();
+                user.setId(rs.getInt("id"));
+                user.setEmail(rs.getString("email"));
+                user.setMdp(rs.getString("mdp"));
+                user.setNom(rs.getString("nom"));
+                user.setPrenom(rs.getString("prenom"));
+                user.setDateNai(rs.getDate("dateNai"));
+                user.setNumTel(rs.getInt("numTel"));
+                user.setGenre(rs.getString("genre"));
+                user.setAdresse(rs.getString("adresse"));
+                user.setRole(Utilisateur.Role.valueOf(rs.getString("role")));
+                user.setSalaire(rs.getFloat("salaire"));
+                user.setBanned(rs.getBoolean("banned"));
+                user.setImage_user(rs.getBlob("image_user"));
+                user.setAge(rs.getInt("age"));
+                return user;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

@@ -61,12 +61,11 @@
                 <Insets />
             </opaqueInsets>
         </Button>
-        <Hyperlink layoutX="470.0" layoutY="347.0" prefHeight="8.0" prefWidth="128.0" text="Mot de passe oublié ? " textFill="WHITE">
+        <Hyperlink layoutX="470.0" layoutY="347.0" prefHeight="8.0" prefWidth="128.0" text="Mot de passe oublié ?" textFill="WHITE" onAction="#handleForgotPassword">
             <font>
                 <Font size="10.0" />
             </font>
         </Hyperlink>
-
         <Label layoutX="475.0" layoutY="365.0" prefHeight="17.0" prefWidth="228.0" />
       <ImageView fitHeight="32.0" fitWidth="24.0" layoutX="677.0" layoutY="239.0">
           <image>
